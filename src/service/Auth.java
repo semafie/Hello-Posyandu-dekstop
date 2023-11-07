@@ -26,7 +26,6 @@ public class Auth {
             PreparedStatement pst = koneksi.prepareStatement(query);
             ResultSet res = pst.executeQuery();
             if(res.next()){
-                level = res.getInt("level");
                 id = res.getInt("id");
                 return true;
             }else{
