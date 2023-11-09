@@ -1,6 +1,7 @@
 package view.menu;
 
 import javaswingdev.GoogleMaterialDesignIcon;
+import javax.swing.Icon;
 
 public class ModelMenuItem {
 
@@ -33,11 +34,18 @@ public class ModelMenuItem {
         this.menuName = menuName;
         this.subMenu = subMenu;
     }
+    
+    public ModelMenuItem(Icon icon, String menuName, String... subMenu) {
+        this.icon1 = icon;
+        this.menuName = menuName;
+        this.subMenu = subMenu;
+    }
 
     public ModelMenuItem() {
     }
 
     private GoogleMaterialDesignIcon icon;
+    private Icon icon1;
     private String menuName;
     private String subMenu[];
 }

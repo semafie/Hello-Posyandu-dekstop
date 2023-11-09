@@ -2,6 +2,8 @@ package view.menu;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,7 +21,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class Item extends JButton {
 
-    private final Color mainColor = SystemColor.MAIN_COLOR_2;
+    private final Color mainColor = SystemColor.MAIN_COLOR_3;
     private final int index;
     private Animator animator;
     private GoogleMaterialDesignIcon icon;
@@ -36,7 +38,7 @@ public class Item extends JButton {
     private void init() {
         setContentAreaFilled(false);
         setHorizontalAlignment(JButton.LEFT);
-        setForeground(new Color(50, 50, 50));
+        setForeground(Color.GRAY);
         if (mainMenu) {
             setBorder(new EmptyBorder(0, 20, 0, 0));
         } else {
@@ -56,7 +58,7 @@ public class Item extends JButton {
             @Override
             public void mouseExited(MouseEvent e) {
                 if (!isSelected()) {
-                    setForeground(new Color(50, 50, 50));
+                    setForeground(Color.GRAY);
                     setGoogleIcon(icon);
                 }
                 if (!mainMenu) {
@@ -77,8 +79,22 @@ public class Item extends JButton {
             animator.setAcceleration(.5f);
             animator.setDeceleration(.5f);
         }
+        setSizes();
     }
 
+    private void setSizes() {
+        int fontSize = mainMenu ? 22 : 20; // Sesuaikan dengan ukuran font yang diinginkan
+        int width = mainMenu ? 250 : 200; // Sesuaikan dengan lebar yang diinginkan
+
+        Font font = getFont().deriveFont(Font.LAYOUT_RIGHT_TO_LEFT, fontSize);
+        setFont(font);
+
+        Dimension dimension = new Dimension(width, 30); // Sesuaikan dengan tinggi dan lebar yang diinginkan
+        setPreferredSize(dimension);
+        setMinimumSize(dimension);
+        setMaximumSize(dimension);
+    }
+    
     private void startAnimator() {
         if (animator.isRunning()) {
             float f = animator.getTimingFraction();
@@ -112,7 +128,7 @@ public class Item extends JButton {
             if (isSelected()) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setPaint(new GradientPaint(0, 3, SystemColor.MAIN_COLOR_1, 3, getHeight() - 6, SystemColor.MAIN_COLOR_2));
+                g2.setPaint(new GradientPaint(0, 3, SystemColor.MAIN_COLOR_3, 3, getHeight() - 6, SystemColor.MAIN_COLOR_4));
                 g2.fillRect(0, 3, 3, getHeight() - 6);
                 g2.dispose();
             }
@@ -122,7 +138,7 @@ public class Item extends JButton {
     public void setGoogleIcon(GoogleMaterialDesignIcon icon) {
         if (icon != null) {
             this.icon = icon;
-            setIcon(new GoogleMaterialIcon(icon, GradientType.HORIZONTAL, SystemColor.MAIN_COLOR_1, SystemColor.MAIN_COLOR_2, 19).toIcon());
+            setIcon(new GoogleMaterialIcon(icon, GradientType.HORIZONTAL, SystemColor.MAIN_COLOR_3, SystemColor.MAIN_COLOR_4, 30).toIcon());
         }
     }
 
@@ -130,10 +146,10 @@ public class Item extends JButton {
     public void setSelected(boolean b) {
         super.setSelected(b);
         if (b || mouseEnter) {
-            setForeground(mainColor);
+            setForeground(Color.BLACK);
         } else {
             alpha = 0;
-            setForeground(new Color(50, 50, 50));
+            setForeground(Color.GRAY);
         }
         setGoogleIcon(icon);
     }

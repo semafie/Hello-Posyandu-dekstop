@@ -3,10 +3,16 @@ package view.menu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import javaswingdev.GoogleMaterialDesignIcon;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import view.swing.ScrollBar;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,31 +30,50 @@ public class Menu extends JPanel {
     }
 
     private void init() {
-        setBackground(Color.WHITE);
+//        setBackground(Color.WHITE);
         setLayout(new BorderLayout());
         JScrollPane scroll = createScroll();
         panelMenu = createPanelMenu();
         scroll.setViewportView(panelMenu);
+//        scroll.setBackground(Color.GRAY);
         scroll.getViewport().setOpaque(false);
         scroll.setViewportBorder(null);
         add(scroll);
-        addTitle("MAIN");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Dashboard"));
-        addTitle("WEB APPS");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.MAIL_OUTLINE, "Email", "Inbox", "Read", "Compose"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.MESSAGE, "Chat"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERM_CONTACT_CALENDAR, "Calendar"));
-        addTitle("COMPONENT");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.WHATSHOT, "UI Kit", "Accordion", "Alerts", "Badges", "Breadcrumbs", "Buttons", "Button group"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DIRECTIONS_BIKE, "Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DVR, "Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART_OUTLINED, "Charts", "Apex", "Flot", "Peity", "Sparkline"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.VIEW_LIST, "Table", "Basic Tables", "Data Table"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.INSERT_EMOTICON, "Icons", "Feather Icons", "Flag Icons", "Mdi Icons"));
-        addTitle("PAGES");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.INBOX, "Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.LOCK_OUTLINE, "Authentication", "Login", "Register"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ERROR_OUTLINE, "Error", "404", "500"));
+        addTitle("All Menu");
+        Icon icon = new ImageIcon("/view/image/iconibu.png");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Beranda"));
+//        addTitle("WEB APPS");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Data Bidan"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON_OUTLINE, "Data Kader"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PREGNANT_WOMAN, "Data Ibu Hamil"));
+//        addTitle("COMPONENT");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CHILD_FRIENDLY, "Data Bayi"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Pelayanan","Penimbangan", "Imunisasi", "Pemeriksaan Ibu Hamil"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DESCRIPTION, "Laporan", "Registrasi", "Pelayanan"));
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART_OUTLINED, "Charts", "Apex", "Flot", "Peity", "Sparkline"));
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.VIEW_LIST, "Table", "Basic Tables", "Data Table"));
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.INSERT_EMOTICON, "Icons", "Feather Icons", "Flag Icons", "Mdi Icons"));
+////        addTitle("PAGES");
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.INBOX, "Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"));
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.LOCK_OUTLINE, "Authentication", "Login", "Register"));
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ERROR_OUTLINE, "Error", "404", "500"));
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        int width = getWidth();
+        int height = getHeight();
+
+        Color color1 = new Color(206, 222, 235); // Hijau
+        Color color2 = new Color(101, 172, 229); // Biru
+
+        // Membuat gradien vertical
+        GradientPaint gradientPaint = new GradientPaint(0, 0, color1, 0, height, color2);
+
+        g2d.setPaint(gradientPaint);
+        g2d.fillRect(0, 0, width, height);
     }
 
     private JScrollPane createScroll() {
@@ -56,14 +81,17 @@ public class Menu extends JPanel {
         scroll.setBorder(null);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scroll.setVerticalScrollBar(new ScrollBar());
+        
+        ScrollBar apa = new ScrollBar();
+        apa.setForeground(Color.GRAY);
+        scroll.setVerticalScrollBar(apa);
         return scroll;
     }
 
     private JPanel createPanelMenu() {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
-        menuLayout = new MigLayout("wrap,fillx,inset 0,gapy 0", "[fill]");
+        menuLayout = new MigLayout("wrap,fill,inset 0,gapy 0", "[fill]");
         panel.setLayout(menuLayout);
 
         return panel;
@@ -71,6 +99,9 @@ public class Menu extends JPanel {
 
     private JPanel createMenuItem(ModelMenuItem item) {
         MenuItem menuItem = new MenuItem(item, ++index, menuLayout);
+        Font menuFont = new Font("Arial", Font.PLAIN, 36); // Ganti dengan ukuran font yang diinginkan
+    menuItem.setFont(menuFont);
+//    menuItem.setIconSize(new Dimension(30, 30));
         menuItem.addEvent(new EventMenuSelected() {
             @Override
             public void menuSelected(int index, int indexSubMenu) {
@@ -91,7 +122,7 @@ public class Menu extends JPanel {
 
     //  Public Method
     public void addMenuItem(ModelMenuItem menu) {
-        panelMenu.add(createMenuItem(menu), "h 35!");
+        panelMenu.add(createMenuItem(menu), "h 32!");
     }
 
     public void addTitle(String title) {
