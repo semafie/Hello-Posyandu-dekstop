@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -14,7 +14,15 @@ import java.util.Date;
 import javax.swing.Timer;
 import view.menu.EventMenuSelected;
 import view.panel.Dasboard;
+import view.panel.Data_Bayi;
 import view.panel.Data_Bidan;
+import view.panel.Data_Kader;
+import view.panel.Data_Ibuhamil;
+import view.panel.LaporanRegitrasi_bayi;
+import view.panel.LaporanRegitrasi_ibuhamil;
+import view.panel.Pelayanan_Imunisasi;
+import view.panel.Pelayanan_penimbangan;
+import view.panel.Pelayanan_periksa_ibuhamil;
 
 /**
  *
@@ -60,8 +68,24 @@ public class main extends javax.swing.JFrame {
             public void menuSelected(int index, int indexSubMenu) {
                 if (index == 0 && indexSubMenu == 0) {
                     showForm(new Dasboard());
-                } else {
-                    showForm(new Data_Bidan(index + " " + indexSubMenu));
+                }else if (index == 1 && indexSubMenu == 0) {
+                    showForm(new Data_Bidan());
+                }else if (index == 2 && indexSubMenu == 0) {
+                    showForm(new Data_Kader());
+                }else if (index == 3 && indexSubMenu == 0) {
+                    showForm(new Data_Ibuhamil());
+                }else if (index == 4 && indexSubMenu == 0) {
+                    showForm(new Data_Bayi());
+                }else if (index == 5 && indexSubMenu == 0) {
+                    showForm(new Pelayanan_penimbangan());
+                }else if (index == 5 && indexSubMenu == 1) {
+                    showForm(new Pelayanan_Imunisasi ());
+                }else if (index == 5 && indexSubMenu == 2) {
+                    showForm(new Pelayanan_periksa_ibuhamil());
+                }else if (index == 6 && indexSubMenu == 0) {
+                    showForm(new Dasboard());
+                }else  {
+                    showForm(new LaporanRegitrasi_ibuhamil());
                 }
             }
         });

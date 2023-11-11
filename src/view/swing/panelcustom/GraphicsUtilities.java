@@ -1,5 +1,5 @@
 
-package view.java.panelcustom;
+package view.swing.panelcustom;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
