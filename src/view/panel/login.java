@@ -10,8 +10,12 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
+import main.main;
 import main.mainlogin;
+import service.Auth;
 import view.dialog.Validasikeluar;
+import view.dialog.validasiberhasil;
+import view.dialog.validasigagal;
 
 public class login extends javax.swing.JPanel {
 private static boolean isHidden = true;
@@ -61,6 +65,7 @@ private static boolean isHidden = true;
         inputpassword = new javax.swing.JPasswordField();
         eye = new javax.swing.JLabel();
         silang = new javax.swing.JLabel();
+        btnlogin = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
@@ -129,6 +134,24 @@ private static boolean isHidden = true;
         add(silang);
         silang.setBounds(1010, 10, 19, 20);
 
+        btnlogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnlogin1.png"))); // NOI18N
+        btnlogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnloginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnloginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnloginMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnloginMousePressed(evt);
+            }
+        });
+        add(btnlogin);
+        btnlogin.setBounds(600, 390, 400, 63);
+
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebg/bg login.png"))); // NOI18N
         add(bg);
         bg.setBounds(0, 0, 1044, 587);
@@ -196,9 +219,59 @@ private static boolean isHidden = true;
     silang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/silang3.png")));
     }//GEN-LAST:event_silangMousePressed
 
+    private void btnloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginMouseClicked
+    String user = inputusername.getText();
+    String pass = inputpassword.getText();
+        Auth ap = new Auth();
+        System.out.println(pass);
+        System.out.println(user);
+    if(ap.login(user, pass)){
+        
+        mainlogin main = (mainlogin)SwingUtilities.getWindowAncestor(this);
+//        main main1 = (main)SwingUtilities.getWindowAncestor(this);
+        main.dispose();
+//    this.setVisible(false);
+        new main().setVisible(true);
+//            validasiberhasil aa = new validasiberhasil(main1,"Anda Berhasil Login");
+//            aa.showPopUp();
+        
+                     
+        
+        
+    }else if (user.equals("Input Username")){
+        mainlogin wow = (mainlogin)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Usename tidak boleh kosong");
+            aa.showPopUp(); 
+        
+    }else if (pass.equals("Input Password")){
+        mainlogin wow = (mainlogin)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Password tidak boleh kosong");
+            aa.showPopUp(); 
+        
+    }else{
+        mainlogin wow = (mainlogin)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Usename atau password salah");
+            aa.showPopUp(); 
+        
+    }
+    }//GEN-LAST:event_btnloginMouseClicked
+
+    private void btnloginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginMouseEntered
+    btnlogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnlogin2.png")));
+    }//GEN-LAST:event_btnloginMouseEntered
+
+    private void btnloginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginMouseExited
+    btnlogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnlogin1.png")));
+    }//GEN-LAST:event_btnloginMouseExited
+
+    private void btnloginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginMousePressed
+    btnlogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnlogin3.png")));
+    }//GEN-LAST:event_btnloginMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
+    private javax.swing.JLabel btnlogin;
     private javax.swing.JLabel eye;
     private javax.swing.JPasswordField inputpassword;
     private javax.swing.JTextField inputusername;

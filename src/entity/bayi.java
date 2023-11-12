@@ -3,8 +3,8 @@ package entity;
 
 import java.util.Date;
 
-public class bayi {
-    private static String tableName = "bayi";
+public class bayi implements Entity{
+    public static String tableName = "bayi";
     private int id;
     private String nama, tempat_lahir,jenis_kelamin, nama_ibu;
     private Date tanggal_lahir;

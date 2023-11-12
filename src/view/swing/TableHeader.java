@@ -12,7 +12,7 @@ public class TableHeader extends JLabel {
     public TableHeader(String text) {
         super(text);
         setOpaque(true);
-        setBackground(new Color(95, 193, 193));
+        setBackground(new Color(255, 96, 117));
 //        setBackground(Color.WHITE);
         setFont(new Font("Quicksand", Font.BOLD, 15));
         setForeground(new Color(0,0,0));

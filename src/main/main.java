@@ -12,14 +12,17 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
+import view.dialog.validasiberhasil;
+import view.dialog.validasiberhasil1;
 import view.menu.EventMenuSelected;
 import view.panel.Dasboard;
 import view.panel.Data_Bayi;
 import view.panel.Data_Bidan;
 import view.panel.Data_Kader;
 import view.panel.Data_Ibuhamil;
-import view.panel.LaporanRegitrasi_bayi;
-import view.panel.LaporanRegitrasi_ibuhamil;
+import view.panel.Laporan_Pelayanan;
+import view.panel.Laporan_Registrasi;
+
 import view.panel.Pelayanan_Imunisasi;
 import view.panel.Pelayanan_penimbangan;
 import view.panel.Pelayanan_periksa_ibuhamil;
@@ -33,6 +36,7 @@ public class main extends javax.swing.JFrame {
     
     public main() {
         initComponents();
+        
         getContentPane().setBackground(new Color(246,246,233));
         Font font = new Font("Quicksand", Font.PLAIN, 18);
         titleBar.initJFram(this);
@@ -47,6 +51,8 @@ public class main extends javax.swing.JFrame {
         tanggal.setFont(font);
         jam.setFont(font);
         init();
+        validasiberhasil1 aa = new validasiberhasil1(this,"Anda Berhasil Login");
+            aa.showPopUp();
     }
     private void updateTime() {
         // Mendapatkan waktu saat ini
@@ -76,16 +82,16 @@ public class main extends javax.swing.JFrame {
                     showForm(new Data_Ibuhamil());
                 }else if (index == 4 && indexSubMenu == 0) {
                     showForm(new Data_Bayi());
-                }else if (index == 5 && indexSubMenu == 0) {
-                    showForm(new Pelayanan_penimbangan());
                 }else if (index == 5 && indexSubMenu == 1) {
-                    showForm(new Pelayanan_Imunisasi ());
+                    showForm(new Pelayanan_penimbangan());
                 }else if (index == 5 && indexSubMenu == 2) {
+                    showForm(new Pelayanan_Imunisasi ());
+                }else if (index == 5 && indexSubMenu == 3) {
                     showForm(new Pelayanan_periksa_ibuhamil());
-                }else if (index == 6 && indexSubMenu == 0) {
-                    showForm(new Dasboard());
+                }else if (index == 6 && indexSubMenu == 1) {
+                    showForm(new Laporan_Registrasi());
                 }else  {
-                    showForm(new LaporanRegitrasi_ibuhamil());
+                    showForm(new Laporan_Pelayanan());
                 }
             }
         });
@@ -148,7 +154,7 @@ public class main extends javax.swing.JFrame {
             .addGroup(paneltitleLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addGap(90, 90, 90))
         );
 
@@ -184,7 +190,7 @@ public class main extends javax.swing.JFrame {
                 .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1210, 776));
+        setSize(new java.awt.Dimension(1210, 701));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

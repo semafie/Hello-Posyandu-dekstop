@@ -26,19 +26,296 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        date1 = new view.customdate.DateChooser();
+        date2 = new view.customdate.DateChooser();
+        txt_form = new javax.swing.JLabel();
+        input_namaibu = new view.swing.textfieldcustom.txtfieldcustom();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        input_tempatlahir = new view.swing.textfieldcustom.txtfieldcustom();
+        input_tanggallahir = new view.swing.textfieldcustom.txtfieldcustom();
+        input_goldarah = new view.swing.textfieldcustom.txtfieldcustom();
+        input_alamat = new view.swing.textfieldcustom.txtfieldcustom();
+        input_notelp = new view.swing.textfieldcustom.txtfieldcustom();
+        jLabel7 = new javax.swing.JLabel();
+        input_namasuami = new view.swing.textfieldcustom.txtfieldcustom();
+        jLabel8 = new javax.swing.JLabel();
+        input_tempatlahirsuami = new view.swing.textfieldcustom.txtfieldcustom();
+        jLabel9 = new javax.swing.JLabel();
+        input_tanggallahirsuami = new view.swing.textfieldcustom.txtfieldcustom();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        btnsimpan = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(246, 246, 233));
+
+        txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_Data Ibu Hamil.png"))); // NOI18N
+
+        input_namaibu.setBackground(new java.awt.Color(246, 246, 233));
+        input_namaibu.setRound(40);
+        input_namaibu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_namaibuActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Nama Ibu.png"))); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Tanggal Lahir.png"))); // NOI18N
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Tempat Lahir.png"))); // NOI18N
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Golongan Darah.png"))); // NOI18N
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Alamat.png"))); // NOI18N
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_No Telp.png"))); // NOI18N
+
+        input_tempatlahir.setBackground(new java.awt.Color(246, 246, 233));
+        input_tempatlahir.setRound(40);
+        input_tempatlahir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_tempatlahirActionPerformed(evt);
+            }
+        });
+
+        input_tanggallahir.setBackground(new java.awt.Color(246, 246, 233));
+        input_tanggallahir.setRound(40);
+        input_tanggallahir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_tanggallahirActionPerformed(evt);
+            }
+        });
+
+        input_goldarah.setBackground(new java.awt.Color(246, 246, 233));
+        input_goldarah.setRound(40);
+        input_goldarah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_goldarahActionPerformed(evt);
+            }
+        });
+
+        input_alamat.setBackground(new java.awt.Color(246, 246, 233));
+        input_alamat.setRound(40);
+        input_alamat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_alamatActionPerformed(evt);
+            }
+        });
+
+        input_notelp.setBackground(new java.awt.Color(246, 246, 233));
+        input_notelp.setRound(40);
+        input_notelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_notelpActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Nama Suami.png"))); // NOI18N
+
+        input_namasuami.setBackground(new java.awt.Color(246, 246, 233));
+        input_namasuami.setRound(40);
+        input_namasuami.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_namasuamiActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Tempat Lahirsuami.png"))); // NOI18N
+
+        input_tempatlahirsuami.setBackground(new java.awt.Color(246, 246, 233));
+        input_tempatlahirsuami.setRound(40);
+        input_tempatlahirsuami.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_tempatlahirsuamiActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Tanggal Lahirsuami.png"))); // NOI18N
+
+        input_tanggallahirsuami.setBackground(new java.awt.Color(246, 246, 233));
+        input_tanggallahirsuami.setRound(40);
+        input_tanggallahirsuami.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_tanggallahirsuamiActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(txt_form)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(input_notelp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                                .addComponent(input_alamat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(input_goldarah, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(input_tempatlahir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(input_namaibu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(127, 127, 127))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(input_tanggallahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(130, 130, 130)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9)
+                    .addComponent(input_tempatlahirsuami, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(input_namasuami, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(input_tanggallahirsuami, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnsimpan)
+                .addGap(232, 232, 232))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(txt_form, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(input_namasuami, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                    .addComponent(input_namaibu, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(input_tempatlahir, javax.swing.GroupLayout.PREFERRED_SIZE, 54, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(input_tempatlahirsuami, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(input_tanggallahirsuami, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(input_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(input_goldarah, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(input_alamat, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(input_notelp, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnsimpan)
+                .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void input_namaibuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_namaibuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_namaibuActionPerformed
+
+    private void input_tempatlahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_tempatlahirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_tempatlahirActionPerformed
+
+    private void input_tanggallahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_tanggallahirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_tanggallahirActionPerformed
+
+    private void input_goldarahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_goldarahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_goldarahActionPerformed
+
+    private void input_alamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_alamatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_alamatActionPerformed
+
+    private void input_notelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_notelpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_notelpActionPerformed
+
+    private void input_namasuamiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_namasuamiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_namasuamiActionPerformed
+
+    private void input_tempatlahirsuamiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_tempatlahirsuamiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_tempatlahirsuamiActionPerformed
+
+    private void input_tanggallahirsuamiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_tanggallahirsuamiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_tanggallahirsuamiActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnsimpan;
+    private view.customdate.DateChooser date1;
+    private view.customdate.DateChooser date2;
+    private view.swing.textfieldcustom.txtfieldcustom input_alamat;
+    private view.swing.textfieldcustom.txtfieldcustom input_goldarah;
+    private view.swing.textfieldcustom.txtfieldcustom input_namaibu;
+    private view.swing.textfieldcustom.txtfieldcustom input_namasuami;
+    private view.swing.textfieldcustom.txtfieldcustom input_notelp;
+    private view.swing.textfieldcustom.txtfieldcustom input_tanggallahir;
+    private view.swing.textfieldcustom.txtfieldcustom input_tanggallahirsuami;
+    private view.swing.textfieldcustom.txtfieldcustom input_tempatlahir;
+    private view.swing.textfieldcustom.txtfieldcustom input_tempatlahirsuami;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel txt_form;
     // End of variables declaration//GEN-END:variables
 }

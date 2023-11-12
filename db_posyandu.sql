@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2023 at 07:18 PM
+-- Generation Time: Nov 12, 2023 at 12:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -47,7 +47,7 @@ CREATE TABLE `bidan` (
   `nama` varchar(50) NOT NULL,
   `tempat_lahir` varchar(50) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `pendidikan terakhir` varchar(50) NOT NULL,
+  `pendidikan_terakhir` varchar(50) NOT NULL,
   `alamat` varchar(50) NOT NULL,
   `no_hp` varchar(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -67,7 +67,7 @@ CREATE TABLE `ibu_hamil` (
   `alamat` varchar(50) NOT NULL,
   `no_hp` varchar(13) NOT NULL,
   `nama_suami` varchar(50) NOT NULL,
-  `tempat_lahir _suami` varchar(50) NOT NULL,
+  `tempat_lahir_suami` varchar(50) NOT NULL,
   `tanggal_lahir_suami` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -98,7 +98,7 @@ CREATE TABLE `kader` (
   `nama` varchar(50) NOT NULL,
   `tempat_lahir` varchar(50) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `pendidikan terakhir` varchar(50) NOT NULL,
+  `pendidikan_terakhir` varchar(50) NOT NULL,
   `alamat` varchar(50) NOT NULL,
   `no_hp` varchar(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -112,6 +112,7 @@ CREATE TABLE `kader` (
 CREATE TABLE `pemeriksaan_ibu_hamil` (
   `id` int(11) NOT NULL,
   `id_ibu_hamil` int(11) NOT NULL,
+  `tanggal_periksa` date NOT NULL,
   `usia_kandungan` int(5) NOT NULL,
   `hamil_ke` int(5) NOT NULL,
   `riwayat_penyakit` varchar(50) NOT NULL,
@@ -149,6 +150,13 @@ CREATE TABLE `user` (
   `password` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
+(1, 'admin', 'admin123', 'admin@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -204,6 +212,58 @@ ALTER TABLE `penimbangan`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bayi`
+--
+ALTER TABLE `bayi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bidan`
+--
+ALTER TABLE `bidan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibu_hamil`
+--
+ALTER TABLE `ibu_hamil`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `imunisasi`
+--
+ALTER TABLE `imunisasi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kader`
+--
+ALTER TABLE `kader`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pemeriksaan_ibu_hamil`
+--
+ALTER TABLE `pemeriksaan_ibu_hamil`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `penimbangan`
+--
+ALTER TABLE `penimbangan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

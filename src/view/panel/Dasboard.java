@@ -1,10 +1,17 @@
 
 package view.panel;
 
+import javax.swing.SwingUtilities;
+import main.main;
+import view.dialog.validasiberhasil;
+
 public class Dasboard extends javax.swing.JPanel {
 
     public Dasboard() {
         initComponents();
+//        main main =(main)SwingUtilities.getWindowAncestor(this);
+//        validasiberhasil aa = new validasiberhasil(main,"Anda Berhasil Login");
+//            aa.showPopUp();
     }
 
     @SuppressWarnings("unchecked")
