@@ -55,6 +55,8 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         cmb_jeniskelamin = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
 
+        date1.setTextRefernce(input_tanggallahir);
+
         setBackground(new java.awt.Color(246, 246, 233));
 
         txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_Pelayanan Penimbangan.png"))); // NOI18N

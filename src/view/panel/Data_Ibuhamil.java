@@ -4,6 +4,14 @@
  */
 package view.panel;
 
+import Repository.ibu_hamilRepository;
+import entity.ibu_hamil;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.SwingUtilities;
+import main.main;
+import view.notif.Notification;
+
 /**
  *
  * @author RESCOM-1
@@ -13,6 +21,8 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
     /**
      * Creates new form Data_ibuhamil
      */
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    ibu_hamilRepository ibuhamil = new ibu_hamilRepository();
     public Data_Ibuhamil() {
         initComponents();
     }
@@ -351,7 +361,34 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
     }//GEN-LAST:event_btnresetMouseClicked
 
     private void btnsimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseClicked
-        // TODO add your handling code here:
+    if(!input_alamat.getText().equals("") || !input_goldarah.equals("") ||!input_namaibu.getText().equals("")||
+            !input_namasuami.getText().equals("")||!input_notelp.getText().equals("")||!input_tempatlahir.getText().equals("")||
+            !input_tempatlahirsuami.getText().equals("")){
+        try {
+            Date ambil1 = sdf.parse(input_tanggallahir.getText());
+            Date ambil2 = sdf.parse(input_tanggallahirsuami.getText());
+            ibu_hamil ibu = new ibu_hamil(input_namaibu.getText(),input_tempatlahir.getText(),ambil1,input_goldarah.getText(),input_alamat.getText(),input_notelp.getText(),input_namasuami.getText(),
+            input_tempatlahirsuami.getText(),ambil2);
+            ibuhamil.add(ibu);
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+            input_alamat.setText("");
+    input_goldarah.setText("");
+    input_namaibu.setText("");
+    input_namasuami.setText("");
+    input_notelp.setText("");
+    input_tempatlahir.setText("");
+    input_tempatlahirsuami.setText("");
+        } catch (Exception e) {
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+        }
+        main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Tidak Boleh Kosong");
+            panel.showNotification();
+    }
     }//GEN-LAST:event_btnsimpanMouseClicked
 
     private void btnresetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnresetMouseEntered
