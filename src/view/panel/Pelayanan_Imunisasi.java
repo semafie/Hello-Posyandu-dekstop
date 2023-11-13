@@ -1,11 +1,38 @@
 
 package view.panel;
+import Repository.bayiRepository;
+import Repository.imunisasiRepository;
+import entity.bayi;
+import entity.imunisasi;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.SwingUtilities;
+import main.main;
+import view.dialog.formcari_bayi;
+import view.dialog.formcari_ibuhamil;
+import view.notif.Notification;
 
 public class Pelayanan_Imunisasi extends javax.swing.JPanel {
-
+    main main =(main)SwingUtilities.getWindowAncestor(this);
+    formcari_bayi apaa = new formcari_bayi(main);
+    private int id = apaa.id;
+    bayiRepository bayi = new bayiRepository();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    imunisasiRepository imun = new imunisasiRepository();
+    
     public Pelayanan_Imunisasi() {
         initComponents();
+        Date hariini = new Date();
+        input_tanggalhariini.setText(sdf.format(hariini));
+        if(id != 0){
+           input_id_bayi.setText(String.valueOf(id));
+           input_namaibu.setText(bayi.get(id).getNama_ibu());
+           input_tanggallahir.setText(sdf.format(bayi.get(id).getTanggal_lahir()));
+           input_tempatlahir.setText(bayi.get(id).getTempat_lahir());
+        }else {
+            input_id_bayi.setText("");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -180,6 +207,12 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Microsoft Tai Le", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 153, 153));
         jLabel14.setText("Cari?");
+        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -332,8 +365,30 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnsimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseClicked
-//    if(!input_id_bayi.getText().equals("") ||!input_usia.getText().equals("")||
-//            !inp)
+    if(!input_id_bayi.getText().equals("") || input_usia.getText().equals("") ||
+            !input_jenisImunisasi.getText().equals("") || !input_jenisvitamin.getText().equals("")||
+            !input_keterangan.getText().equals("") || !input_namaibu.getText().equals("")||
+            !input_tempatlahir.getText().equals("")){
+        try {
+            Date hari = new Date();
+        bayi bayiii = new bayi(id);
+        imunisasi kirim = new imunisasi(bayiii,hari,Integer.valueOf(input_usia.getText()),input_jenisImunisasi.getText(),
+        input_jenisvitamin.getText(),input_keterangan.getText());
+        imun.add(kirim);
+        main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+        } catch (Exception e) {
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+        }
+        
+    }else{
+        main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Tidak Boleh Kosong");
+            panel.showNotification();
+    }
     }//GEN-LAST:event_btnsimpanMouseClicked
 
     private void btnsimpanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseEntered
@@ -379,6 +434,12 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
     private void input_keteranganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_keteranganActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_input_keteranganActionPerformed
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+    main main = (main)SwingUtilities.getWindowAncestor(this);
+        formcari_bayi apa = new formcari_bayi(main);
+        apa.showPopUp();
+    }//GEN-LAST:event_jLabel14MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

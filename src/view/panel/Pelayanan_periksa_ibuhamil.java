@@ -4,17 +4,38 @@
  */
 package view.panel;
 
+import Repository.ibu_hamilRepository;
+import Repository.pemeriksaan_ibuhamilRepository;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.SwingUtilities;
+import main.main;
+import view.dialog.formcari_ibuhamil;
+
 /**
  *
  * @author RESCOM-1
  */
 public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Pelayanan_periksa_ibuhamil
-     */
+    main main =(main)SwingUtilities.getWindowAncestor(this);
+    formcari_ibuhamil apaa = new formcari_ibuhamil(main);
+    private int id = apaa.id;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    ibu_hamilRepository ibuhh = new ibu_hamilRepository();
+    pemeriksaan_ibuhamilRepository hayo = new pemeriksaan_ibuhamilRepository();
+    
     public Pelayanan_periksa_ibuhamil() {
         initComponents();
+        Date hariini = new Date();
+        input_Tanggal_periksa.setText(sdf.format(hariini));
+        if(id != 0){
+            input_id_ibu.setText(String.valueOf(id));
+            input_namaibu.setText(ibuhh.get(id).getNama());
+            input_TempatLahir.setText(ibuhh.get(id).getTempat_lahir());
+            input_Tanggal_lahir.setText(sdf.format(ibuhh.get(id).getTanggal_lahir()));
+        }else{
+            input_id_ibu.setText("");
+        }
     }
 
     /**
@@ -123,6 +144,12 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Microsoft Tai Le", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 153, 153));
         jLabel14.setText("Cari?");
+        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         input_id_ibu.setBackground(new java.awt.Color(246, 246, 233));
         input_id_ibu.setRound(50);
@@ -390,7 +417,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     }//GEN-LAST:event_input_namaibuActionPerformed
 
     private void btnsimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseClicked
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_btnsimpanMouseClicked
 
     private void btnsimpanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseEntered
@@ -459,6 +486,12 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     private void input_Tanggal_periksaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_Tanggal_periksaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_input_Tanggal_periksaActionPerformed
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+    main main = (main)SwingUtilities.getWindowAncestor(this);
+        formcari_ibuhamil apa = new formcari_ibuhamil(main);
+        apa.showPopUp();
+    }//GEN-LAST:event_jLabel14MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

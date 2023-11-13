@@ -27,6 +27,8 @@ public class formcari_bayi extends Dialog {
         super(frame);
         initComponents();
         System.out.println(id);
+        id = 0;
+        load_tabel();
     }
 public void load_tabel(){
         DefaultTableModel model = new DefaultTableModel();

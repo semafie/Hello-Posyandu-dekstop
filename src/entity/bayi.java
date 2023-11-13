@@ -13,6 +13,10 @@ public class bayi implements Entity{
         
     }
     
+    public bayi (int id){
+        this.id = id;
+    }
+    
     public bayi (String nama, String tempat_lahir,Date tanggal_lahir, String jenis_kelamin, String nama_ibu){
         this.nama= nama;
         this.tempat_lahir= tempat_lahir;
