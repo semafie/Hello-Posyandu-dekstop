@@ -332,8 +332,8 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnsimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseClicked
-    if(!input_id_bayi.getText().equals("") ||!input_usia.getText().equals("")||
-            !inp)
+//    if(!input_id_bayi.getText().equals("") ||!input_usia.getText().equals("")||
+//            !inp)
     }//GEN-LAST:event_btnsimpanMouseClicked
 
     private void btnsimpanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseEntered
