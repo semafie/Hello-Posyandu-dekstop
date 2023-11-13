@@ -154,7 +154,7 @@ public class main extends javax.swing.JFrame {
             .addGroup(paneltitleLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                 .addGap(90, 90, 90))
         );
 
@@ -190,7 +190,7 @@ public class main extends javax.swing.JFrame {
                 .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1210, 701));
+        setSize(new java.awt.Dimension(1210, 633));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
