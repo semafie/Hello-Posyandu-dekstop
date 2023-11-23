@@ -13,6 +13,10 @@ public class ibu_hamil implements Entity{
         
     }
     
+    public ibu_hamil(int id){
+        this.id = id;
+    }
+    
     public ibu_hamil(String nama,String tempat_lahir,Date tanggal_lahir, String gol_darah, String alamat,String no_hp,String nama_suami,String tempat_lahir_suami,Date tanggal_lahir_suami ){
         this.nama = nama;
         this.tempat_lahir =tempat_lahir;

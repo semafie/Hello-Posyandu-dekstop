@@ -374,10 +374,17 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         bayi bayiii = new bayi(id);
         imunisasi kirim = new imunisasi(bayiii,hari,Integer.valueOf(input_usia.getText()),input_jenisImunisasi.getText(),
         input_jenisvitamin.getText(),input_keterangan.getText());
-        imun.add(kirim);
-        main main =(main)SwingUtilities.getWindowAncestor(this);
+        boolean apa = imun.add(kirim);
+        if(apa){
+            main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
+        
+        } else {
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+        }
         } catch (Exception e) {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");

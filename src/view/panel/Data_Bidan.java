@@ -325,6 +325,7 @@ public class Data_Bidan extends javax.swing.JPanel {
         main wow = (main)SwingUtilities.getWindowAncestor(this);
             validasigagal aa = new validasigagal(wow,"Pilih dulu dari tabel");
             aa.showPopUp();
+            load_tabel();
     }
         
     }//GEN-LAST:event_btnhapusMouseClicked
