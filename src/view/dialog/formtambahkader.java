@@ -46,6 +46,7 @@ public class formtambahkader extends Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        date1 = new view.customdate.DateChooser();
         btnbatal = new javax.swing.JLabel();
         btntambah = new javax.swing.JLabel();
         input_tanggallahir = new javax.swing.JTextField();
@@ -210,6 +211,7 @@ public class formtambahkader extends Dialog {
     private javax.swing.JLabel bg;
     private javax.swing.JLabel btnbatal;
     private javax.swing.JLabel btntambah;
+    private view.customdate.DateChooser date1;
     private javax.swing.JTextField input_alamat;
     private javax.swing.JTextField input_nama;
     private javax.swing.JTextField input_notelp;

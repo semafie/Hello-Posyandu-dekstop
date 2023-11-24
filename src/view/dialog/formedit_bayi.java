@@ -36,13 +36,7 @@ public class formedit_bayi extends Dialog {
         input_namaibu.setFont(font);
         input_tempatlahir.setFont(font);
         
-        String ambiltanggal = sdf.format(bidan.get(id).getTanggal_lahir());
-        input_nama.setText(bidan.get(id).getNama());
-        input_jk.setText(bidan.get(id).getAlamat());
-        input_notelp.setText(bidan.get(id).getNo_hp());
-        input_tgllahir.setText(bidan.get(id).getPendidikan_terakhir());
-        input_namaibu.setText(ambiltanggal);
-        input_tempatlahir.setText(bidan.get(id).getTempat_lahir());
+        
     }
 
     /**
@@ -54,6 +48,7 @@ public class formedit_bayi extends Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        date1 = new view.customdate.DateChooser();
         btnbatal = new javax.swing.JLabel();
         btnedit = new javax.swing.JLabel();
         input_nama = new javax.swing.JTextField();
@@ -156,29 +151,29 @@ public class formedit_bayi extends Dialog {
     }//GEN-LAST:event_btnbatalMouseClicked
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
-        if(!input_nama.getText().equals("") || !input_jk.getText().equals("") || !input_notelp.getText().equals("") ||
-                !input_tempatlahir.getText().equals("")|| !input_namaibu.getText().equals("")|| !input_tgllahir.getText().equals("")){
-        
-        try {
-            Date ambilformat = sdf.parse(input_namaibu.getText());
-            bidan apa = new bidan(input_nama.getText(), input_tempatlahir.getText(),ambilformat,
-            input_tgllahir.getText(),input_jk.getText(),input_notelp.getText());
-            bidan.update(apa);
-            Data_Bidan tabel = new Data_Bidan();
-                tabel.load_tabel();
-            main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Di Edit");
-            panel.showNotification();
-            closeMessage();
-        } catch (Exception e) {
-            main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Di Edit");
-            panel.showNotification();
-        }
-}else{
-        main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Tidak Boleh Kosong");
-            panel.showNotification();}
+//        if(!input_nama.getText().equals("") || !input_jk.getText().equals("") || !input_notelp.getText().equals("") ||
+//                !input_tempatlahir.getText().equals("")|| !input_namaibu.getText().equals("")|| !input_tgllahir.getText().equals("")){
+//        
+//        try {
+//            Date ambilformat = sdf.parse(input_namaibu.getText());
+//            bidan apa = new bidan(input_nama.getText(), input_tempatlahir.getText(),ambilformat,
+//            input_tgllahir.getText(),input_jk.getText(),input_notelp.getText());
+//            bidan.update(apa);
+//            Data_Bidan tabel = new Data_Bidan();
+//                tabel.load_tabel();
+//            main main =(main)SwingUtilities.getWindowAncestor(this);
+//            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Di Edit");
+//            panel.showNotification();
+//            closeMessage();
+//        } catch (Exception e) {
+//            main main =(main)SwingUtilities.getWindowAncestor(this);
+//            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Di Edit");
+//            panel.showNotification();
+//        }
+//}else{
+//        main main =(main)SwingUtilities.getWindowAncestor(this);
+//            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Tidak Boleh Kosong");
+//            panel.showNotification();}
     }//GEN-LAST:event_btneditMouseClicked
 
     private void btnbatalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatalMouseEntered
@@ -214,6 +209,7 @@ public class formedit_bayi extends Dialog {
     private javax.swing.JLabel bg1;
     private javax.swing.JLabel btnbatal;
     private javax.swing.JLabel btnedit;
+    private view.customdate.DateChooser date1;
     private javax.swing.JTextField input_jk;
     private javax.swing.JTextField input_nama;
     private javax.swing.JTextField input_namaibu;

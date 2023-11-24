@@ -17,7 +17,7 @@ import view.dialog.validasigagal;
 public class Laporan_Registrasi extends javax.swing.JPanel {
 
     public static int id = 0; 
-    private String pilih1 = "ibu hamil";
+    private String pilih1 = "bayi";
     
     bayiRepository uwow1 = new bayiRepository();
     ibu_hamilRepository uwow = new ibu_hamilRepository();
@@ -25,7 +25,7 @@ public class Laporan_Registrasi extends javax.swing.JPanel {
         initComponents();
         dataibuhamil.setVisible(false);
         databayi1.setVisible(false);
-        load_tabel();
+        load_tabelbayi();
         
     }
 public void load_tabel(){
@@ -482,6 +482,7 @@ public void load_tabelbayi(String search) {
         databayi1.setVisible(true);
         databayi.setVisible(false);
         pilih1 = "ibu hamil";
+        load_tabel();
     }//GEN-LAST:event_dataibuhamil1MouseClicked
 
     private void databayi1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_databayi1MouseClicked
@@ -489,7 +490,7 @@ public void load_tabelbayi(String search) {
     dataibuhamil1.setVisible(true);
         databayi1.setVisible(false);
         databayi.setVisible(true);
-        pilih1 = "bayi";
+        pilih1 = "bayi";load_tabelbayi();
     }//GEN-LAST:event_databayi1MouseClicked
 
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased

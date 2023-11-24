@@ -102,6 +102,7 @@ public void load_tabel(String search) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         btnbatal = new javax.swing.JLabel();
         btnpilih = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -111,6 +112,8 @@ public void load_tabel(String search) {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
+
+        jPanel1.setLayout(null);
 
         btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformbatal1.png"))); // NOI18N
         btnbatal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,7 +130,7 @@ public void load_tabel(String search) {
                 btnbatalMousePressed(evt);
             }
         });
-        getContentPane().add(btnbatal);
+        jPanel1.add(btnbatal);
         btnbatal.setBounds(800, 480, 190, 60);
 
         btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih1.png"))); // NOI18N
@@ -145,7 +148,7 @@ public void load_tabel(String search) {
                 btnpilihMousePressed(evt);
             }
         });
-        getContentPane().add(btnpilih);
+        jPanel1.add(btnpilih);
         btnpilih.setBounds(1010, 480, 190, 60);
 
         jScrollPane1.setBorder(null);
@@ -168,7 +171,7 @@ public void load_tabel(String search) {
         });
         jScrollPane1.setViewportView(table);
 
-        getContentPane().add(jScrollPane1);
+        jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 90, 1160, 370);
 
         search.setBackground(new Color(0,0,0,0));
@@ -183,12 +186,15 @@ public void load_tabel(String search) {
                 searchKeyReleased(evt);
             }
         });
-        getContentPane().add(search);
+        jPanel1.add(search);
         search.setBounds(950, 30, 230, 30);
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formcari_bayi.png"))); // NOI18N
-        getContentPane().add(bg);
+        jPanel1.add(bg);
         bg.setBounds(6, 0, 1218, 557);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 1230, 560);
 
         setSize(new java.awt.Dimension(1242, 566));
         setLocationRelativeTo(null);
@@ -250,6 +256,7 @@ public void load_tabel(String search) {
     private javax.swing.JLabel bg;
     private javax.swing.JLabel btnbatal;
     private javax.swing.JLabel btnpilih;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField search;
     private view.swing.Table table;
