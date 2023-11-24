@@ -12,6 +12,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import main.main;
 import util.Conn;
+import view.dialog.formedit_bayi;
+import view.dialog.formedit_ibuhamil;
 import view.dialog.validasiberhasil;
 import view.dialog.validasigagal;
 public class Laporan_Registrasi extends javax.swing.JPanel {
@@ -50,8 +52,9 @@ public void load_tabel(){
                     apa.getGol_darah(),
                     apa.getAlamat(),
                     apa.getNo_hp(),
+                    apa.getNama_suami(),
                     apa.getTempat_lahir_suami(),
-                    apa.getTempat_lahir_suami()
+                    apa.getTanggal_lahir_suami()
                 });
             }
             table.setModel(model);
@@ -469,10 +472,15 @@ public void load_tabelbayi(String search) {
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
     if(pilih1.equals("ibu hamil")){
-        
+        main main = (main)SwingUtilities.getWindowAncestor(this);
+        formedit_ibuhamil apa = new formedit_ibuhamil(main);
+        apa.showPopUp();
         load_tabel();
     } else {
-        
+        main main = (main)SwingUtilities.getWindowAncestor(this);
+        formedit_bayi apa = new formedit_bayi(main);
+        apa.showPopUp();
+        load_tabelbayi();
     }
     }//GEN-LAST:event_btneditMouseClicked
 

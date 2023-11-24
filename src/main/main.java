@@ -14,6 +14,7 @@ import java.util.Date;
 import javax.swing.Timer;
 import view.dialog.validasiberhasil;
 import view.dialog.validasiberhasil1;
+import view.glasspanel.GlassPanePopup;
 import view.menu.EventMenuSelected;
 import view.panel.Dasboard;
 import view.panel.Data_Bayi;
@@ -36,7 +37,7 @@ public class main extends javax.swing.JFrame {
     
     public main() {
         initComponents();
-        
+        GlassPanePopup.install(this);
         getContentPane().setBackground(new Color(246,246,233));
         Font font = new Font("Quicksand", Font.PLAIN, 18);
         titleBar.initJFram(this);

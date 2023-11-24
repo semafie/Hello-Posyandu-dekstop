@@ -7,10 +7,14 @@ import entity.imunisasi;
 import entity.pemeriksaan_ibuhamil;
 import entity.penimbangan;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import main.main;
 import util.Conn;
+import view.dialog.formedit_laporanpelayanan_Periksaibu;
 import view.dialog.validasiberhasil;
 public class Laporan_Pelayanan extends javax.swing.JPanel {
     
@@ -26,6 +30,7 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
         dataperiksaibu.setVisible(false);
         datapenimbangan.setVisible(false);
         dataimunisasi1.setVisible(false);
+        load_tabelimunisasi();
     }
 
     public void load_tabelimunisasi(){
@@ -423,12 +428,24 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
             main wow = (main)SwingUtilities.getWindowAncestor(this);
             validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di hapus");
             aa.showPopUp();
-            load_tabel();
+            load_tabelimunisasi();
         }
     }else if(pilih1.equals("penimbangan")){
-        
+        boolean cobak1 = penimbangan.delete(id);
+        if(cobak1){
+             main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di hapus");
+            aa.showPopUp();
+            load_tabelpenimbangan();
+        }
     }else{
-            
+        boolean cobak2 = periksaibu.delete(id);
+        if(cobak2){
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di hapus");
+            aa.showPopUp();
+            load_tabelpemeriksanibu();
+        }
     }
     }//GEN-LAST:event_btnhapusMouseClicked
 
@@ -445,7 +462,16 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
     }//GEN-LAST:event_btneditMouseEntered
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
-        // TODO add your handling code here:
+    if (pilih1.equals("imunisasi")){
+        
+    }else if(pilih1.equals("penimbangan")){
+        
+    } else{
+        main mian =(main)SwingUtilities.getWindowAncestor(this);
+        formedit_laporanpelayanan_Periksaibu apa = new formedit_laporanpelayanan_Periksaibu(mian);
+        apa.showPopUp();
+        load_tabelpemeriksanibu();
+    }
     }//GEN-LAST:event_btneditMouseClicked
 
     private void dataimunisasi1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataimunisasi1MouseClicked
@@ -456,6 +482,7 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
         datapenimbangan1.setVisible(true);
         dataimunisasi.setVisible(true);
         pilih1 = "imunasasi";
+        load_tabelimunisasi();
     }//GEN-LAST:event_dataimunisasi1MouseClicked
 
     private void datapenimbanganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datapenimbanganMouseClicked
@@ -474,6 +501,7 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
     dataperiksaibu.setVisible(false);
     dataimunisasi.setVisible(false);
     pilih1 = "penimbangan";
+    load_tabelpenimbangan();
     }//GEN-LAST:event_datapenimbangan1MouseClicked
 
     private void dataperiksaibu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataperiksaibu1MouseClicked
@@ -484,6 +512,7 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
     dataimunisasi.setVisible(false);
     datapenimbangan.setVisible(false);
     pilih1 = "periksaibu";
+    load_tabelpemeriksanibu();
     }//GEN-LAST:event_dataperiksaibu1MouseClicked
 
     private void dataimunisasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataimunisasiMouseClicked

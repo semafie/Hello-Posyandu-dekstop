@@ -28,6 +28,19 @@ public class ibu_hamil implements Entity{
         this.tempat_lahir_suami = tempat_lahir_suami;
         this.tanggal_lahir_suami = tanggal_lahir_suami;
     }
+    
+    public ibu_hamil(int id ,String nama,String tempat_lahir,Date tanggal_lahir, String gol_darah, String alamat,String no_hp,String nama_suami,String tempat_lahir_suami,Date tanggal_lahir_suami ){
+        this.id = id;
+        this.nama = nama;
+        this.tempat_lahir =tempat_lahir;
+        this.tanggal_lahir = tanggal_lahir;
+        this.gol_darah = gol_darah;
+        this.alamat = alamat;
+        this. no_hp = no_hp;
+        this.nama_suami = nama_suami;
+        this.tempat_lahir_suami = tempat_lahir_suami;
+        this.tanggal_lahir_suami = tanggal_lahir_suami;
+    }
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;

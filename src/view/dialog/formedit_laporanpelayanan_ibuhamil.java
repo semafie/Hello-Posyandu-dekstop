@@ -405,7 +405,7 @@ public class formedit_laporanpelayanan_ibuhamil extends Dialog {
     }//GEN-LAST:event_searchActionPerformed
 
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
-        load_tabel(search.getText());
+//        load_tabel(search.getText());
     }//GEN-LAST:event_searchKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

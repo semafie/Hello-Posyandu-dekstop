@@ -24,6 +24,15 @@ public class bayi implements Entity{
         this.jenis_kelamin= jenis_kelamin;
         this.nama_ibu= nama_ibu;
     }
+    
+    public bayi (int id ,String nama, String tempat_lahir,Date tanggal_lahir, String jenis_kelamin, String nama_ibu){
+        this.id= id;
+        this.nama= nama;
+        this.tempat_lahir= tempat_lahir;
+        this.tanggal_lahir= tanggal_lahir;
+        this.jenis_kelamin= jenis_kelamin;
+        this.nama_ibu= nama_ibu;
+    }
 
     public void setId(int id) {
         this.id = id;

@@ -308,6 +308,7 @@ public class Data_Kader extends javax.swing.JPanel {
     main main = (main)SwingUtilities.getWindowAncestor(this);
         formeditkader a = new formeditkader(main);
         a.showPopUp();
+        load_tabel();
     }//GEN-LAST:event_btneditMouseClicked
 
     private void btnhapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMouseClicked

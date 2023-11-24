@@ -32,20 +32,6 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         initComponents();
         Date hariini = new Date();
         input_tanggalhariini.setText(sdf.format(hariini));
-        if(id != 0){
-           input_id_bayi.setText(String.valueOf(id));
-           input_namaibu.setText(bayi.get(id).getNama_ibu());
-           if(bayi.get(id).getJenis_kelamin().equals("Laki - Laki")){
-           cmb_jeniskelamin.setSelectedIndex(0);
-           } else {
-           cmb_jeniskelamin.setSelectedIndex(1);    
-           }
-           
-           input_tanggallahir.setText(sdf.format(bayi.get(id).getTanggal_lahir()));
-           input_tempatlahir.setText(bayi.get(id).getTempat_lahir());
-        }else {
-            input_id_bayi.setText("");
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -488,6 +474,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
     main main = (main)SwingUtilities.getWindowAncestor(this);
         formcari_bayi apa = new formcari_bayi(main);
         apa.showPopUp();
+        
     }//GEN-LAST:event_jLabel14MouseClicked
 
 
@@ -499,7 +486,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
     private view.swing.textfieldcustom.txtfieldcustom input_BB;
     private view.swing.textfieldcustom.txtfieldcustom input_Deteksi;
     private view.swing.textfieldcustom.txtfieldcustom input_TB;
-    private view.swing.textfieldcustom.txtfieldcustom input_id_bayi;
+    public static view.swing.textfieldcustom.txtfieldcustom input_id_bayi;
     private view.swing.textfieldcustom.txtfieldcustom input_keterangan;
     private view.swing.textfieldcustom.txtfieldcustom input_namaibu;
     private view.swing.textfieldcustom.txtfieldcustom input_tanggalhariini;

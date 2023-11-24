@@ -10,15 +10,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import util.Conn;
+import view.panel.Pelayanan_Imunisasi;
+import view.panel.Pelayanan_penimbangan;
+import view.swing.textfieldcustom.txtfieldcustom;
 
 /**
  *
  * @author semafie
  */
 public class formcari_bayi extends Dialog {
-    public static int id;
+    public static int id = 0;
     bayiRepository uwow = new bayiRepository();
     /**
      * Creates new form formcari_ibuhamil
@@ -27,7 +31,7 @@ public class formcari_bayi extends Dialog {
         super(frame);
         initComponents();
         System.out.println(id);
-        id = 0;
+        
         load_tabel();
     }
 public void load_tabel(){
@@ -109,10 +113,12 @@ public void load_tabel(String search) {
         table = new view.swing.Table();
         search = new javax.swing.JTextField();
         bg = new javax.swing.JLabel();
+        text = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        jPanel1.setBackground(new Color(0,0,0,0));
         jPanel1.setLayout(null);
 
         btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformbatal1.png"))); // NOI18N
@@ -193,6 +199,10 @@ public void load_tabel(String search) {
         jPanel1.add(bg);
         bg.setBounds(6, 0, 1218, 557);
 
+        text.setText("jTextField1");
+        jPanel1.add(text);
+        text.setBounds(60, 510, 71, 22);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 560);
 
@@ -202,6 +212,10 @@ public void load_tabel(String search) {
 
     private void btnpilihMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMouseClicked
     if(id != 0 ){
+        view.panel.Pelayanan_Imunisasi.input_id_bayi = (txtfieldcustom) new JTextField();
+        view.panel.Pelayanan_penimbangan.input_id_bayi = (txtfieldcustom) new JTextField();
+        Pelayanan_Imunisasi.input_id_bayi.setText(String.valueOf(id));
+        Pelayanan_penimbangan.input_id_bayi.setText(String.valueOf(id));
         closeMessage();
     }else {
         System.out.println("pilih sulu bro");
@@ -244,6 +258,7 @@ public void load_tabel(String search) {
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
     int baris = table.rowAtPoint(evt.getPoint());
         String idd = table.getValueAt(baris, 0).toString();
+        text.setText(idd);
         id = Integer.valueOf(idd);
         System.out.println(id);
     }//GEN-LAST:event_tableMouseClicked
@@ -260,5 +275,6 @@ public void load_tabel(String search) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField search;
     private view.swing.Table table;
+    public static javax.swing.JTextField text;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,8 +15,8 @@ import view.notif.Notification;
 
 public class Pelayanan_Imunisasi extends javax.swing.JPanel {
     main main =(main)SwingUtilities.getWindowAncestor(this);
-    formcari_bayi apaa = new formcari_bayi(main);
-    private int id = apaa.id;
+    
+    private int id;
     bayiRepository bayi = new bayiRepository();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     imunisasiRepository imun = new imunisasiRepository();
@@ -25,14 +25,8 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         initComponents();
         Date hariini = new Date();
         input_tanggalhariini.setText(sdf.format(hariini));
-        if(id != 0){
-           input_id_bayi.setText(String.valueOf(id));
-           input_namaibu.setText(bayi.get(id).getNama_ibu());
-           input_tanggallahir.setText(sdf.format(bayi.get(id).getTanggal_lahir()));
-           input_tempatlahir.setText(bayi.get(id).getTempat_lahir());
-        }else {
-            input_id_bayi.setText("");
-        }
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -443,7 +437,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
     }//GEN-LAST:event_input_keteranganActionPerformed
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-    main main = (main)SwingUtilities.getWindowAncestor(this);
+        main main = (main)SwingUtilities.getWindowAncestor(this);
         formcari_bayi apa = new formcari_bayi(main);
         apa.showPopUp();
     }//GEN-LAST:event_jLabel14MouseClicked
@@ -453,7 +447,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
     private javax.swing.JLabel btnreset;
     private javax.swing.JLabel btnsimpan;
     private view.customdate.DateChooser date1;
-    private view.swing.textfieldcustom.txtfieldcustom input_id_bayi;
+    public static view.swing.textfieldcustom.txtfieldcustom input_id_bayi;
     private view.swing.textfieldcustom.txtfieldcustom input_jenisImunisasi;
     private view.swing.textfieldcustom.txtfieldcustom input_jenisvitamin;
     private view.swing.textfieldcustom.txtfieldcustom input_keterangan;

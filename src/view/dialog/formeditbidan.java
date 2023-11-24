@@ -20,8 +20,8 @@ import view.panel.Data_Bidan;
  * @author RESCOM-1
  */
 public class formeditbidan extends Dialog {
-    Data_Bidan apa = new Data_Bidan();
-    private int id = apa.id;
+    
+    private int id = Data_Bidan.id;
     bidanRepository bidan = new bidanRepository();
     
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");

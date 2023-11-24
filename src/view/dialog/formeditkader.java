@@ -20,8 +20,8 @@ import view.panel.Data_Kader;
  * @author RESCOM-1
  */
 public class formeditkader extends Dialog {
-    Data_Kader apa = new Data_Kader();
-    private int id = apa.id;
+    
+    private int id = Data_Kader.id;
     kaderRepository kader = new kaderRepository();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     

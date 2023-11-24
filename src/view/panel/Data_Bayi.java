@@ -47,7 +47,7 @@ public class Data_Bayi extends javax.swing.JPanel {
         txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_Data Bayi.png"))); // NOI18N
 
         input_namabayi.setBackground(new java.awt.Color(246, 246, 233));
-        input_namabayi.setRound(40);
+        input_namabayi.setRound(65);
         input_namabayi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_namabayiActionPerformed(evt);
@@ -65,7 +65,7 @@ public class Data_Bayi extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/databayi_Nama Ibu.png"))); // NOI18N
 
         input_tempatlahir.setBackground(new java.awt.Color(246, 246, 233));
-        input_tempatlahir.setRound(40);
+        input_tempatlahir.setRound(65);
         input_tempatlahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_tempatlahirActionPerformed(evt);
@@ -73,7 +73,7 @@ public class Data_Bayi extends javax.swing.JPanel {
         });
 
         input_tanggallahir.setBackground(new java.awt.Color(246, 246, 233));
-        input_tanggallahir.setRound(40);
+        input_tanggallahir.setRound(65);
         input_tanggallahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_tanggallahirActionPerformed(evt);
@@ -81,7 +81,7 @@ public class Data_Bayi extends javax.swing.JPanel {
         });
 
         input_namaibu.setBackground(new java.awt.Color(246, 246, 233));
-        input_namaibu.setRound(40);
+        input_namaibu.setRound(65);
         input_namaibu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_namaibuActionPerformed(evt);
@@ -143,9 +143,9 @@ public class Data_Bayi extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(input_tanggallahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(input_tanggallahir, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(605, 605, 605))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -171,21 +171,23 @@ public class Data_Bayi extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(input_namabayi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(input_namabayi, javax.swing.GroupLayout.PREFERRED_SIZE, 54, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(input_tempatlahir, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(input_tempatlahir, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                        .addGap(1, 1, 1))
                     .addComponent(input_tanggallahir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmb_jeniskelamin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmb_jeniskelamin, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,14 +229,21 @@ public class Data_Bayi extends javax.swing.JPanel {
             Object ambilah = cmb_jeniskelamin.getSelectedItem();
             Date formattanggal = sdf.parse(input_tanggallahir.getText());
             bayi apa =  new bayi(input_namabayi.getText(),input_tempatlahir.getText(),formattanggal,ambilah.toString(),input_namaibu.getText());
-            bayi.add(apa);
-            main main =(main)SwingUtilities.getWindowAncestor(this);
+            boolean cobak = bayi.add(apa);
+            if(cobak){
+                main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
             input_namaibu.setText("");
     input_namabayi.setText("");
     input_tempatlahir.setText("");
     cmb_jeniskelamin.setSelectedIndex(0);
+            }else {
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+            }
+            
         } catch (ParseException ex) {
             Logger.getLogger(Data_Bayi.class.getName()).log(Level.SEVERE, null, ex);
             main main =(main)SwingUtilities.getWindowAncestor(this);

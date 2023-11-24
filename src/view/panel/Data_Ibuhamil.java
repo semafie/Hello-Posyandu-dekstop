@@ -71,7 +71,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_Data Ibu Hamil.png"))); // NOI18N
 
         input_namaibu.setBackground(new java.awt.Color(246, 246, 233));
-        input_namaibu.setRound(40);
+        input_namaibu.setRound(65);
         input_namaibu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_namaibuActionPerformed(evt);
@@ -91,7 +91,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_No Telp.png"))); // NOI18N
 
         input_tempatlahir.setBackground(new java.awt.Color(246, 246, 233));
-        input_tempatlahir.setRound(40);
+        input_tempatlahir.setRound(65);
         input_tempatlahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_tempatlahirActionPerformed(evt);
@@ -99,7 +99,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         });
 
         input_tanggallahir.setBackground(new java.awt.Color(246, 246, 233));
-        input_tanggallahir.setRound(40);
+        input_tanggallahir.setRound(65);
         input_tanggallahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_tanggallahirActionPerformed(evt);
@@ -107,7 +107,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         });
 
         input_goldarah.setBackground(new java.awt.Color(246, 246, 233));
-        input_goldarah.setRound(40);
+        input_goldarah.setRound(65);
         input_goldarah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_goldarahActionPerformed(evt);
@@ -115,7 +115,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         });
 
         input_alamat.setBackground(new java.awt.Color(246, 246, 233));
-        input_alamat.setRound(40);
+        input_alamat.setRound(65);
         input_alamat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_alamatActionPerformed(evt);
@@ -123,7 +123,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         });
 
         input_notelp.setBackground(new java.awt.Color(246, 246, 233));
-        input_notelp.setRound(40);
+        input_notelp.setRound(65);
         input_notelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_notelpActionPerformed(evt);
@@ -133,7 +133,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Nama Suami.png"))); // NOI18N
 
         input_namasuami.setBackground(new java.awt.Color(246, 246, 233));
-        input_namasuami.setRound(40);
+        input_namasuami.setRound(65);
         input_namasuami.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_namasuamiActionPerformed(evt);
@@ -143,7 +143,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Tempat Lahirsuami.png"))); // NOI18N
 
         input_tempatlahirsuami.setBackground(new java.awt.Color(246, 246, 233));
-        input_tempatlahirsuami.setRound(40);
+        input_tempatlahirsuami.setRound(65);
         input_tempatlahirsuami.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_tempatlahirsuamiActionPerformed(evt);
@@ -153,7 +153,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/ibuhamil_Tanggal Lahirsuami.png"))); // NOI18N
 
         input_tanggallahirsuami.setBackground(new java.awt.Color(246, 246, 233));
-        input_tanggallahirsuami.setRound(40);
+        input_tanggallahirsuami.setRound(65);
         input_tanggallahirsuami.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 input_tanggallahirsuamiActionPerformed(evt);
@@ -369,8 +369,9 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
             Date ambil2 = sdf.parse(input_tanggallahirsuami.getText());
             ibu_hamil ibu = new ibu_hamil(input_namaibu.getText(),input_tempatlahir.getText(),ambil1,input_goldarah.getText(),input_alamat.getText(),input_notelp.getText(),input_namasuami.getText(),
             input_tempatlahirsuami.getText(),ambil2);
-            ibuhamil.add(ibu);
-            main main =(main)SwingUtilities.getWindowAncestor(this);
+            boolean cobak = ibuhamil.add(ibu);
+            if (cobak){
+                main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
             input_alamat.setText("");
@@ -380,6 +381,12 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
     input_notelp.setText("");
     input_tempatlahir.setText("");
     input_tempatlahirsuami.setText("");
+            } else{
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+            }
+            
         } catch (Exception e) {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");

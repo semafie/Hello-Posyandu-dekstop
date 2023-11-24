@@ -4,7 +4,9 @@
  */
 package view.dialog;
 import Repository.bidanRepository;
+import Repository.ibu_hamilRepository;
 import entity.bidan;
+import entity.ibu_hamil;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -14,15 +16,15 @@ import javax.swing.SwingUtilities;
 import main.main;
 import view.notif.Notification;
 import view.panel.Data_Bidan;
+import view.panel.Laporan_Registrasi;
 
 /**
  *
  * @author RESCOM-1
  */
 public class formedit_ibuhamil extends Dialog {
-    Data_Bidan apa = new Data_Bidan();
-    private int id = apa.id;
-    bidanRepository bidan = new bidanRepository();
+    private int id = Laporan_Registrasi.id;
+    ibu_hamilRepository ibu = new ibu_hamilRepository();
     
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     public formedit_ibuhamil(JFrame fram) {
@@ -35,14 +37,24 @@ public class formedit_ibuhamil extends Dialog {
         input_goldarah.setFont(font);
         input_tanggallahir.setFont(font);
         input_tempatlahir.setFont(font);
-        
-        String ambiltanggal = sdf.format(bidan.get(id).getTanggal_lahir());
-        input_nama_ibu.setText(bidan.get(id).getNama());
-        input_alamat.setText(bidan.get(id).getAlamat());
-        input_notelp.setText(bidan.get(id).getNo_hp());
-        input_goldarah.setText(bidan.get(id).getPendidikan_terakhir());
+        input_nama_suami.setFont(font);
+        input_tempat_lahir_suami.setFont(font);
+        input_tgllahir_suami.setFont(font);
+        try {
+            String ambiltanggal = sdf.format(ibu.get(id).getTanggal_lahir());
+            String ambiltanggal1 = sdf.format(ibu.get(id).getTanggal_lahir_suami());
+        input_nama_ibu.setText(ibu.get(id).getNama());
+        input_alamat.setText(ibu.get(id).getAlamat());
+        input_notelp.setText(ibu.get(id).getNo_hp());
+        input_goldarah.setText(ibu.get(id).getGol_darah());
         input_tanggallahir.setText(ambiltanggal);
-        input_tempatlahir.setText(bidan.get(id).getTempat_lahir());
+        input_nama_suami.setText(ibu.get(id).getNama_suami());
+        input_tempat_lahir_suami.setText(ibu.get(id).getTempat_lahir_suami());
+        input_tgllahir_suami.setText(ambiltanggal1);
+        input_tempatlahir.setText(ibu.get(id).getTempat_lahir());
+        } catch (Exception e) {
+        }
+        
     }
 
     /**
@@ -54,6 +66,8 @@ public class formedit_ibuhamil extends Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        date1 = new view.customdate.DateChooser();
+        date2 = new view.customdate.DateChooser();
         btnbatal = new javax.swing.JLabel();
         btnedit = new javax.swing.JLabel();
         input_tgllahir_suami = new javax.swing.JTextField();
@@ -65,8 +79,13 @@ public class formedit_ibuhamil extends Dialog {
         input_tempatlahir = new javax.swing.JTextField();
         input_goldarah = new javax.swing.JTextField();
         input_nama_ibu = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         bg = new javax.swing.JLabel();
-        bg1 = new javax.swing.JLabel();
+
+        date1.setTextRefernce(input_tanggallahir);
+
+        date2.setTextRefernce(input_tgllahir_suami);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -110,7 +129,7 @@ public class formedit_ibuhamil extends Dialog {
         input_tgllahir_suami.setBackground(new Color(0,0,0,0));
         input_tgllahir_suami.setBorder(null);
         getContentPane().add(input_tgllahir_suami);
-        input_tgllahir_suami.setBounds(230, 463, 270, 30);
+        input_tgllahir_suami.setBounds(230, 463, 240, 30);
 
         input_tempat_lahir_suami.setBackground(new Color(0,0,0,0));
         input_tempat_lahir_suami.setBorder(null);
@@ -130,7 +149,7 @@ public class formedit_ibuhamil extends Dialog {
         input_tanggallahir.setBackground(new Color(0,0,0,0));
         input_tanggallahir.setBorder(null);
         getContentPane().add(input_tanggallahir);
-        input_tanggallahir.setBounds(30, 295, 280, 30);
+        input_tanggallahir.setBounds(30, 295, 240, 30);
 
         input_alamat.setBackground(new Color(0,0,0,0));
         input_alamat.setBorder(null);
@@ -163,13 +182,28 @@ public class formedit_ibuhamil extends Dialog {
         getContentPane().add(input_nama_ibu);
         input_nama_ibu.setBounds(30, 132, 280, 30);
 
+        jButton2.setText("...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(270, 295, 40, 30);
+
+        jButton1.setText("...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(470, 463, 40, 32);
+
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formedit_ibuhamil.png"))); // NOI18N
+        bg.setText("...");
         getContentPane().add(bg);
         bg.setBounds(0, 0, 690, 610);
-
-        bg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formedit_bayi.png"))); // NOI18N
-        getContentPane().add(bg1);
-        bg1.setBounds(0, 0, 690, 560);
 
         setSize(new java.awt.Dimension(705, 614));
         setLocationRelativeTo(null);
@@ -180,29 +214,33 @@ public class formedit_ibuhamil extends Dialog {
     }//GEN-LAST:event_btnbatalMouseClicked
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
-        if(!input_nama_ibu.getText().equals("") || !input_alamat.getText().equals("") || !input_notelp.getText().equals("") ||
-                !input_tempatlahir.getText().equals("")|| !input_tanggallahir.getText().equals("")|| !input_goldarah.getText().equals("")){
         
         try {
-            Date ambilformat = sdf.parse(input_tanggallahir.getText());
-            bidan apa = new bidan(input_nama_ibu.getText(), input_tempatlahir.getText(),ambilformat,
-            input_goldarah.getText(),input_alamat.getText(),input_notelp.getText());
-            bidan.update(apa);
-            Data_Bidan tabel = new Data_Bidan();
-                tabel.load_tabel();
-            main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Di Edit");
+            Date ambil1 = sdf.parse(input_tanggallahir.getText());
+            Date ambil2 = sdf.parse(input_tgllahir_suami.getText());
+            
+            ibu_hamil ibu1 = new ibu_hamil(id,input_nama_ibu.getText(),input_tempatlahir.getText(),
+                    ambil1,input_goldarah.getText(),input_alamat.getText(),
+                    input_notelp.getText(),input_nama_suami.getText(),
+            input_tempat_lahir_suami.getText(),ambil2);
+            boolean cobak = ibu.update(ibu1);
+            if (cobak){
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
             closeMessage();
+            } else{
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+            }
+            
         } catch (Exception e) {
             main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Di Edit");
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
             panel.showNotification();
         }
-}else{
-        main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Tidak Boleh Kosong");
-            panel.showNotification();}
+        
     }//GEN-LAST:event_btneditMouseClicked
 
     private void btnbatalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatalMouseEntered
@@ -237,11 +275,20 @@ public class formedit_ibuhamil extends Dialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_input_goldarahActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    date1.showPopup();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    date2.showPopup();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
-    private javax.swing.JLabel bg1;
     private javax.swing.JLabel btnbatal;
     private javax.swing.JLabel btnedit;
+    private view.customdate.DateChooser date1;
+    private view.customdate.DateChooser date2;
     private javax.swing.JTextField input_alamat;
     private javax.swing.JTextField input_goldarah;
     private javax.swing.JTextField input_nama_ibu;
@@ -251,5 +298,7 @@ public class formedit_ibuhamil extends Dialog {
     private javax.swing.JTextField input_tempat_lahir_suami;
     private javax.swing.JTextField input_tempatlahir;
     private javax.swing.JTextField input_tgllahir_suami;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

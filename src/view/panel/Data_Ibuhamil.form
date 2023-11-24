@@ -170,7 +170,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_namaibuActionPerformed"/>
@@ -223,7 +223,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_tempatlahirActionPerformed"/>
@@ -234,7 +234,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_tanggallahirActionPerformed"/>
@@ -245,7 +245,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_goldarahActionPerformed"/>
@@ -256,7 +256,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_alamatActionPerformed"/>
@@ -267,7 +267,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_notelpActionPerformed"/>
@@ -285,7 +285,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_namasuamiActionPerformed"/>
@@ -303,7 +303,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_tempatlahirsuamiActionPerformed"/>
@@ -321,7 +321,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
-        <Property name="round" type="int" value="40"/>
+        <Property name="round" type="int" value="65"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_tanggallahirsuamiActionPerformed"/>
