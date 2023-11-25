@@ -14,11 +14,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import main.main;
 import util.Conn;
-import view.dialog.formedit_laporanpelayanan_Periksaibu;
+import view.dialog.formedit_laporanpelayanan_Penimbangan;
+import view.dialog.formedit_laporanpelayanan_ibuhamil;
+import view.dialog.formedit_laporanpelayanan_imunisasi;
 import view.dialog.validasiberhasil;
 public class Laporan_Pelayanan extends javax.swing.JPanel {
     
-    private int id = 0;
+    public static int id = 0;
     private String pilih1 = "imunisasi";
     
     imunisasiRepository imunisasi = new imunisasiRepository();
@@ -49,7 +51,7 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
                     apa.getId(),
                     apa.getId_bayi().getNama(),
                     apa.getTanggal_imunisasi(),
-                    apa.getUsia(),
+                    apa.getUsia() + " bulan",
                     apa.getJenis_imunisasi(),
                     apa.getJenis_vitamin(),
                     apa.getKeterangan()
@@ -89,7 +91,7 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
                 res.getString("id"),
                 res.getString("nama_bayi"),
                 res.getString("tanggal_imunisasi"),
-                res.getString("usia"),
+                res.getString("usia") + " bulan",
                 res.getString("jenis_imunisasi"),
                 res.getString("jenis_vitamin"),
                 res.getString("keterangan")
@@ -119,8 +121,8 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
                     apa.getId(),
                     apa.getId_bayi().getNama(),
                     apa.getTanggal_timbang(),
-                    apa.getBb(),
-                    apa.getTb(),
+                    apa.getBb() + " kg",
+                    apa.getTb() + " cm",
                     apa.getDeteksi(),
                     apa.getKeterangan()
                 });
@@ -150,9 +152,11 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
                     apa.getId(),
                     apa.getId_ibuhamil().getNama(),
                     apa.getTanggal_periksa(),
-                    apa.getUsia_kandungan(),
-                    apa.getBb(),
-                    apa.getTb(),
+                    apa.getUsia_kandungan() + " minggu",
+                    apa.getHamil_ke(),
+                    apa.getRiwayat_penyakit(),
+                    apa.getBb() + " kg",
+                    apa.getTb() + " cm",
                     apa.getDeteksi(),
                     apa.getKeterangan()
                 });
@@ -463,12 +467,18 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
     if (pilih1.equals("imunisasi")){
-        
+        main main = (main)SwingUtilities.getWindowAncestor(this);
+        formedit_laporanpelayanan_imunisasi a = new formedit_laporanpelayanan_imunisasi(main);
+        a.showPopUp();
+        load_tabelimunisasi();
     }else if(pilih1.equals("penimbangan")){
-        
+        main main = (main)SwingUtilities.getWindowAncestor(this);
+        formedit_laporanpelayanan_Penimbangan a = new formedit_laporanpelayanan_Penimbangan(main);
+        a.showPopUp();
+        load_tabelpenimbangan();
     } else{
         main mian =(main)SwingUtilities.getWindowAncestor(this);
-        formedit_laporanpelayanan_Periksaibu apa = new formedit_laporanpelayanan_Periksaibu(mian);
+        formedit_laporanpelayanan_ibuhamil apa = new formedit_laporanpelayanan_ibuhamil(mian);
         apa.showPopUp();
         load_tabelpemeriksanibu();
     }

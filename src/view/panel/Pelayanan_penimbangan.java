@@ -44,6 +44,19 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         input_Deteksi.setFont(font);
         cmb_jeniskelamin.setFont(font);
         input_namaibu.setFont(font);
+        cmbbox();
+    }
+    
+    public void cmbbox(){
+
+        try {
+            for(bayi apa : bayi.get()){
+                cmb_pilih.addItem(apa.getNama());
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -77,7 +90,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         input_namaibu = new view.swing.textfieldcustom.txtfieldcustom();
         jLabel8 = new javax.swing.JLabel();
         cmb_jeniskelamin = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
+        cmb_pilih = new javax.swing.JComboBox<>();
 
         date1.setTextRefernce(input_tanggallahir);
 
@@ -225,18 +238,15 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanimunisasi_Nama Ibu.png"))); // NOI18N
 
-        cmb_jeniskelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki -Laki", "Perempuan" }));
+        cmb_jeniskelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- pilih dulu--", "Laki -Laki", "Perempuan" }));
         cmb_jeniskelamin.setBorder(null);
         cmb_jeniskelamin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmb_jeniskelamin.setFocusTraversalPolicyProvider(true);
 
-        jLabel14.setFont(new java.awt.Font("Microsoft Tai Le", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel14.setText("Cari?");
-        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel14MouseClicked(evt);
+        cmb_pilih.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--pilih dulu--" }));
+        cmb_pilih.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_pilihActionPerformed(evt);
             }
         });
 
@@ -301,7 +311,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(input_id_bayi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel14))
+                                        .addComponent(cmb_pilih, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(input_tempatlahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(95, 95, 95)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,9 +337,8 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(input_id_bayi, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                        .addComponent(jLabel14))
+                    .addComponent(cmb_pilih)
+                    .addComponent(input_id_bayi, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(cmb_jeniskelamin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,13 +424,20 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
                 !input_tempatlahir.getText().equals("")){
         try {
             Date hari = new Date();
-        bayi bayiii = new bayi(id);
+        bayi bayiii = new bayi(Integer.valueOf(input_id_bayi.getText()));
             penimbangan kirim = new penimbangan(bayiii,hari,Integer.valueOf(input_BB.getText()),Integer.valueOf(input_TB.getText()),
             input_Deteksi.getText(),input_keterangan.getText());
-            pinimm.add(kirim);
-            main main =(main)SwingUtilities.getWindowAncestor(this);
+            boolean cobak = pinimm.add(kirim);
+            if (cobak){
+                main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
+            } else {
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+            }
+            
         } catch (Exception e) {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
@@ -482,18 +498,28 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_input_namaibuActionPerformed
 
-    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-    main main = (main)SwingUtilities.getWindowAncestor(this);
-        formcari_bayi apa = new formcari_bayi(main);
-        apa.showPopUp();
+    private void cmb_pilihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_pilihActionPerformed
+    Object cmb_pilih1 = cmb_pilih.getSelectedItem();
+        input_id_bayi.setText(String.valueOf(bayi.getidbynama(cmb_pilih1.toString()).getId()));
+        input_namaibu.setText(bayi.getidbynama(cmb_pilih1.toString()).getNama_ibu());
+        if (cmb_pilih1.toString().equals("--pilih dulu--")){
+            cmb_jeniskelamin.setSelectedIndex(0);
+        } else if(bayi.getidbynama(cmb_pilih1.toString()).getJenis_kelamin().equals("Laki - Laki")){
+            cmb_jeniskelamin.setSelectedIndex(1);
+        } else if(bayi.getidbynama(cmb_pilih1.toString()).getJenis_kelamin().equals("Perempuan")){
+            cmb_jeniskelamin.setSelectedIndex(2);
+        }
         
-    }//GEN-LAST:event_jLabel14MouseClicked
+        input_tempatlahir.setText(bayi.getidbynama(cmb_pilih1.toString()).getTempat_lahir());
+        input_tanggallahir.setText(String.valueOf(bayi.getidbynama(cmb_pilih1.toString()).getTanggal_lahir()));
+    }//GEN-LAST:event_cmb_pilihActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnreset;
     private javax.swing.JLabel btnsimpan;
     private javax.swing.JComboBox<String> cmb_jeniskelamin;
+    private javax.swing.JComboBox<String> cmb_pilih;
     private view.customdate.DateChooser date1;
     private view.swing.textfieldcustom.txtfieldcustom input_BB;
     private view.swing.textfieldcustom.txtfieldcustom input_Deteksi;
@@ -510,7 +536,6 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

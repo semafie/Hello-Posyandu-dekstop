@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import main.main;
 import view.dialog.formcari_bayi;
 import view.dialog.formcari_ibuhamil;
@@ -27,6 +28,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         Date hariini = new Date();
         input_tanggalhariini.setText(sdf.format(hariini));
         Font font = new Font("Quicksand", Font.PLAIN, 20);
+        
         input_id_bayi.setFont(font);
         input_keterangan.setFont(font);
         input_tanggallahir.setFont(font);
@@ -37,8 +39,19 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         input_keterangan.setFont(font);
         input_usia.setFont(font);
         input_namaibu.setFont(font);
+        cmbbox();
         
-        
+    }
+    public void cmbbox(){
+
+        try {
+            for(bayi apa : bayi.get()){
+                cmb_pilih.addItem(apa.getNama());
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -69,7 +82,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         input_keterangan = new view.swing.textfieldcustom.txtfieldcustom();
-        jLabel14 = new javax.swing.JLabel();
+        cmb_pilih = new javax.swing.JComboBox<>();
 
         date1.setTextRefernce(input_tanggallahir);
 
@@ -210,13 +223,15 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Microsoft Tai Le", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel14.setText("Cari?");
-        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel14MouseClicked(evt);
+        cmb_pilih.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--pilih dulu--" }));
+        cmb_pilih.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_pilihActionPerformed(evt);
+            }
+        });
+        cmb_pilih.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cmb_pilihKeyReleased(evt);
             }
         });
 
@@ -250,7 +265,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(input_id_bayi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14)))
+                                .addComponent(cmb_pilih, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(82, 82, 82)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -293,9 +308,8 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(input_namaibu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(input_id_bayi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14)))
+                    .addComponent(input_id_bayi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmb_pilih))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -330,7 +344,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(input_jenisvitamin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(input_keterangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnsimpan)
                     .addComponent(btnreset))
@@ -377,7 +391,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
             !input_tempatlahir.getText().equals("")){
         try {
             Date hari = new Date();
-        bayi bayiii = new bayi(id);
+        bayi bayiii = new bayi(Integer.valueOf(input_id_bayi.getText()));
         imunisasi kirim = new imunisasi(bayiii,hari,Integer.valueOf(input_usia.getText()),input_jenisImunisasi.getText(),
         input_jenisvitamin.getText(),input_keterangan.getText());
         boolean apa = imun.add(kirim);
@@ -448,16 +462,23 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_input_keteranganActionPerformed
 
-    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        main main = (main)SwingUtilities.getWindowAncestor(this);
-        formcari_bayi apa = new formcari_bayi(main);
-        apa.showPopUp();
-    }//GEN-LAST:event_jLabel14MouseClicked
+    private void cmb_pilihKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmb_pilihKeyReleased
+    
+    }//GEN-LAST:event_cmb_pilihKeyReleased
+
+    private void cmb_pilihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_pilihActionPerformed
+    Object cmb_pilih1 = cmb_pilih.getSelectedItem();
+        input_id_bayi.setText(String.valueOf(bayi.getidbynama(cmb_pilih1.toString()).getId()));
+        input_namaibu.setText(bayi.getidbynama(cmb_pilih1.toString()).getNama_ibu());
+        input_tempatlahir.setText(bayi.getidbynama(cmb_pilih1.toString()).getTempat_lahir());
+        input_tanggallahir.setText(String.valueOf(bayi.getidbynama(cmb_pilih1.toString()).getTanggal_lahir()));
+    }//GEN-LAST:event_cmb_pilihActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnreset;
     private javax.swing.JLabel btnsimpan;
+    private javax.swing.JComboBox<String> cmb_pilih;
     private view.customdate.DateChooser date1;
     public static view.swing.textfieldcustom.txtfieldcustom input_id_bayi;
     private view.swing.textfieldcustom.txtfieldcustom input_jenisImunisasi;
@@ -473,7 +494,6 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

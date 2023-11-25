@@ -50,6 +50,24 @@ public class bayiRepository implements Repository<bayi>{
         }
         return us;
     }
+    
+    public bayi getidbynama(String nama) {
+    String sql = "select * from "+tableName+" where nama = ?";
+        bayi us = new bayi();
+        
+        try {
+            Connection koneksi = (Connection)Conn.configDB();
+            PreparedStatement pst = koneksi.prepareStatement(sql);
+            pst.setString(1, nama);
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+                return mapToEntity(res);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return us;
+    }
 
     @Override
     public boolean add(bayi us) {

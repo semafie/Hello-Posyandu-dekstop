@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package view.dialog;
+import Repository.bayiRepository;
 import Repository.bidanRepository;
+import Repository.imunisasiRepository;
+import entity.bayi;
 import entity.bidan;
 import java.awt.Color;
 import java.awt.Font;
@@ -11,23 +14,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import main.main;
 import view.notif.Notification;
 import view.panel.Data_Bidan;
+import view.panel.Laporan_Pelayanan;
 
 /**
  *
  * @author RESCOM-1
  */
 public class formedit_laporanpelayanan_imunisasi extends Dialog {
-    Data_Bidan apa = new Data_Bidan();
-    private int id = apa.id;
-    bidanRepository bidan = new bidanRepository();
+    
+    private int id = Laporan_Pelayanan.id;
+    private int ids;
+    bayiRepository bayi = new bayiRepository();
+    imunisasiRepository imun = new imunisasiRepository();
     
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     public formedit_laporanpelayanan_imunisasi(JFrame fram) {
         super(fram);
         initComponents();
+        Date apa = new Date();
         Font font = new Font("Quicksand", Font.PLAIN, 20);
         input_tgl.setFont(font);
         input_idbayi.setFont(font);
@@ -35,8 +43,48 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
         input_tgllahir.setFont(font);
         input_namaibu.setFont(font);
         input_tempatlahir.setFont(font);
+        input_usia.setFont(font);
+        input_jenisimunisasi.setFont(font);
+        input_keterangan.setFont(font);
+        input_jenisvitamin.setFont(font);
+        jPanel2.setVisible(false);
+        load_tabelbayi();
+        input_idbayi.setText(String.valueOf(imun.get(id).getId_bayi().getId()));
+        input_jenisimunisasi.setText(imun.get(id).getJenis_imunisasi());
+        input_jenisvitamin.setText(imun.get(id).getJenis_vitamin());
+        input_keterangan.setText(imun.get(id).getKeterangan());
+        input_namaibu.setText(imun.get(id).getId_bayi().getNama_ibu());
+        input_tempatlahir.setText(imun.get(id).getId_bayi().getTempat_lahir());
+        input_tgllahir.setText(sdf.format(imun.get(id).getId_bayi().getTanggal_lahir()));
+        input_tgl.setText(sdf.format(apa));
+        input_usia.setText(String.valueOf(imun.get(id).getUsia()));
+    }
+    
+    public void load_tabelbayi(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nama");
+        model.addColumn("Tempat Lahir");
+        model.addColumn("Tanggal Lahir");
+        model.addColumn("Jenis Kelamin");
+        model.addColumn("nama_ibu");
         
-        
+        try {
+            for(bayi apa:bayi.get()){
+                model.addRow(new Object[]{
+                    apa.getId(),
+                    apa.getNama(),
+                    apa.getTempat_lahir(),
+                    apa.getTanggal_lahir(),
+                    apa.getJenis_kelamin(),
+                    apa.getNama_ibu()
+                    
+                });
+            }
+            table.setModel(model);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -49,13 +97,6 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
     private void initComponents() {
 
         date1 = new view.customdate.DateChooser();
-        jPanel2 = new javax.swing.JPanel();
-        btnbatal1 = new javax.swing.JLabel();
-        btnpilih = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new view.swing.Table();
-        search = new javax.swing.JTextField();
-        bg1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btn_edit = new javax.swing.JLabel();
         btnbatal = new javax.swing.JLabel();
@@ -70,93 +111,17 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
         btcaribayi = new javax.swing.JLabel();
         input_idbayi = new javax.swing.JTextField();
         bg = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new view.swing.Table();
+        jPanel3 = new javax.swing.JPanel();
+        search = new javax.swing.JTextField();
+        bg1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPanel2.setLayout(null);
-
-        btnbatal1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformbatal1.png"))); // NOI18N
-        btnbatal1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnbatal1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnbatal1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnbatal1MouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnbatal1MousePressed(evt);
-            }
-        });
-        jPanel2.add(btnbatal1);
-        btnbatal1.setBounds(800, 480, 190, 60);
-
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih1.png"))); // NOI18N
-        btnpilih.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnpilihMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnpilihMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnpilihMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnpilihMousePressed(evt);
-            }
-        });
-        jPanel2.add(btnpilih);
-        btnpilih.setBounds(1010, 480, 190, 60);
-
-        jScrollPane1.setBorder(null);
-
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(table);
-
-        jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 90, 1160, 370);
-
-        search.setBackground(new Color(0,0,0,0));
-        search.setBorder(null);
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
-        search.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                searchKeyReleased(evt);
-            }
-        });
-        jPanel2.add(search);
-        search.setBounds(950, 30, 230, 30);
-
-        bg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formcari_bayi.png"))); // NOI18N
-        jPanel2.add(bg1);
-        bg1.setBounds(6, 0, 1218, 557);
-
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 70, 1230, 560);
-
+        jPanel1.setBackground(new Color(0,0,0,0));
         jPanel1.setLayout(null);
 
         btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit1.png"))); // NOI18N
@@ -198,27 +163,29 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
         input_keterangan.setBackground(new Color(0,0,0,0));
         input_keterangan.setBorder(null);
         jPanel1.add(input_keterangan);
-        input_keterangan.setBounds(330, 570, 350, 30);
+        input_keterangan.setBounds(330, 574, 350, 30);
 
         input_jenisvitamin.setBackground(new Color(0,0,0,0));
         input_jenisvitamin.setBorder(null);
         jPanel1.add(input_jenisvitamin);
-        input_jenisvitamin.setBounds(40, 570, 240, 30);
+        input_jenisvitamin.setBounds(40, 574, 240, 30);
 
         input_jenisimunisasi.setBackground(new Color(0,0,0,0));
         input_jenisimunisasi.setBorder(null);
         jPanel1.add(input_jenisimunisasi);
-        input_jenisimunisasi.setBounds(190, 480, 480, 40);
+        input_jenisimunisasi.setBounds(190, 490, 480, 30);
 
         input_usia.setBackground(new Color(0,0,0,0));
         input_usia.setBorder(null);
         jPanel1.add(input_usia);
-        input_usia.setBounds(30, 480, 70, 40);
+        input_usia.setBounds(30, 490, 70, 30);
 
         input_tgl.setBackground(new Color(0,0,0,0));
         input_tgl.setBorder(null);
+        input_tgl.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        input_tgl.setFocusable(false);
         jPanel1.add(input_tgl);
-        input_tgl.setBounds(40, 400, 200, 40);
+        input_tgl.setBounds(40, 410, 200, 30);
 
         input_tempatlahir.setBackground(new Color(0,0,0,0));
         input_tempatlahir.setBorder(null);
@@ -228,12 +195,12 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
         input_namaibu.setBackground(new Color(0,0,0,0));
         input_namaibu.setBorder(null);
         jPanel1.add(input_namaibu);
-        input_namaibu.setBounds(570, 150, 370, 40);
+        input_namaibu.setBounds(570, 160, 370, 30);
 
         input_tgllahir.setBackground(new Color(0,0,0,0));
         input_tgllahir.setBorder(null);
         jPanel1.add(input_tgllahir);
-        input_tgllahir.setBounds(40, 320, 410, 30);
+        input_tgllahir.setBounds(40, 325, 410, 30);
 
         btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btn_caribayi1.png"))); // NOI18N
         btcaribayi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -251,12 +218,12 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
             }
         });
         jPanel1.add(btcaribayi);
-        btcaribayi.setBounds(370, 150, 100, 40);
+        btcaribayi.setBounds(370, 150, 100, 50);
 
         input_idbayi.setBackground(new Color(0,0,0,0));
         input_idbayi.setBorder(null);
         jPanel1.add(input_idbayi);
-        input_idbayi.setBounds(40, 150, 320, 40);
+        input_idbayi.setBounds(40, 160, 320, 30);
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/laporanpelayanan_imunisasi.png"))); // NOI18N
         jPanel1.add(bg);
@@ -264,6 +231,56 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(70, 0, 1050, 710);
+
+        jPanel2.setBackground(new Color(0,0,0,0));
+        jPanel2.setLayout(null);
+
+        jScrollPane1.setBorder(null);
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
+
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 90, 1160, 370);
+        jPanel2.add(jPanel3);
+        jPanel3.setBounds(890, 10, 310, 70);
+
+        search.setBackground(new Color(0,0,0,0));
+        search.setBorder(null);
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
+            }
+        });
+        jPanel2.add(search);
+        search.setBounds(950, 30, 230, 30);
+
+        bg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formcari_bayi.png"))); // NOI18N
+        jPanel2.add(bg1);
+        bg1.setBounds(6, 0, 1218, 557);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 70, 1230, 560);
 
         setSize(new java.awt.Dimension(1245, 716));
         setLocationRelativeTo(null);
@@ -274,29 +291,8 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
     }//GEN-LAST:event_btnbatalMouseClicked
 
     private void btcaribayiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btcaribayiMouseClicked
-//        if(!input_nama.getText().equals("") || !input_jk.getText().equals("") || !input_notelp.getText().equals("") ||
-//                !input_tempatlahir.getText().equals("")|| !input_namaibu.getText().equals("")|| !input_tgllahir.getText().equals("")){
-//        
-//        try {
-//            Date ambilformat = sdf.parse(input_namaibu.getText());
-//            bidan apa = new bidan(input_nama.getText(), input_tempatlahir.getText(),ambilformat,
-//            input_tgllahir.getText(),input_jk.getText(),input_notelp.getText());
-//            bidan.update(apa);
-//            Data_Bidan tabel = new Data_Bidan();
-//                tabel.load_tabel();
-//            main main =(main)SwingUtilities.getWindowAncestor(this);
-//            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Di Edit");
-//            panel.showNotification();
-//            closeMessage();
-//        } catch (Exception e) {
-//            main main =(main)SwingUtilities.getWindowAncestor(this);
-//            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Di Edit");
-//            panel.showNotification();
-//        }
-//}else{
-//        main main =(main)SwingUtilities.getWindowAncestor(this);
-//            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Tidak Boleh Kosong");
-//            panel.showNotification();}
+        jPanel2.setVisible(true);
+        jPanel1.setVisible(false);
     }//GEN-LAST:event_btcaribayiMouseClicked
 
     private void btnbatalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatalMouseEntered
@@ -312,15 +308,15 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
     }//GEN-LAST:event_btnbatalMousePressed
 
     private void btcaribayiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btcaribayiMouseEntered
-    btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit2.png")));
+    btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btn_caribayi2.png")));
     }//GEN-LAST:event_btcaribayiMouseEntered
 
     private void btcaribayiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btcaribayiMouseExited
-    btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit1.png")));
+    btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btn_caribayi1.png")));
     }//GEN-LAST:event_btcaribayiMouseExited
 
     private void btcaribayiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btcaribayiMousePressed
-    btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit3.png")));
+    btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btn_caribayi3.png")));
     }//GEN-LAST:event_btcaribayiMousePressed
 
     private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
@@ -328,59 +324,43 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
     }//GEN-LAST:event_btn_editMouseClicked
 
     private void btn_editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseEntered
-        // TODO add your handling code here:
+    btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit2.png")));
     }//GEN-LAST:event_btn_editMouseEntered
 
     private void btn_editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseExited
-        // TODO add your handling code here:
+    btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit1.png")));
     }//GEN-LAST:event_btn_editMouseExited
 
     private void btn_editMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMousePressed
-        // TODO add your handling code here:
+    btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit3.png")));
     }//GEN-LAST:event_btn_editMousePressed
-
-    private void btnbatal1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatal1MouseClicked
-        closeMessage();
-    }//GEN-LAST:event_btnbatal1MouseClicked
-
-    private void btnbatal1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatal1MouseEntered
-        btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformbatal2.png")));
-    }//GEN-LAST:event_btnbatal1MouseEntered
-
-    private void btnbatal1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatal1MouseExited
-        btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformbatal1.png")));
-    }//GEN-LAST:event_btnbatal1MouseExited
-
-    private void btnbatal1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatal1MousePressed
-        btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformbatal3.png")));
-    }//GEN-LAST:event_btnbatal1MousePressed
-
-    private void btnpilihMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMouseClicked
-        if(id != 0 ){
-            closeMessage();
-        }else {
-            System.out.println("pilih sulu bro");
-        }
-    }//GEN-LAST:event_btnpilihMouseClicked
-
-    private void btnpilihMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMouseEntered
-
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih2.png")));
-    }//GEN-LAST:event_btnpilihMouseEntered
-
-    private void btnpilihMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMouseExited
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih1.png")));
-    }//GEN-LAST:event_btnpilihMouseExited
-
-    private void btnpilihMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMousePressed
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih3.png")));
-    }//GEN-LAST:event_btnpilihMousePressed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int baris = table.rowAtPoint(evt.getPoint());
         String idd = table.getValueAt(baris, 0).toString();
-        id = Integer.valueOf(idd);
-        System.out.println(id);
+        ids = Integer.valueOf(idd);
+        input_idbayi.setText(idd);
+        input_tempatlahir.setText(bayi.get(ids).getTempat_lahir());
+        System.out.println(ids);
+        
+        try {
+            
+        
+        input_tgllahir.setText(sdf.format(bayi.get(ids).getTanggal_lahir()));
+        input_namaibu.setText(bayi.get(ids).getNama_ibu());
+        
+        
+        
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("gagal");
+        }
+        if(ids != 0){
+            jPanel2.setVisible(false);
+        jPanel1.setVisible(true);
+        } else {
+            System.out.println("pilih dulu");
+        }
     }//GEN-LAST:event_tableMouseClicked
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
@@ -397,8 +377,6 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
     private javax.swing.JLabel btcaribayi;
     private javax.swing.JLabel btn_edit;
     private javax.swing.JLabel btnbatal;
-    private javax.swing.JLabel btnbatal1;
-    private javax.swing.JLabel btnpilih;
     private view.customdate.DateChooser date1;
     private javax.swing.JTextField input_idbayi;
     private javax.swing.JTextField input_jenisimunisasi;
@@ -411,6 +389,7 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
     private javax.swing.JTextField input_usia;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField search;
     private view.swing.Table table;

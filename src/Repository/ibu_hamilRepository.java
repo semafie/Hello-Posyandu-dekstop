@@ -50,6 +50,23 @@ public class ibu_hamilRepository implements Repository<ibu_hamil>{
         }
         return us;
     }
+    public ibu_hamil getidbynama(String nama) {
+    String sql = "select * from "+tableName+" where nama = ?";
+        ibu_hamil us = new ibu_hamil();
+        
+        try {
+            Connection koneksi = (Connection)Conn.configDB();
+            PreparedStatement pst = koneksi.prepareStatement(sql);
+            pst.setString(1, nama);
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+                return mapToEntity(res);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return us;
+    }
 
     @Override
     public boolean add(ibu_hamil us) {

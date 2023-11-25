@@ -119,7 +119,7 @@ public class pemeriksaan_ibuhamilRepository implements Repository<pemeriksaan_ib
     
     private pemeriksaan_ibuhamil mapToEntity(ResultSet res) throws SQLException {
         pemeriksaan_ibuhamil us = new pemeriksaan_ibuhamil(
-        new ibu_hamilRepository().get(res.getInt("id_bayi")),
+        new ibu_hamilRepository().get(res.getInt("id_ibu_hamil")),
         res.getDate("tanggal_periksa"),
         res.getInt("usia_kandungan"),
         res.getInt("hamil_ke"),

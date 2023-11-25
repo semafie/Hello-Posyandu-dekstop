@@ -11,14 +11,14 @@ import java.awt.Font;
  *
  * @author Be Mine
  */
-public class formedit_laporanpelayanan_Periksaibu extends Dialog {
+public class formedit_laporanpelayanan_Penimbangan extends Dialog {
 
     /**
      * Creates new form formedit_laporanpelayanan_Periksaibu
      */
     private int id;
     
-    public formedit_laporanpelayanan_Periksaibu(JFrame fram) {
+    public formedit_laporanpelayanan_Penimbangan(JFrame fram) {
         super(fram);
         initComponents();
         jPanel2.setVisible(false);

@@ -114,7 +114,7 @@ public class penimbanganRepository implements Repository<penimbangan>{
     private penimbangan mapToEntity(ResultSet res) throws SQLException {
         penimbangan us = new penimbangan(
         new bayiRepository().get(res.getInt("id_bayi")),
-        res.getDate("tanggal_penimbangan"),
+        res.getDate("tanggal_timbang"),
         res.getInt("bb"),
         res.getInt("tb"),
         res.getString("deteksi"),
