@@ -481,6 +481,17 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
+            input_id_ibu.setText("");
+        input_namaibu.setText("");
+        input_usiakandungan.setText("");
+        input_hamil_ke.setText("");
+        input_riwayat_penyakit.setText("");
+        input_BB.setText("");
+        input_TB.setText("");
+        input_Deteksi.setText("");
+        input_Keterangan.setText("");
+        input_Tanggal_lahir.setText("");
+        input_TempatLahir.setText("");
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

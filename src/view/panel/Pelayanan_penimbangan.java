@@ -56,8 +56,8 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         input_BB.setFont(font);
         input_TB.setFont(font);
         input_Deteksi.setFont(font);
-        cmb_jeniskelamin.setFont(font);
         input_namaibu.setFont(font);
+        cmb_jeniskelamin.setFont(font);
         cmbbox();
     }
     
@@ -467,6 +467,15 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
+            input_id_bayi.setText("");
+        input_keterangan.setText("");
+        input_tanggallahir.setText("");
+        input_tempatlahir.setText("");
+        
+        input_BB.setText("");
+        input_TB.setText("");
+        input_Deteksi.setText("");
+        input_namaibu.setText("");
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

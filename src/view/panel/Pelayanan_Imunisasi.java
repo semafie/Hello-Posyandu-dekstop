@@ -433,8 +433,19 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
             JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
             viewer.setVisible(true);
             main main =(main)SwingUtilities.getWindowAncestor(this);
+            viewer.setDefaultCloseOperation(main.DISPOSE_ON_CLOSE);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
+            input_id_bayi.setText("");
+        input_keterangan.setText("");
+        input_tanggallahir.setText("");
+        input_tempatlahir.setText("");
+        input_jenisImunisasi.setText("");
+        input_jenisvitamin.setText("");
+        
+        input_keterangan.setText("");
+        input_usia.setText("");
+        input_namaibu.setText("");
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
