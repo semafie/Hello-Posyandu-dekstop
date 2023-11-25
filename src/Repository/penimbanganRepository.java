@@ -50,6 +50,23 @@ public class penimbanganRepository implements Repository<penimbangan>{
         }
         return us;
     }
+    public penimbangan getlastid() {
+    String sql = "select * from "+tableName+" ORDER BY id DESC LIMIT 1";
+        penimbangan us = new penimbangan();
+        
+        try {
+            Connection koneksi = (Connection)Conn.configDB();
+            PreparedStatement pst = koneksi.prepareStatement(sql);
+
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+                return mapToEntity(res);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return us;
+    }
 
     @Override
     public boolean add(penimbangan us) {

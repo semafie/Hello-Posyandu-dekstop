@@ -9,10 +9,24 @@ import Repository.pemeriksaan_ibuhamilRepository;
 import entity.ibu_hamil;
 import entity.pemeriksaan_ibuhamil;
 import java.awt.Font;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.SwingUtilities;
 import main.main;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import util.Conn;
 import view.dialog.formcari_ibuhamil;
 import view.notif.Notification;
 
@@ -171,9 +185,11 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanperiksa_Deteksi.png"))); // NOI18N
 
         input_id_ibu.setBackground(new java.awt.Color(246, 246, 233));
+        input_id_ibu.setFocusable(false);
         input_id_ibu.setRound(50);
 
         input_namaibu.setBackground(new java.awt.Color(246, 246, 233));
+        input_namaibu.setFocusable(false);
         input_namaibu.setRound(50);
 
         input_usiakandungan.setBackground(new java.awt.Color(246, 246, 233));
@@ -213,6 +229,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanperiksa_Tempat Lahir.png"))); // NOI18N
 
         input_TempatLahir.setBackground(new java.awt.Color(246, 246, 233));
+        input_TempatLahir.setFocusable(false);
         input_TempatLahir.setRound(50);
         input_TempatLahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,6 +240,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanperiksa_Tanggal Lahir.png"))); // NOI18N
 
         input_Tanggal_lahir.setBackground(new java.awt.Color(246, 246, 233));
+        input_Tanggal_lahir.setFocusable(false);
         input_Tanggal_lahir.setRound(50);
         input_Tanggal_lahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +258,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanperiksa_Tanggal Periksa.png"))); // NOI18N
 
         input_Tanggal_periksa.setBackground(new java.awt.Color(246, 246, 233));
+        input_Tanggal_periksa.setFocusable(false);
         input_Tanggal_periksa.setRound(50);
         input_Tanggal_periksa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -442,6 +461,29 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                 input_Deteksi.getText(), input_Keterangan.getText());
         boolean cobak = hayo.add(ibu);
         if(cobak){
+            
+            int idfinalrekap = hayo.getlastid().getId();
+            InputStream struk = getClass().getResourceAsStream("/jasper_report/report_pelayanan_periksaibu.jrxml");
+            String query = "SELECT * FROM pemeriksaan_ibu_hamil JOIN ibu_hamil ON pemeriksaan_ibu_hamil.id_ibu_hamil = ibu_hamil.id where pemeriksaan_ibu_hamil.id = " + idfinalrekap;
+//        String path = "E:/SEMUA FOLDER/imam/kuliah/semester 3/joki/SIsiloam/SIsiloam/SISILOAM/src/jasper_report/no_antrian.jrxml";
+
+        try {
+               Connection koneksi = (Connection) Conn.configDB();
+            Statement pstCek = koneksi.createStatement();
+            ResultSet res = pstCek.executeQuery(query);
+            JasperDesign design = JRXmlLoader.load(struk);
+            JasperReport jr = JasperCompileManager.compileReport(design);
+            JRResultSetDataSource rsDataSource = new JRResultSetDataSource(res);
+            JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
+
+            JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
+            viewer.setVisible(true);
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
              main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.TOP_CENTER, "Data Berhasil Ditambahakan");
             panel.showNotification();

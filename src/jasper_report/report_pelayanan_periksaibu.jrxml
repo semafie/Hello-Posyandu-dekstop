@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="300" pageHeight="500" columnWidth="260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="337b67ed-406d-4812-add8-430a1fb33c81">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM pemeriksaan_ibu_hamil
+JOIN ibu_hamil ON pemeriksaan_ibu_hamil.id_ibu_hamil = ibu_hamil.id;]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_ibu_hamil" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_periksa" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usia_kandungan" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hamil_ke" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="riwayat_penyakit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bb" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tb" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deteksi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tempat_lahir" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_lahir" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gol_darah" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alamat" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_hp" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_suami" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tempat_lahir_suami" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_lahir_suami" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="153" height="20" uuid="b024ba8a-13b6-4261-b1e7-d9f1b22ea1e9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sistem Informasi Posyandu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="a0f38136-91d6-414d-99b9-d6391c32f85d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nota Pelayanan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="47" width="260" height="1" uuid="9f86aaac-a03d-40ce-9d65-2fa77f460d02"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="153" height="20" uuid="57c9fe43-8351-4407-a7ee-6310e5f9fd5b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tanggal Periksa Kandungan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="0" width="12" height="20" uuid="ab78255a-2c01-4e6f-9cac-fe620360ca6c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="26" width="260" height="1" uuid="ac4ad277-1109-4004-9a99-fb9a859bd8f2"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="165" y="0" width="95" height="20" uuid="8d4b2f3d-220a-4a3b-aa08-bd27309f5101"/>
+				<textFieldExpression><![CDATA[$F{tanggal_periksa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="171" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="0" width="12" height="20" uuid="5f8b83c8-a5c2-44cc-8565-9ea3219db977"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="43d49467-cf01-4a68-88de-7c2a9b718c86"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nama Ibu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="6dcc031b-8466-472a-b348-69657af8a1e5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Usia Kandungan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="20" width="12" height="20" uuid="ad70804c-4d81-4d80-9c6d-ee66d1c21534"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="603ddf3d-93c6-438f-b7fb-44491854ab62"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Hamil ke-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="40" width="12" height="20" uuid="5f49d248-b93e-4b15-9aa8-3677e686e451"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20" uuid="b6424f75-8ed9-4ca7-86ad-4170303c2652"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Riwayat Penyakit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="60" width="12" height="20" uuid="894cace4-41d2-4f13-a23c-5a5d3bf8eea6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20" uuid="66a56f42-86a3-4c3a-8915-dc0074368050"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Berat Badan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="80" width="12" height="20" uuid="860f6355-47cc-40ac-9dbf-690b0d06b8ed"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="100" height="20" uuid="321941f5-4bc1-4e01-add6-68acefe589eb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tinggi Badan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="100" width="12" height="20" uuid="676543bf-7591-4389-a54e-ab128640f09f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="100" height="20" uuid="d02bada8-1529-43f4-b06a-5b7a7ac883c8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Deteksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="120" width="12" height="20" uuid="cdb7d7c8-b4de-4fe6-b6de-cce3ca8ff18e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="140" width="100" height="20" uuid="d20d6f0b-16dc-4e04-86a4-f3d25ba8d944"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="140" width="12" height="20" uuid="ad36f1cd-67d3-47e8-b47c-f48944fac8d9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="112" y="0" width="113" height="20" uuid="322cfd27-bd6a-491c-be30-b1921db0a35a"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="20" width="100" height="20" uuid="17cbf37c-2e2c-49a8-8d04-05374e95de0e"/>
+				<textFieldExpression><![CDATA[$F{usia_kandungan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="40" width="100" height="20" uuid="4eb56531-92ad-4ba6-8eeb-6820575a6ebe"/>
+				<textFieldExpression><![CDATA[$F{hamil_ke}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="60" width="100" height="20" uuid="024be088-c553-4436-930a-dc6fce3c4741"/>
+				<textFieldExpression><![CDATA[$F{riwayat_penyakit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="80" width="31" height="20" uuid="0d3fa973-8268-4a50-96b7-845bfde24fab"/>
+				<textFieldExpression><![CDATA[$F{bb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="100" width="31" height="20" uuid="e9f49447-1fd9-41d5-bec0-84da3bbebf07"/>
+				<textFieldExpression><![CDATA[$F{tb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="120" width="100" height="20" uuid="6143330a-4803-4b4d-9835-dfff267ef38f"/>
+				<textFieldExpression><![CDATA[$F{deteksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="140" width="100" height="20" uuid="ecd6e5d2-1616-4c85-9b78-ba1f890bdef9"/>
+				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="143" y="100" width="37" height="20" uuid="1aab160b-6fa2-4647-abd8-cb3cd1cbacda"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[cm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="80" width="37" height="20" uuid="c6767802-4f85-4572-85bd-bbdcb7b6968e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[kg]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="165" width="260" height="1" uuid="f9579baa-9b0d-437c-9431-e508bb781c98"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="260" height="41" uuid="a65c5602-d2de-42c7-90a1-3d05c8a5aea0"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Terima Kasih Telah Mengunjungi Posyandu Kami, dan Jangan pernah Ragu Untuk Kembali]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="8" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -18,6 +18,15 @@ public class imunisasi implements Entity{
     this.jenis_vitamin = jenis_vitamin;
     this.keterangan = keterangan;
     }
+    public imunisasi(int id, bayi id_bayi,Date tanggal_imunisasi, int usia, String jenis_imunisasi,String jenis_vitamin,String keterangan){
+    this.id = id;
+        this.id_bayi = id_bayi;
+    this.tanggal_imunisasi = tanggal_imunisasi;
+    this.usia = usia;
+    this.jenis_imunisasi = jenis_imunisasi;
+    this.jenis_vitamin = jenis_vitamin;
+    this.keterangan = keterangan;
+    }
     public imunisasi(){
     }
 

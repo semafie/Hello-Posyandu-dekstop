@@ -24,6 +24,19 @@ public class pemeriksaan_ibuhamil implements Entity{
         this.deteksi = deteksi;
         this.keterangan = keterangan;
     }
+    
+    public pemeriksaan_ibuhamil(int id, ibu_hamil id_ibuhamil,Date tanggal_periksa, int usia_kandungan, int hamil_ke, String riwayat_penyakit, int bb, int tb ,String deteksi,String keterangan ){
+        this.id = id;
+        this.id_ibuhamil = id_ibuhamil;
+        this.tanggal_periksa = tanggal_periksa;
+        this.usia_kandungan = usia_kandungan;
+        this.hamil_ke = hamil_ke;
+        this.riwayat_penyakit = riwayat_penyakit;
+        this.bb = bb;
+        this.tb = tb;
+        this.deteksi = deteksi;
+        this.keterangan = keterangan;
+    }
 
     public void setBb(int bb) {
         this.bb = bb;

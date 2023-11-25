@@ -372,9 +372,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
     }//GEN-LAST:event_btnresetMouseClicked
 
     private void btnsimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseClicked
-    if(!input_alamat.getText().equals("") || !input_goldarah.equals("") ||!input_namaibu.getText().equals("")||
-            !input_namasuami.getText().equals("")||!input_notelp.getText().equals("")||!input_tempatlahir.getText().equals("")||
-            !input_tempatlahirsuami.getText().equals("")){
+    
         try {
             Date ambil1 = sdf.parse(input_tanggallahir.getText());
             Date ambil2 = sdf.parse(input_tanggallahirsuami.getText());
@@ -383,7 +381,7 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
             boolean cobak = ibuhamil.add(ibu);
             if (cobak){
                 main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.TOP_CENTER, "Data Berhasil Ditambahakan");
             panel.showNotification();
             input_alamat.setText("");
     input_goldarah.setText("");
@@ -403,10 +401,6 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
             Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
             panel.showNotification();
         }
-        main main =(main)SwingUtilities.getWindowAncestor(this);
-            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Tidak Boleh Kosong");
-            panel.showNotification();
-    }
     }//GEN-LAST:event_btnsimpanMouseClicked
 
     private void btnresetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnresetMouseEntered

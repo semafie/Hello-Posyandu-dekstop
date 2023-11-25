@@ -2,13 +2,29 @@
 package view.panel;
 import Repository.bayiRepository;
 import Repository.ibu_hamilRepository;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import entity.bayi;
 import entity.ibu_hamil;
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import main.main;
 import util.Conn;
@@ -174,6 +190,96 @@ public void load_tabelbayi(String search) {
         e.printStackTrace();
     }
 }
+private boolean convertJTableToPDF(JTable jTable, String judul) {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Simpan sebagai PDF");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("File PDF", "pdf"));
+
+    int userSelection = fileChooser.showSaveDialog(null);
+        try {
+            
+        
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+        Document document = new Document(PageSize.A4.rotate());
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+            document.open();
+            
+            // Tambahkan judul laporan
+                Paragraph title = new Paragraph(judul, new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 18, com.lowagie.text.Font.NORMAL));
+                title.setAlignment(Element.ALIGN_CENTER);
+                document.add(title);
+                
+                Paragraph title1 = new Paragraph(" ", new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 18, com.lowagie.text.Font.NORMAL));
+                title1.setAlignment(Element.ALIGN_CENTER);
+                document.add(title1);
+                
+                
+                
+                
+                // Tambahkan tanggal hari ini
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String currentDate = "Tanggal: " + sdf.format(new Date()) ;
+                Paragraph date = new Paragraph(currentDate, new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 12, com.lowagie.text.Font.NORMAL));
+                date.setAlignment(Element.ALIGN_RIGHT);
+                document.add(date);
+                
+                Paragraph title2 = new Paragraph(" ", new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 20, com.lowagie.text.Font.NORMAL));
+                title2.setAlignment(Element.ALIGN_CENTER);
+                document.add(title2);
+                
+                date.setSpacingAfter(25);
+            
+            PdfPTable pdfTable = new PdfPTable(jTable.getColumnCount());
+            
+            pdfTable.getDefaultCell().setBorderColor(new Color(219,219,219));
+            
+            pdfTable.setTotalWidth(PageSize.A4.getHeight());
+
+            // Mengisi header tabel PDF dengan nama kolom dari JTable
+            for (int i = 0; i < jTable.getColumnCount(); i++) {
+//                pdfTable.addCell(jTable.getColumnName(i));
+                PdfPCell cell = new PdfPCell(new Phrase(jTable.getColumnName(i)));
+                    cell.setBackgroundColor(new Color(140,170,126)); // Warna latar belakang
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER); // Pusatkan teks
+                    cell.setPadding(1);
+                    cell.setBorderColor(Color.WHITE);
+                    pdfTable.addCell(cell);
+            }
+//            float[] columnWidths = {1f, 1.5f, 2f, 1.5f}; // Sesuaikan lebar kolom sesuai kebutuhan
+//                pdfTable.setWidths(columnWidths);
+
+
+            // Mengisi data dari JTable ke tabel PDF
+            for (int i = 0; i < jTable.getRowCount(); i++) {
+                for (int j = 0; j < jTable.getColumnCount(); j++) {
+                    pdfTable.addCell(jTable.getValueAt(i, j).toString());
+                }
+            }
+
+            document.add(pdfTable);
+            document.close();
+//            JOptionPane.showMessageDialog(null, "Berhasil menyimpan PDF", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di cetak");
+            aa.showPopUp();
+            return true;
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Gagal menyimpan PDF", "Error", JOptionPane.ERROR_MESSAGE);
+    main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Data gagal dicetak");
+            aa.showPopUp();
+return false;
+        }   
+    }
+    return true;
+    } catch (Exception e) {
+        return false;
+        }
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -195,7 +301,6 @@ public void load_tabelbayi(String search) {
         panelShadow25 = new view.swing.panelcustom.PanelShadow();
         jScrollPane25 = new javax.swing.JScrollPane();
         table = new view.swing.Table();
-        btncetakdata = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(246, 246, 233));
 
@@ -334,22 +439,6 @@ public void load_tabelbayi(String search) {
                 .addGap(39, 39, 39))
         );
 
-        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata1.png"))); // NOI18N
-        btncetakdata.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btncetakdataMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btncetakdataMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btncetakdataMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btncetakdataMousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -358,8 +447,6 @@ public void load_tabelbayi(String search) {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btncetakdata)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -379,24 +466,19 @@ public void load_tabelbayi(String search) {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btncetakdata, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_form, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)
-                        .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(txt_form, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -414,7 +496,11 @@ public void load_tabelbayi(String search) {
     }//GEN-LAST:event_btnsimpanpdfMouseEntered
 
     private void btnsimpanpdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanpdfMouseClicked
-        // TODO add your handling code here:
+     if(pilih1.equals("ibu hamil")){   
+        convertJTableToPDF(table,"LAPORAN DATA IBU HAMIL");
+     } else {
+         convertJTableToPDF(table,"LAPORAN DATA BAYI");
+     }
     }//GEN-LAST:event_btnsimpanpdfMouseClicked
 
     private void btnhapusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMousePressed
@@ -510,22 +596,6 @@ public void load_tabelbayi(String search) {
     }
     }//GEN-LAST:event_txt_searchKeyReleased
 
-    private void btncetakdataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btncetakdataMouseClicked
-
-    private void btncetakdataMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseEntered
-    btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata2.png")));
-    }//GEN-LAST:event_btncetakdataMouseEntered
-
-    private void btncetakdataMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseExited
-    btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata1.png")));
-    }//GEN-LAST:event_btncetakdataMouseExited
-
-    private void btncetakdataMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMousePressed
-     btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata3.png")));
-    }//GEN-LAST:event_btncetakdataMousePressed
-
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
     int baris = table.rowAtPoint(evt.getPoint());
         String idd = table.getValueAt(baris, 0).toString();
@@ -535,7 +605,6 @@ public void load_tabelbayi(String search) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgsearch;
-    private javax.swing.JLabel btncetakdata;
     private javax.swing.JLabel btnedit;
     private javax.swing.JLabel btnhapus;
     private javax.swing.JLabel btnsimpanpdf;

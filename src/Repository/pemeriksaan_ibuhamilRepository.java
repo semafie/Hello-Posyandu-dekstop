@@ -51,6 +51,24 @@ public class pemeriksaan_ibuhamilRepository implements Repository<pemeriksaan_ib
         }
         return us;
     }
+    
+    public pemeriksaan_ibuhamil getlastid() {
+    String sql = "select * from "+tableName+" ORDER BY id DESC LIMIT 1";
+        pemeriksaan_ibuhamil us = new pemeriksaan_ibuhamil();
+        
+        try {
+            Connection koneksi = (Connection)Conn.configDB();
+            PreparedStatement pst = koneksi.prepareStatement(sql);
+
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+                return mapToEntity(res);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return us;
+    }
 
     @Override
     public boolean add(pemeriksaan_ibuhamil us) {

@@ -8,6 +8,7 @@ import Repository.bidanRepository;
 import Repository.imunisasiRepository;
 import entity.bayi;
 import entity.bidan;
+import entity.imunisasi;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -189,16 +190,22 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
 
         input_tempatlahir.setBackground(new Color(0,0,0,0));
         input_tempatlahir.setBorder(null);
+        input_tempatlahir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        input_tempatlahir.setFocusable(false);
         jPanel1.add(input_tempatlahir);
         input_tempatlahir.setBounds(40, 240, 370, 30);
 
         input_namaibu.setBackground(new Color(0,0,0,0));
         input_namaibu.setBorder(null);
+        input_namaibu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        input_namaibu.setFocusable(false);
         jPanel1.add(input_namaibu);
         input_namaibu.setBounds(570, 160, 370, 30);
 
         input_tgllahir.setBackground(new Color(0,0,0,0));
         input_tgllahir.setBorder(null);
+        input_tgllahir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        input_tgllahir.setFocusable(false);
         jPanel1.add(input_tgllahir);
         input_tgllahir.setBounds(40, 325, 410, 30);
 
@@ -222,6 +229,8 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
 
         input_idbayi.setBackground(new Color(0,0,0,0));
         input_idbayi.setBorder(null);
+        input_idbayi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        input_idbayi.setFocusable(false);
         jPanel1.add(input_idbayi);
         input_idbayi.setBounds(40, 160, 320, 30);
 
@@ -320,7 +329,28 @@ public class formedit_laporanpelayanan_imunisasi extends Dialog {
     }//GEN-LAST:event_btcaribayiMousePressed
 
     private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
-        // TODO add your handling code here:
+        bayi idbayi = new bayi(Integer.valueOf(input_idbayi.getText()));
+        try {
+            imunisasi apa = new imunisasi(id, idbayi, sdf.parse(input_tgl.getText()),
+                    Integer.valueOf(input_usia.getText()), input_jenisimunisasi.getText(),
+                    input_jenisvitamin.getText(), input_keterangan.getText());
+            boolean cobak = imun.update(apa);
+            if(cobak) {
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.TOP_CENTER, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+            closeMessage();
+            }else {
+                 main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "Data Gagal Ditambahakan");
+            panel.showNotification();
+            }
+        } catch (Exception e) {
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "Data Gagal Ditambahakan");
+            panel.showNotification();
+        }
+        
     }//GEN-LAST:event_btn_editMouseClicked
 
     private void btn_editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseEntered

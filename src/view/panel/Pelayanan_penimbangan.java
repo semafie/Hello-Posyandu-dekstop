@@ -9,10 +9,24 @@ import Repository.penimbanganRepository;
 import entity.bayi;
 import entity.penimbangan;
 import java.awt.Font;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.SwingUtilities;
 import main.main;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import util.Conn;
 import view.dialog.formcari_bayi;
 import view.dialog.formcari_ibuhamil;
 import view.notif.Notification;
@@ -99,6 +113,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_Pelayanan Penimbangan.png"))); // NOI18N
 
         input_id_bayi.setBackground(new java.awt.Color(246, 246, 233));
+        input_id_bayi.setFocusable(false);
         input_id_bayi.setRound(40);
         input_id_bayi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +134,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanpenimbangan_Deteksi.png"))); // NOI18N
 
         input_tempatlahir.setBackground(new java.awt.Color(246, 246, 233));
+        input_tempatlahir.setFocusable(false);
         input_tempatlahir.setRound(40);
         input_tempatlahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +143,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         });
 
         input_tanggallahir.setBackground(new java.awt.Color(246, 246, 233));
+        input_tanggallahir.setFocusable(false);
         input_tanggallahir.setRound(40);
         input_tanggallahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +152,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         });
 
         input_tanggalhariini.setBackground(new java.awt.Color(246, 246, 233));
+        input_tanggalhariini.setFocusable(false);
         input_tanggalhariini.setRound(40);
         input_tanggalhariini.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +247,7 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         jLabel13.setText("Cm");
 
         input_namaibu.setBackground(new java.awt.Color(246, 246, 233));
+        input_namaibu.setFocusable(false);
         input_namaibu.setRound(40);
         input_namaibu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,6 +448,28 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
             input_Deteksi.getText(),input_keterangan.getText());
             boolean cobak = pinimm.add(kirim);
             if (cobak){
+                int idfinalrekap = pinimm.getlastid().getId();
+            InputStream struk = getClass().getResourceAsStream("/jasper_report/report_pelayanan_penimbangan.jrxml");
+            String query = "SELECT * FROM penimbangan JOIN bayi ON penimbangan.id_bayi = bayi.id where penimbangan.id = " + idfinalrekap;
+//        String path = "E:/SEMUA FOLDER/imam/kuliah/semester 3/joki/SIsiloam/SIsiloam/SISILOAM/src/jasper_report/no_antrian.jrxml";
+
+        try {
+               Connection koneksi = (Connection) Conn.configDB();
+            Statement pstCek = koneksi.createStatement();
+            ResultSet res = pstCek.executeQuery(query);
+            JasperDesign design = JRXmlLoader.load(struk);
+            JasperReport jr = JasperCompileManager.compileReport(design);
+            JRResultSetDataSource rsDataSource = new JRResultSetDataSource(res);
+            JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
+
+            JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
+            viewer.setVisible(true);
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
                 main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();

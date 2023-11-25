@@ -117,6 +117,7 @@ private static boolean isHidden = true;
         eye.setBounds(955, 323, 30, 30);
 
         silang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/silang1.png"))); // NOI18N
+        silang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         silang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 silangMouseClicked(evt);

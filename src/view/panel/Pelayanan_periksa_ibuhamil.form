@@ -334,6 +334,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
         <Property name="round" type="int" value="50"/>
       </Properties>
     </Component>
@@ -342,6 +343,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
         <Property name="round" type="int" value="50"/>
       </Properties>
     </Component>
@@ -438,6 +440,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
         <Property name="round" type="int" value="50"/>
       </Properties>
       <Events>
@@ -456,6 +459,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
         <Property name="round" type="int" value="50"/>
       </Properties>
       <Events>
@@ -482,6 +486,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e9" green="f6" red="f6" type="rgb"/>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
         <Property name="round" type="int" value="50"/>
       </Properties>
       <Events>

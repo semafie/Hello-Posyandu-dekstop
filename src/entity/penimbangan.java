@@ -22,6 +22,15 @@ public class penimbangan implements Entity{
         this.deteksi = deteksi;
         this.keterangan = keterangan;
     }
+    
+    public penimbangan(int id ,bayi id_bayi, Date tanggal_timbang, int bb, int tb , String deteksi, String keterangan){
+        this.id_bayi = id_bayi;
+        this.tanggal_timbang = tanggal_timbang;
+        this.bb = bb;
+        this.tb = tb;
+        this.deteksi = deteksi;
+        this.keterangan = keterangan;
+    }
 
     public void setBb(int bb) {
         this.bb = bb;

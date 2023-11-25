@@ -3,21 +3,50 @@ package view.panel;
 import Repository.imunisasiRepository;
 import Repository.pemeriksaan_ibuhamilRepository;
 import Repository.penimbanganRepository;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import entity.imunisasi;
 import entity.pemeriksaan_ibuhamil;
 import entity.penimbangan;
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import main.main;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import util.Conn;
 import view.dialog.formedit_laporanpelayanan_Penimbangan;
 import view.dialog.formedit_laporanpelayanan_ibuhamil;
 import view.dialog.formedit_laporanpelayanan_imunisasi;
 import view.dialog.validasiberhasil;
+import view.dialog.validasigagal;
+import view.notif.Notification;
 public class Laporan_Pelayanan extends javax.swing.JPanel {
     
     public static int id = 0;
@@ -166,6 +195,97 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
             System.out.println(e.getMessage());
         }
     }
+    private boolean convertJTableToPDF(JTable jTable, String judul) {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Simpan sebagai PDF");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("File PDF", "pdf"));
+
+    int userSelection = fileChooser.showSaveDialog(null);
+        try {
+            
+        
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+        Document document = new Document(PageSize.A4.rotate());
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+            document.open();
+            
+            // Tambahkan judul laporan
+                Paragraph title = new Paragraph(judul, new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 18, com.lowagie.text.Font.NORMAL));
+                title.setAlignment(Element.ALIGN_CENTER);
+                document.add(title);
+                
+                Paragraph title1 = new Paragraph(" ", new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 18, com.lowagie.text.Font.NORMAL));
+                title1.setAlignment(Element.ALIGN_CENTER);
+                document.add(title1);
+                
+                
+                
+                
+                // Tambahkan tanggal hari ini
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String currentDate = "Tanggal: " + sdf.format(new Date()) ;
+                Paragraph date = new Paragraph(currentDate, new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 12, com.lowagie.text.Font.NORMAL));
+                date.setAlignment(Element.ALIGN_RIGHT);
+                document.add(date);
+                
+                Paragraph title2 = new Paragraph(" ", new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 20, com.lowagie.text.Font.NORMAL));
+                title2.setAlignment(Element.ALIGN_CENTER);
+                document.add(title2);
+                
+                date.setSpacingAfter(25);
+            
+            PdfPTable pdfTable = new PdfPTable(jTable.getColumnCount());
+            
+            pdfTable.getDefaultCell().setBorderColor(new Color(219,219,219));
+            
+            pdfTable.setTotalWidth(PageSize.A4.getHeight());
+
+            // Mengisi header tabel PDF dengan nama kolom dari JTable
+            for (int i = 0; i < jTable.getColumnCount(); i++) {
+//                pdfTable.addCell(jTable.getColumnName(i));
+                PdfPCell cell = new PdfPCell(new Phrase(jTable.getColumnName(i)));
+                    cell.setBackgroundColor(new Color(140,170,126)); // Warna latar belakang
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER); // Pusatkan teks
+                    cell.setPadding(1);
+                    cell.setBorderColor(Color.WHITE);
+                    pdfTable.addCell(cell);
+            }
+//            float[] columnWidths = {1f, 1.5f, 2f, 1.5f}; // Sesuaikan lebar kolom sesuai kebutuhan
+//                pdfTable.setWidths(columnWidths);
+
+
+            // Mengisi data dari JTable ke tabel PDF
+            for (int i = 0; i < jTable.getRowCount(); i++) {
+                for (int j = 0; j < jTable.getColumnCount(); j++) {
+                    pdfTable.addCell(jTable.getValueAt(i, j).toString());
+                }
+            }
+
+            document.add(pdfTable);
+            document.close();
+//            JOptionPane.showMessageDialog(null, "Berhasil menyimpan PDF", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di cetak");
+            aa.showPopUp();
+            return true;
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Gagal menyimpan PDF", "Error", JOptionPane.ERROR_MESSAGE);
+    main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Data gagal dicetak");
+            aa.showPopUp();
+return false;
+        }   
+    }
+    return true;
+    } catch (Exception e) {
+        return false;
+        }
+}
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -184,11 +304,12 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
         bgsearch = new javax.swing.JLabel();
         btnedit = new javax.swing.JLabel();
         btnhapus = new javax.swing.JLabel();
-        btnsimpancetak = new javax.swing.JLabel();
         txt_form = new javax.swing.JLabel();
         panelShadow25 = new view.swing.panelcustom.PanelShadow();
         jScrollPane25 = new javax.swing.JScrollPane();
         table = new view.swing.Table();
+        btnsimpanpdf = new javax.swing.JLabel();
+        btncetakdata = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(246, 246, 233));
 
@@ -294,22 +415,6 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
             }
         });
 
-        btnsimpancetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsimpan&cetak1.png"))); // NOI18N
-        btnsimpancetak.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnsimpancetakMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnsimpancetakMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnsimpancetakMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnsimpancetakMousePressed(evt);
-            }
-        });
-
         txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_Laporan Pemeriksaan Ibu Hamil.png"))); // NOI18N
 
         panelShadow25.setBackground(new java.awt.Color(234, 245, 255));
@@ -351,16 +456,50 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
                 .addGap(39, 39, 39))
         );
 
+        btnsimpanpdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btncetakpdf1.png"))); // NOI18N
+        btnsimpanpdf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnsimpanpdfMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsimpanpdfMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsimpanpdfMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnsimpanpdfMousePressed(evt);
+            }
+        });
+
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata1.png"))); // NOI18N
+        btncetakdata.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btncetakdataMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btncetakdataMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btncetakdataMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btncetakdataMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnsimpancetak))
+                        .addComponent(btncetakdata)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap(743, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -392,26 +531,12 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(27, 27, 27)
-                .addComponent(btnsimpancetak)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btncetakdata, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnsimpancetakMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpancetakMousePressed
-        btnsimpancetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsimpan&cetak3.png")));
-    }//GEN-LAST:event_btnsimpancetakMousePressed
-
-    private void btnsimpancetakMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpancetakMouseExited
-        btnsimpancetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsimpan&cetak1.png")));
-    }//GEN-LAST:event_btnsimpancetakMouseExited
-
-    private void btnsimpancetakMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpancetakMouseEntered
-        btnsimpancetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsimpan&cetak2.png")));
-    }//GEN-LAST:event_btnsimpancetakMouseEntered
-
-    private void btnsimpancetakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpancetakMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnsimpancetakMouseClicked
 
     private void btnhapusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMousePressed
         btnhapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnhapus3.png")));
@@ -467,20 +592,35 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
     if (pilih1.equals("imunisasi")){
-        main main = (main)SwingUtilities.getWindowAncestor(this);
+        if (id != 0) {
+         main main = (main)SwingUtilities.getWindowAncestor(this);
         formedit_laporanpelayanan_imunisasi a = new formedit_laporanpelayanan_imunisasi(main);
         a.showPopUp();
-        load_tabelimunisasi();
+        load_tabelimunisasi();   
+        } else {
+            System.out.println("pilih dulu");
+        }
+        
     }else if(pilih1.equals("penimbangan")){
-        main main = (main)SwingUtilities.getWindowAncestor(this);
+        if (id != 0) {
+            main main = (main)SwingUtilities.getWindowAncestor(this);
         formedit_laporanpelayanan_Penimbangan a = new formedit_laporanpelayanan_Penimbangan(main);
         a.showPopUp();
         load_tabelpenimbangan();
+        } else {
+            System.out.println("pilih dulu");
+        }
+        
     } else{
-        main mian =(main)SwingUtilities.getWindowAncestor(this);
+        if (id != 0) {
+            main mian =(main)SwingUtilities.getWindowAncestor(this);
         formedit_laporanpelayanan_ibuhamil apa = new formedit_laporanpelayanan_ibuhamil(mian);
         apa.showPopUp();
         load_tabelpemeriksanibu();
+        } else {
+            System.out.println("pilih dulu");
+        }
+        
     }
     }//GEN-LAST:event_btneditMouseClicked
 
@@ -535,12 +675,121 @@ public class Laporan_Pelayanan extends javax.swing.JPanel {
         id = Integer.valueOf(idd);
     }//GEN-LAST:event_tableMouseClicked
 
+    private void btnsimpanpdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanpdfMouseClicked
+        if (pilih1.equals("imunisasi")){
+            convertJTableToPDF(table,"LAPORAN DATA IMUNISASI");
+        }else if(pilih1.equals("penimbangan")){
+            convertJTableToPDF(table,"LAPORAN DATA PENIMBANGAN");  
+        } else {
+            convertJTableToPDF(table,"LAPORAN DATA PEMERIKSAAN IBU HAMIL");
+        }
+    }//GEN-LAST:event_btnsimpanpdfMouseClicked
+
+    private void btnsimpanpdfMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanpdfMouseEntered
+        btnsimpanpdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btncetakpdf2.png")));
+    }//GEN-LAST:event_btnsimpanpdfMouseEntered
+
+    private void btnsimpanpdfMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanpdfMouseExited
+        btnsimpanpdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btncetakpdf1.png")));
+    }//GEN-LAST:event_btnsimpanpdfMouseExited
+
+    private void btnsimpanpdfMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanpdfMousePressed
+        btnsimpanpdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btncetakpdf3.png")));
+    }//GEN-LAST:event_btnsimpanpdfMousePressed
+
+    private void btncetakdataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseClicked
+    if (pilih1.equals("imunisasi")){
+    int idfinalrekap = imunisasi.getlastid().getId();
+            InputStream struk = getClass().getResourceAsStream("/jasper_report/report_pelayanan_imunisasi.jrxml");
+            String query = "SELECT * FROM imunisasi JOIN bayi ON imunisasi.id_bayi = bayi.id where imunisasi.id = " + id;
+//        String path = "E:/SEMUA FOLDER/imam/kuliah/semester 3/joki/SIsiloam/SIsiloam/SISILOAM/src/jasper_report/no_antrian.jrxml";
+
+        try {
+               Connection koneksi = (Connection) Conn.configDB();
+            Statement pstCek = koneksi.createStatement();
+            ResultSet res = pstCek.executeQuery(query);
+            JasperDesign design = JRXmlLoader.load(struk);
+            JasperReport jr = JasperCompileManager.compileReport(design);
+            JRResultSetDataSource rsDataSource = new JRResultSetDataSource(res);
+            JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
+
+            JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
+            viewer.setVisible(true);
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }else if(pilih1.equals("penimbangan")){
+        int idfinalrekap = periksaibu.getlastid().getId();
+            InputStream struk = getClass().getResourceAsStream("/jasper_report/report_pelayanan_penimbangan.jrxml");
+            String query = "SELECT * FROM penimbangan JOIN bayi ON penimbangan.id_bayi = bayi.id where penimbangan.id = " + id;
+//        String path = "E:/SEMUA FOLDER/imam/kuliah/semester 3/joki/SIsiloam/SIsiloam/SISILOAM/src/jasper_report/no_antrian.jrxml";
+
+        try {
+               Connection koneksi = (Connection) Conn.configDB();
+            Statement pstCek = koneksi.createStatement();
+            ResultSet res = pstCek.executeQuery(query);
+            JasperDesign design = JRXmlLoader.load(struk);
+            JasperReport jr = JasperCompileManager.compileReport(design);
+            JRResultSetDataSource rsDataSource = new JRResultSetDataSource(res);
+            JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
+
+            JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
+            viewer.setVisible(true);
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }else {
+        int idfinalrekap = periksaibu.getlastid().getId();
+            InputStream struk = getClass().getResourceAsStream("/jasper_report/report_pelayanan_periksaibu.jrxml");
+            String query = "SELECT * FROM pemeriksaan_ibu_hamil JOIN ibu_hamil ON pemeriksaan_ibu_hamil.id_ibu_hamil = ibu_hamil.id where pemeriksaan_ibu_hamil.id = " + id;
+//        String path = "E:/SEMUA FOLDER/imam/kuliah/semester 3/joki/SIsiloam/SIsiloam/SISILOAM/src/jasper_report/no_antrian.jrxml";
+
+        try {
+               Connection koneksi = (Connection) Conn.configDB();
+            Statement pstCek = koneksi.createStatement();
+            ResultSet res = pstCek.executeQuery(query);
+            JasperDesign design = JRXmlLoader.load(struk);
+            JasperReport jr = JasperCompileManager.compileReport(design);
+            JRResultSetDataSource rsDataSource = new JRResultSetDataSource(res);
+            JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
+
+            JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
+            viewer.setVisible(true);
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+            panel.showNotification();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    }//GEN-LAST:event_btncetakdataMouseClicked
+
+    private void btncetakdataMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseEntered
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata2.png")));
+    }//GEN-LAST:event_btncetakdataMouseEntered
+
+    private void btncetakdataMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseExited
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata1.png")));
+    }//GEN-LAST:event_btncetakdataMouseExited
+
+    private void btncetakdataMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMousePressed
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata3.png")));
+    }//GEN-LAST:event_btncetakdataMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgsearch;
+    private javax.swing.JLabel btncetakdata;
     private javax.swing.JLabel btnedit;
     private javax.swing.JLabel btnhapus;
-    private javax.swing.JLabel btnsimpancetak;
+    private javax.swing.JLabel btnsimpanpdf;
     private javax.swing.JLabel dataimunisasi;
     private javax.swing.JLabel dataimunisasi1;
     private javax.swing.JLabel datapenimbangan;

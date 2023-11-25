@@ -4,9 +4,20 @@
  */
 package view.dialog;
 
+import Repository.bayiRepository;
+import Repository.imunisasiRepository;
+import Repository.penimbanganRepository;
+import entity.bayi;
+import entity.penimbangan;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import main.main;
+import view.notif.Notification;
+import view.panel.Laporan_Pelayanan;
 /**
  *
  * @author Be Mine
@@ -16,7 +27,11 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
     /**
      * Creates new form formedit_laporanpelayanan_Periksaibu
      */
-    private int id;
+    private int ids;
+    private int id  = Laporan_Pelayanan.id;
+    bayiRepository bayi = new bayiRepository();
+    penimbanganRepository imun = new penimbanganRepository();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     
     public formedit_laporanpelayanan_Penimbangan(JFrame fram) {
         super(fram);
@@ -31,8 +46,46 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
         input_tanggallahir.setFont(font);
         input_tb.setFont(font);
         input_deteksi.setFont(font);
-        jComboBox1.setFont(font);
+        input_jeniskelamin.setFont(font);
         input_namaibu.setFont(font);
+        load_tabelbayi();
+        input_idbayi.setText(String.valueOf(imun.get(id).getId_bayi().getId()));
+        input_TEMPATLAHIR.setText(imun.get(id).getId_bayi().getTempat_lahir());
+        input_bb.setText(String.valueOf(imun.get(id).getBb()));
+        input_deteksi.setText(imun.get(id).getDeteksi());
+        input_keterangan.setText(imun.get(id).getKeterangan());
+        input_namaibu.setText(imun.get(id).getId_bayi().getNama_ibu());
+        input_tanggallahir.setText(sdf.format(imun.get(id).getId_bayi().getTanggal_lahir()));
+        input_tanggaltimbang.setText(sdf.format(imun.get(id).getTanggal_timbang()));
+        input_tb.setText(String.valueOf(imun.get(id).getTb()));
+        String jnk = imun.get(id).getId_bayi().getJenis_kelamin();
+        input_jeniskelamin.setText(jnk);
+    }
+    public void load_tabelbayi(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nama");
+        model.addColumn("Tempat Lahir");
+        model.addColumn("Tanggal Lahir");
+        model.addColumn("Jenis Kelamin");
+        model.addColumn("nama_ibu");
+        
+        try {
+            for(bayi apa:bayi.get()){
+                model.addRow(new Object[]{
+                    apa.getId(),
+                    apa.getNama(),
+                    apa.getTempat_lahir(),
+                    apa.getTanggal_lahir(),
+                    apa.getJenis_kelamin(),
+                    apa.getNama_ibu()
+                    
+                });
+            }
+            table.setModel(model);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -46,7 +99,6 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
 
         jPanel1 = new javax.swing.JPanel();
         btnbatal = new javax.swing.JLabel();
-        btnpilih = new javax.swing.JLabel();
         input_TEMPATLAHIR = new javax.swing.JTextField();
         input_tanggallahir = new javax.swing.JTextField();
         input_tanggaltimbang = new javax.swing.JTextField();
@@ -56,8 +108,9 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
         input_keterangan = new javax.swing.JTextField();
         input_namaibu = new javax.swing.JTextField();
         input_idbayi = new javax.swing.JTextField();
+        input_jeniskelamin = new javax.swing.JTextField();
         btcaribayi = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        btn_edit = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -89,31 +142,15 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
         jPanel1.add(btnbatal);
         btnbatal.setBounds(580, 630, 190, 60);
 
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih1.png"))); // NOI18N
-        btnpilih.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnpilihMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnpilihMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnpilihMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnpilihMousePressed(evt);
-            }
-        });
-        jPanel1.add(btnpilih);
-        btnpilih.setBounds(820, 630, 190, 60);
-
         input_TEMPATLAHIR.setBackground(new Color(0,0,0,0));
         input_TEMPATLAHIR.setBorder(null);
+        input_TEMPATLAHIR.setFocusable(false);
         jPanel1.add(input_TEMPATLAHIR);
         input_TEMPATLAHIR.setBounds(70, 220, 420, 40);
 
         input_tanggallahir.setBackground(new Color(0,0,0,0));
         input_tanggallahir.setBorder(null);
+        input_tanggallahir.setFocusable(false);
         jPanel1.add(input_tanggallahir);
         input_tanggallahir.setBounds(60, 310, 420, 30);
 
@@ -144,13 +181,21 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
 
         input_namaibu.setBackground(new Color(0,0,0,0));
         input_namaibu.setBorder(null);
+        input_namaibu.setFocusable(false);
         jPanel1.add(input_namaibu);
         input_namaibu.setBounds(590, 220, 420, 40);
 
         input_idbayi.setBackground(new Color(0,0,0,0));
         input_idbayi.setBorder(null);
+        input_idbayi.setFocusable(false);
         jPanel1.add(input_idbayi);
         input_idbayi.setBounds(70, 140, 310, 30);
+
+        input_jeniskelamin.setBackground(new Color(0,0,0,0));
+        input_jeniskelamin.setBorder(null);
+        input_jeniskelamin.setFocusable(false);
+        jPanel1.add(input_jeniskelamin);
+        input_jeniskelamin.setBounds(590, 140, 420, 40);
 
         btcaribayi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btn_caribayi1.png"))); // NOI18N
         btcaribayi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -170,9 +215,23 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
         jPanel1.add(btcaribayi);
         btcaribayi.setBounds(390, 140, 100, 40);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki - Laki", "Perempuan" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(590, 140, 430, 30);
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit1.png"))); // NOI18N
+        btn_edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_editMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_editMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_editMousePressed(evt);
+            }
+        });
+        jPanel1.add(btn_edit);
+        btn_edit.setBounds(820, 630, 190, 60);
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/laporanpelayanan_penimbangan.png"))); // NOI18N
         jPanel1.add(bg);
@@ -234,8 +293,7 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnbatalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatalMouseClicked
-    jPanel2.setVisible(false);
-    jPanel1.setVisible(true);
+    closeMessage();
     }//GEN-LAST:event_btnbatalMouseClicked
 
     private void btnbatalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatalMouseEntered
@@ -250,29 +308,8 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
         btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformbatal3.png")));
     }//GEN-LAST:event_btnbatalMousePressed
 
-    private void btnpilihMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMouseClicked
-        if(id != 0 ){
-            closeMessage();
-        }else {
-            System.out.println("pilih sulu bro");
-        }
-    }//GEN-LAST:event_btnpilihMouseClicked
-
-    private void btnpilihMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMouseEntered
-
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih2.png")));
-    }//GEN-LAST:event_btnpilihMouseEntered
-
-    private void btnpilihMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMouseExited
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih1.png")));
-    }//GEN-LAST:event_btnpilihMouseExited
-
-    private void btnpilihMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpilihMousePressed
-        btnpilih.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnpilih3.png")));
-    }//GEN-LAST:event_btnpilihMousePressed
-
     private void btcaribayiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btcaribayiMouseClicked
-      jPanel2.setVisible(true);
+       jPanel2.setVisible(true);
       jPanel1.setVisible(false);
     }//GEN-LAST:event_btcaribayiMouseClicked
 
@@ -291,8 +328,17 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int baris = table.rowAtPoint(evt.getPoint());
         String idd = table.getValueAt(baris, 0).toString();
-        id = Integer.valueOf(idd);
+        ids = Integer.valueOf(idd);
         System.out.println(id);
+        input_TEMPATLAHIR.setText(bayi.get(ids).getTempat_lahir());
+        input_idbayi.setText(String.valueOf(bayi.get(ids).getId()));
+        input_namaibu.setText(bayi.get(ids).getNama_ibu());
+        try {
+            input_tanggallahir.setText(sdf.format(bayi.get(ids).getTanggal_lahir()));
+        } catch (Exception e) {
+        }
+        String jnk = bayi.get(ids).getJenis_kelamin();
+        input_jeniskelamin.setText(jnk);
         jPanel2.setVisible(false);
         jPanel1.setVisible(true);
     }//GEN-LAST:event_tableMouseClicked
@@ -305,23 +351,60 @@ public class formedit_laporanpelayanan_Penimbangan extends Dialog {
 //        load_tabel(search.getText());
     }//GEN-LAST:event_searchKeyReleased
 
+    private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
+        bayi idbayi = new bayi(Integer.valueOf(input_idbayi.getText()));
+        try {
+            penimbangan apa = new penimbangan(id, idbayi, sdf.parse(input_tanggaltimbang.getText()),
+                    Integer.valueOf(input_bb.getText()), Integer.valueOf(input_tb.getText()),
+                    input_deteksi.getText(), input_keterangan.getText());
+            boolean cobak = imun.update(apa);
+            if(cobak) {
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+                Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.TOP_CENTER, "Data Berhasil Ditambahakan");
+                panel.showNotification();
+                closeMessage();
+            }else {
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+                Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "Data Gagal Ditambahakan");
+                panel.showNotification();
+            }
+        } catch (Exception e) {
+            main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "Data Gagal Ditambahakan");
+            panel.showNotification();
+        }
+
+    }//GEN-LAST:event_btn_editMouseClicked
+
+    private void btn_editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseEntered
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit2.png")));
+    }//GEN-LAST:event_btn_editMouseEntered
+
+    private void btn_editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseExited
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit1.png")));
+    }//GEN-LAST:event_btn_editMouseExited
+
+    private void btn_editMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMousePressed
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit3.png")));
+    }//GEN-LAST:event_btn_editMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
     private javax.swing.JLabel bg1;
     private javax.swing.JLabel btcaribayi;
+    private javax.swing.JLabel btn_edit;
     private javax.swing.JLabel btnbatal;
-    private javax.swing.JLabel btnpilih;
     private javax.swing.JTextField input_TEMPATLAHIR;
     private javax.swing.JTextField input_bb;
     private javax.swing.JTextField input_deteksi;
     private javax.swing.JTextField input_idbayi;
+    private javax.swing.JTextField input_jeniskelamin;
     private javax.swing.JTextField input_keterangan;
     private javax.swing.JTextField input_namaibu;
     private javax.swing.JTextField input_tanggallahir;
     private javax.swing.JTextField input_tanggaltimbang;
     private javax.swing.JTextField input_tb;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

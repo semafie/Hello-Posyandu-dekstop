@@ -21,7 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import main.main;
 import net.miginfocom.swing.MigLayout;
+import view.dialog.Validasikeluar1;
 
 public class TitleBar extends JComponent {
 
@@ -104,7 +106,7 @@ public class TitleBar extends JComponent {
         close.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.exit(0); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                
             }
         
         });

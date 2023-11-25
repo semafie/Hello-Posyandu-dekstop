@@ -5,14 +5,30 @@
 package view.panel;
 
 import Repository.kaderRepository;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import entity.bidan;
 import entity.kader;
 import java.awt.Font;
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import main.main;
 import util.Conn;
@@ -104,6 +120,96 @@ public class Data_Kader extends javax.swing.JPanel {
     } catch (Exception e) {
         e.printStackTrace();
     }
+}
+    private boolean convertJTableToPDF(JTable jTable) {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Simpan sebagai PDF");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("File PDF", "pdf"));
+
+    int userSelection = fileChooser.showSaveDialog(null);
+        try {
+            
+        
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+        Document document = new Document(PageSize.A4.rotate());
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+            document.open();
+            
+            // Tambahkan judul laporan
+                Paragraph title = new Paragraph("LAPORAN DATA KADER", new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 18, com.lowagie.text.Font.NORMAL));
+                title.setAlignment(Element.ALIGN_CENTER);
+                document.add(title);
+                
+                Paragraph title1 = new Paragraph(" ", new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 18, com.lowagie.text.Font.NORMAL));
+                title1.setAlignment(Element.ALIGN_CENTER);
+                document.add(title1);
+                
+                
+                
+                
+                // Tambahkan tanggal hari ini
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String currentDate = "Tanggal: " + sdf.format(new Date()) ;
+                Paragraph date = new Paragraph(currentDate, new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 12, com.lowagie.text.Font.NORMAL));
+                date.setAlignment(Element.ALIGN_RIGHT);
+                document.add(date);
+                
+                Paragraph title2 = new Paragraph(" ", new com.lowagie.text.Font(com.lowagie.text.Font.BOLD, 20, com.lowagie.text.Font.NORMAL));
+                title2.setAlignment(Element.ALIGN_CENTER);
+                document.add(title2);
+                
+                date.setSpacingAfter(25);
+            
+            PdfPTable pdfTable = new PdfPTable(jTable.getColumnCount());
+            
+            pdfTable.getDefaultCell().setBorderColor(new Color(219,219,219));
+            
+            pdfTable.setTotalWidth(PageSize.A4.getHeight());
+
+            // Mengisi header tabel PDF dengan nama kolom dari JTable
+            for (int i = 0; i < jTable.getColumnCount(); i++) {
+//                pdfTable.addCell(jTable.getColumnName(i));
+                PdfPCell cell = new PdfPCell(new Phrase(jTable.getColumnName(i)));
+                    cell.setBackgroundColor(new Color(140,170,126)); // Warna latar belakang
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER); // Pusatkan teks
+                    cell.setPadding(1);
+                    cell.setBorderColor(Color.WHITE);
+                    pdfTable.addCell(cell);
+            }
+//            float[] columnWidths = {1f, 1.5f, 2f, 1.5f}; // Sesuaikan lebar kolom sesuai kebutuhan
+//                pdfTable.setWidths(columnWidths);
+
+
+            // Mengisi data dari JTable ke tabel PDF
+            for (int i = 0; i < jTable.getRowCount(); i++) {
+                for (int j = 0; j < jTable.getColumnCount(); j++) {
+                    pdfTable.addCell(jTable.getValueAt(i, j).toString());
+                }
+            }
+
+            document.add(pdfTable);
+            document.close();
+//            JOptionPane.showMessageDialog(null, "Berhasil menyimpan PDF", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di cetak");
+            aa.showPopUp();
+            return true;
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Gagal menyimpan PDF", "Error", JOptionPane.ERROR_MESSAGE);
+    main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Data gagal dicetak");
+            aa.showPopUp();
+return false;
+        }   
+    }
+    return true;
+    } catch (Exception e) {
+        return false;
+        }
 }
     
     @SuppressWarnings("unchecked")
@@ -326,7 +432,7 @@ public class Data_Kader extends javax.swing.JPanel {
     }//GEN-LAST:event_btnhapusMouseClicked
 
     private void btnsimpancetakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpancetakMouseClicked
-        // TODO add your handling code here:
+        convertJTableToPDF(table);
     }//GEN-LAST:event_btnsimpancetakMouseClicked
 
     private void btntambahMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntambahMouseEntered
