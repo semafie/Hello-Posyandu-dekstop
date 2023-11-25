@@ -3,6 +3,7 @@ package view.panel;
 
 import Repository.bayiRepository;
 import entity.bayi;
+import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +19,13 @@ public class Data_Bayi extends javax.swing.JPanel {
     bayiRepository bayi = new bayiRepository();
     public Data_Bayi() {
         initComponents();
+        Font font = new Font("Quicksand", Font.PLAIN, 20);
+        input_namabayi.setFont(font);
+        input_namaibu.setFont(font);
+        input_tanggallahir.setFont(font);
+        input_tanggallahir.setFont(font);
+        input_tempatlahir.setFont(font);
+        cmb_jeniskelamin.setFont(font);
     }
 
     @SuppressWarnings("unchecked")

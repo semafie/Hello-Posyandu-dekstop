@@ -6,6 +6,7 @@ package view.dialog;
 
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Font;
 /**
  *
  * @author Be Mine
@@ -21,6 +22,17 @@ public class formedit_laporanpelayanan_Periksaibu extends Dialog {
         super(fram);
         initComponents();
         jPanel2.setVisible(false);
+        Font font = new Font("Quicksand", Font.PLAIN, 20);
+        input_idbayi.setFont(font);
+        input_keterangan.setFont(font);
+        input_tanggaltimbang.setFont(font);
+        input_TEMPATLAHIR.setFont(font);
+        input_bb.setFont(font);
+        input_tanggallahir.setFont(font);
+        input_tb.setFont(font);
+        input_deteksi.setFont(font);
+        jComboBox1.setFont(font);
+        input_namaibu.setFont(font);
     }
 
     /**

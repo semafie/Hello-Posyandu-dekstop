@@ -5,6 +5,7 @@ import Repository.imunisasiRepository;
 import entity.bayi;
 import entity.imunisasi;
 import java.awt.Color;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.SwingUtilities;
@@ -25,6 +26,17 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
         initComponents();
         Date hariini = new Date();
         input_tanggalhariini.setText(sdf.format(hariini));
+        Font font = new Font("Quicksand", Font.PLAIN, 20);
+        input_id_bayi.setFont(font);
+        input_keterangan.setFont(font);
+        input_tanggallahir.setFont(font);
+        input_tempatlahir.setFont(font);
+        input_jenisImunisasi.setFont(font);
+        input_jenisvitamin.setFont(font);
+        input_tanggalhariini.setFont(font);
+        input_keterangan.setFont(font);
+        input_usia.setFont(font);
+        input_namaibu.setFont(font);
         
         
     }
@@ -298,7 +310,7 @@ public class Pelayanan_Imunisasi extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(input_tanggalhariini, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5)

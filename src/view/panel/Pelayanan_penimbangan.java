@@ -8,6 +8,7 @@ import Repository.bayiRepository;
 import Repository.penimbanganRepository;
 import entity.bayi;
 import entity.penimbangan;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.SwingUtilities;
@@ -32,6 +33,17 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
         initComponents();
         Date hariini = new Date();
         input_tanggalhariini.setText(sdf.format(hariini));
+        Font font = new Font("Quicksand", Font.PLAIN, 20);
+        input_id_bayi.setFont(font);
+        input_keterangan.setFont(font);
+        input_tanggallahir.setFont(font);
+        input_tempatlahir.setFont(font);
+        input_tanggalhariini.setFont(font);
+        input_BB.setFont(font);
+        input_TB.setFont(font);
+        input_Deteksi.setFont(font);
+        cmb_jeniskelamin.setFont(font);
+        input_namaibu.setFont(font);
     }
 
     @SuppressWarnings("unchecked")
@@ -360,8 +372,8 @@ public class Pelayanan_penimbangan extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(input_keterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(input_keterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnsimpan)
                     .addComponent(btnreset))

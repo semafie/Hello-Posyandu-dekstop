@@ -6,6 +6,7 @@ package view.panel;
 
 import Repository.ibu_hamilRepository;
 import entity.ibu_hamil;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.SwingUtilities;
@@ -25,6 +26,16 @@ public class Data_Ibuhamil extends javax.swing.JPanel {
     ibu_hamilRepository ibuhamil = new ibu_hamilRepository();
     public Data_Ibuhamil() {
         initComponents();
+        Font font = new Font("Quicksand", Font.PLAIN, 20);
+        input_namaibu.setFont(font);
+        input_alamat.setFont(font);
+        input_notelp.setFont(font);
+        input_goldarah.setFont(font);
+        input_tanggallahir.setFont(font);
+        input_tempatlahir.setFont(font);
+        input_namasuami.setFont(font);
+        input_tempatlahirsuami.setFont(font);
+        input_tanggallahirsuami.setFont(font);
     }
 
     /**

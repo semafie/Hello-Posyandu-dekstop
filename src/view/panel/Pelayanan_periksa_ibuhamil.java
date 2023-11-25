@@ -6,6 +6,7 @@ package view.panel;
 
 import Repository.ibu_hamilRepository;
 import Repository.pemeriksaan_ibuhamilRepository;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.SwingUtilities;
@@ -36,6 +37,20 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         }else{
             input_id_ibu.setText("");
         }
+        Font font = new Font("Quicksand", Font.PLAIN, 20);
+        input_id_ibu.setFont(font);
+        input_namaibu.setFont(font);
+        input_usiakandungan.setFont(font);
+        input_hamil_ke.setFont(font);
+        input_riwayat_penyakit.setFont(font);
+        input_BB.setFont(font);
+        input_TB.setFont(font);
+        input_Deteksi.setFont(font);
+        input_Keterangan.setFont(font);
+        input_Tanggal_lahir.setFont(font);
+        input_TempatLahir.setFont(font);
+        input_Tanggal_periksa.setFont(font);
+        
     }
 
     /**
