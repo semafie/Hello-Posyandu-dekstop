@@ -408,6 +408,7 @@ return false;
     main main = (main)SwingUtilities.getWindowAncestor(this);
         formtambahkader a = new formtambahkader(main);
         a.showPopUp();
+        load_tabel();
     }//GEN-LAST:event_btntambahMouseClicked
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked

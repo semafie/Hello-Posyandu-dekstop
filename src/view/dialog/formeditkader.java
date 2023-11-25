@@ -7,6 +7,7 @@ package view.dialog;
 import java.awt.Color;
 import Repository.kaderRepository;
 import entity.kader;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFrame;
@@ -28,6 +29,23 @@ public class formeditkader extends Dialog {
     public formeditkader(JFrame fram) {
         super(fram);
         initComponents();
+        Font font = new Font("Quicksand", Font.PLAIN, 20);
+        input_nama.setFont(font);
+        input_alamat.setFont(font);
+        input_notelp.setFont(font);
+        input_pendidikanterakhir.setFont(font);
+        input_tanggallahir.setFont(font);
+        input_tempatlahir.setFont(font);
+        input_alamat.setText(kader.get(id).getAlamat());
+        input_nama.setText(kader.get(id).getNama());
+        input_notelp.setText(kader.get(id).getNo_hp());
+        input_pendidikanterakhir.setText(kader.get(id).getPendidikan_terakhir());
+        try {
+            input_tanggallahir.setText(sdf.format(kader.get(id).getTanggal_lahir()));
+        } catch (Exception e) {
+        }
+        
+        input_tempatlahir.setText(kader.get(id).getTempat_lahir());
     }
 
     /**
@@ -42,7 +60,6 @@ public class formeditkader extends Dialog {
         date1 = new view.customdate.DateChooser();
         btnbatal = new javax.swing.JLabel();
         btntambah = new javax.swing.JLabel();
-        bg = new javax.swing.JLabel();
         input_nama = new javax.swing.JTextField();
         input_tempatlahir = new javax.swing.JTextField();
         input_tanggallahir = new javax.swing.JTextField();
@@ -50,8 +67,10 @@ public class formeditkader extends Dialog {
         input_pendidikanterakhir = new javax.swing.JTextField();
         input_alamat = new javax.swing.JTextField();
         input_notelp = new javax.swing.JTextField();
+        bg = new javax.swing.JLabel();
 
         date1.setNextFocusableComponent(input_tanggallahir);
+        date1.setTextRefernce(input_tanggallahir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -92,10 +111,6 @@ public class formeditkader extends Dialog {
         getContentPane().add(btntambah);
         btntambah.setBounds(690, 490, 190, 60);
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formtambahkader.png"))); // NOI18N
-        getContentPane().add(bg);
-        bg.setBounds(0, 0, 910, 560);
-
         input_nama.setBackground(new Color(0,0,0,0));
         input_nama.setBorder(null);
         getContentPane().add(input_nama);
@@ -135,6 +150,10 @@ public class formeditkader extends Dialog {
         input_notelp.setBorder(null);
         getContentPane().add(input_notelp);
         input_notelp.setBounds(490, 370, 350, 40);
+
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formeditkader.png"))); // NOI18N
+        getContentPane().add(bg);
+        bg.setBounds(0, 0, 910, 560);
 
         setSize(new java.awt.Dimension(926, 568));
         setLocationRelativeTo(null);

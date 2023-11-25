@@ -58,6 +58,8 @@ public class formtambahkader extends Dialog {
         jButton1 = new javax.swing.JButton();
         bg = new javax.swing.JLabel();
 
+        date1.setTextRefernce(input_tanggallahir);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
