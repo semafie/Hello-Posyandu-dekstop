@@ -78,34 +78,34 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     }
     
     private void hitungStatusGizi() {
-        try {
-            // Ambil nilai LILA dari txt_lila
-            double lila = Double.parseDouble(txt_lila.getText());
-
-            txt_lila.getText();
-            String statusGizi = getStatusGizi(lila);
-            
-            // Set nilai status gizi ke txt_statusGizi
-            txt_gizi.setText(statusGizi);
-        } catch (NumberFormatException ex) {
-            // Handle kesalahan jika input tidak valid
-            txt_gizi.setText("Input tidak valid");
-        }
+    try {
+        // Ambil nilai LILA dari txt_lila
+        double lila = Double.parseDouble(txt_lila.getText());
+        // Hitung status gizi
+        String statusGizi = getStatusGizi(lila);
+        // Set nilai status gizi ke txt_gizi
+        txt_gizi.setText(statusGizi);
+    } catch (NumberFormatException ex) {
+        // Handle kesalahan jika input tidak valid
+        txt_gizi.setText("Input tidak valid");
     }
+}
 
-    private String getStatusGizi(double lila) {
-        if (lila > 120) {
-            return "Obesitas";
-        } else if (lila >= 110) {
-            return "Overweight";
-        } else if (lila >= 85) {
-            return "Gizi Baik";
-        } else if (lila >= 70) {
-            return "Gizi Kurang";
-        } else {
-            return "Gizi Buruk";
-        }
+private String getStatusGizi(double lila) {
+    double result = (lila / 23.5 * 100);
+    System.out.println(result);
+    if (result > 120) {
+        return "Obesitas";
+    } else if (result >= 110.00) {
+        return "Overweight";
+    } else if (result >= 85.00) {
+        return "Gizi Baik";
+    } else if (result >= 70.00) {
+        return "Gizi Kurang";
+    } else {
+        return "Gizi Buruk";
     }
+}
 
     
     
@@ -267,6 +267,14 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                 txt_lilaActionPerformed(evt);
             }
         });
+        txt_lila.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_lilaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_lilaKeyTyped(evt);
+            }
+        });
 
         input_Keterangan.setBackground(new java.awt.Color(246, 246, 233));
         input_Keterangan.setRound(50);
@@ -353,7 +361,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                                             .addComponent(jLabel8)
                                             .addComponent(jLabel9)
                                             .addComponent(jLabel16))
-                                        .addGap(0, 44, Short.MAX_VALUE))
+                                        .addGap(0, 87, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(input_Tanggal_periksa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -413,7 +421,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                                     .addComponent(input_usiakandungan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(input_namaibu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(258, Short.MAX_VALUE))))
+                        .addContainerGap(295, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,9 +457,9 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                             .addComponent(input_usiakandungan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(input_hamil_ke, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(input_riwayat_penyakit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,6 +671,17 @@ getStatusGizi(id);
         hitungStatusGizi();
         getStatusGizi(id);
     }//GEN-LAST:event_txt_lilaActionPerformed
+
+    private void txt_lilaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lilaKeyPressed
+       hitungStatusGizi();
+        getStatusGizi(id);
+    }//GEN-LAST:event_txt_lilaKeyPressed
+
+    private void txt_lilaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lilaKeyTyped
+ hitungStatusGizi();
+        getStatusGizi(id);
+
+    }//GEN-LAST:event_txt_lilaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
