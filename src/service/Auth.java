@@ -13,28 +13,31 @@ import util.Conn;
  * @author WINDOWS 10
  */
 public class Auth {
-    public static String username ;
-    public static int level;
+    public static String username;
+    public static String role;  // Tambahkan variabel peran
     public static int id;
-    
-    
-    
-  public boolean login(String username, String pass){
+    public boolean login(String username, String pass) {
         try {
-            String query = "SELECT * FROM user WHERE username ='"+ username +"' AND password ='" + pass + "'";
-            Connection koneksi = (Connection)Conn.configDB();
+            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+            Connection koneksi = (Connection) Conn.configDB();
             PreparedStatement pst = koneksi.prepareStatement(query);
+            pst.setString(1, username);
+            pst.setString(2, pass);
+            
             ResultSet res = pst.executeQuery();
-            if(res.next()){
+            
+            if (res.next()) {
                 id = res.getInt("id");
+                role = res.getString("role");  // Ambil nilai peran dari database
                 return true;
-            }else{
-                  return false;
+            } else {
+                return false;
             }
         } catch (Exception e) {
-                return false;
+            return false;
         }
     }
+
   
   public boolean rememberPass(int token, int id){
       try {

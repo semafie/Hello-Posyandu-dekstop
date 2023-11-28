@@ -60,7 +60,6 @@ public class main extends javax.swing.JFrame {
     private void updateTime() {
         // Mendapatkan waktu saat ini
         Date now = new Date();
-
         // Format tanggal dan jam
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
