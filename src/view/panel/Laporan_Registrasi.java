@@ -16,22 +16,35 @@ import entity.ibu_hamil;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import main.main;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import util.Conn;
 import view.dialog.formedit_bayi;
 import view.dialog.formedit_ibuhamil;
 import view.dialog.validasiberhasil;
 import view.dialog.validasigagal;
+import view.notif.Notification;
 public class Laporan_Registrasi extends javax.swing.JPanel {
 
     public static int id = 0; 
@@ -285,6 +298,7 @@ return false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btncetakdata = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         dataibuhamil = new javax.swing.JLabel();
         databayi = new javax.swing.JLabel();
@@ -303,6 +317,22 @@ return false;
         table = new view.swing.Table();
 
         setBackground(new java.awt.Color(246, 246, 233));
+
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata1.png"))); // NOI18N
+        btncetakdata.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btncetakdataMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btncetakdataMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btncetakdataMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btncetakdataMousePressed(evt);
+            }
+        });
 
         jPanel3.setBackground(new Color(0,0,0,0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -447,6 +477,8 @@ return false;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btncetakdata)
+                        .addGap(18, 18, 18)
                         .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -466,19 +498,24 @@ return false;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_form, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(3, 3, 3)
-                .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btncetakdata, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txt_form, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3)
+                        .addComponent(btnsimpanpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -577,6 +614,7 @@ return false;
         databayi.setVisible(false);
         pilih1 = "ibu hamil";
         load_tabel();
+        id = 0;
     }//GEN-LAST:event_dataibuhamil1MouseClicked
 
     private void databayi1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_databayi1MouseClicked
@@ -585,6 +623,7 @@ return false;
         databayi1.setVisible(false);
         databayi.setVisible(true);
         pilih1 = "bayi";load_tabelbayi();
+        id = 0;
     }//GEN-LAST:event_databayi1MouseClicked
 
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
@@ -602,9 +641,74 @@ return false;
         id = Integer.valueOf(idd);
     }//GEN-LAST:event_tableMouseClicked
 
+    private void btncetakdataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseClicked
+        if (pilih1.equals("bayi")){
+//            int idfinalrekap = imunisasi.getlastid().getId();
+            InputStream struk = getClass().getResourceAsStream("/jasper_report/report_Registrasi_DataBayi.jrxml");
+            String query = "select * from bayi where id = " + id;
+            //        String path = "E:/SEMUA FOLDER/imam/kuliah/semester 3/joki/SIsiloam/SIsiloam/SISILOAM/src/jasper_report/no_antrian.jrxml";
+
+            try {
+                Connection koneksi = (Connection) Conn.configDB();
+                Statement pstCek = koneksi.createStatement();
+                ResultSet res = pstCek.executeQuery(query);
+                JasperDesign design = JRXmlLoader.load(struk);
+                JasperReport jr = JasperCompileManager.compileReport(design);
+                JRResultSetDataSource rsDataSource = new JRResultSetDataSource(res);
+                JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
+
+                JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
+                viewer.setVisible(true);
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+                Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+                panel.showNotification();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                System.out.println(e.getMessage());
+            }
+        }else {
+//            int idfinalrekap = periksaibu.getlastid().getId();
+            InputStream struk = getClass().getResourceAsStream("/jasper_report/report_Registrasi_ibuhamil.jrxml");
+            String query = "select * from ibu_hamil where id = " + id;
+            //        String path = "E:/SEMUA FOLDER/imam/kuliah/semester 3/joki/SIsiloam/SIsiloam/SISILOAM/src/jasper_report/no_antrian.jrxml";
+
+            try {
+                Connection koneksi = (Connection) Conn.configDB();
+                Statement pstCek = koneksi.createStatement();
+                ResultSet res = pstCek.executeQuery(query);
+                JasperDesign design = JRXmlLoader.load(struk);
+                JasperReport jr = JasperCompileManager.compileReport(design);
+                JRResultSetDataSource rsDataSource = new JRResultSetDataSource(res);
+                JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
+
+                JasperViewer viewer = new JasperViewer(jp, false); // argumen 'false' mencegah aplikasi keluar
+                viewer.setVisible(true);
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+                Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
+                panel.showNotification();
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }//GEN-LAST:event_btncetakdataMouseClicked
+
+    private void btncetakdataMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseEntered
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata2.png")));
+    }//GEN-LAST:event_btncetakdataMouseEntered
+
+    private void btncetakdataMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMouseExited
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata1.png")));
+    }//GEN-LAST:event_btncetakdataMouseExited
+
+    private void btncetakdataMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncetakdataMousePressed
+        btncetakdata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsetakdata3.png")));
+    }//GEN-LAST:event_btncetakdataMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgsearch;
+    private javax.swing.JLabel btncetakdata;
     private javax.swing.JLabel btnedit;
     private javax.swing.JLabel btnhapus;
     private javax.swing.JLabel btnsimpanpdf;

@@ -5,6 +5,7 @@
 package view.panel;
 
 import Repository.bidanRepository;
+import Repository.userRepository;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -15,6 +16,7 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import entity.bidan;
+import entity.user;
 import java.awt.Font;
 import java.awt.Color;
 import java.io.FileNotFoundException;
@@ -44,6 +46,7 @@ import view.dialog.validasigagal;
  */
 public class Data_Bidan extends javax.swing.JPanel {
     bidanRepository uwow = new bidanRepository();
+    userRepository uwow1 = new userRepository();
     public static int id;
     
     public Data_Bidan() {
@@ -61,6 +64,9 @@ public class Data_Bidan extends javax.swing.JPanel {
     public void load_tabel(){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
+        model.addColumn("USERNAME");
+        model.addColumn("PASSWORD");
+        model.addColumn("EMAIL");
         model.addColumn("NAMA_BIDAN");
         model.addColumn("TEMPAT LAHIR");
         model.addColumn("TANGGAL LAHIR");
@@ -68,9 +74,12 @@ public class Data_Bidan extends javax.swing.JPanel {
         model.addColumn("ALAMAT");
         model.addColumn("NO HP");
         try {
-            for(bidan apa:uwow.get()){
+            for(user apa:uwow1.get()){
                 model.addRow(new Object[]{
                     apa.getId(),
+                    apa.getUsername(),
+                    apa.getPassword(),
+                    apa.getEmail(),
                     apa.getNama(),
                     apa.getTempat_lahir(),
                     apa.getTanggal_lahir(),
@@ -87,15 +96,18 @@ public class Data_Bidan extends javax.swing.JPanel {
     public void load_tabel(String search) {
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("ID");
-    model.addColumn("NAMA_BIDAN");
-    model.addColumn("TEMPAT LAHIR");
-    model.addColumn("TANGGAL LAHIR");
-    model.addColumn("PENDIDIKAN");
-    model.addColumn("ALAMAT");
-    model.addColumn("NO HP");
+        model.addColumn("USERNAME");
+        model.addColumn("PASSWORD");
+        model.addColumn("EMAIL");
+        model.addColumn("NAMA_BIDAN");
+        model.addColumn("TEMPAT LAHIR");
+        model.addColumn("TANGGAL LAHIR");
+        model.addColumn("PENDIDIKAN");
+        model.addColumn("ALAMAT");
+        model.addColumn("NO HP");
 
     try {
-        String sql = "SELECT * FROM bidan WHERE id = ? OR nama LIKE ? OR tempat_lahir LIKE ? OR alamat LIKE ? OR no_hp LIKE ?";
+        String sql = "SELECT * FROM user WHERE id = ? OR nama LIKE ? OR tempat_lahir LIKE ? OR alamat LIKE ? OR no_hp LIKE ?";
         Connection koneksi = (Connection) Conn.configDB();
         PreparedStatement pst = koneksi.prepareStatement(sql);
         pst.setString(1, "%" + search + "%");
@@ -109,6 +121,9 @@ public class Data_Bidan extends javax.swing.JPanel {
         while (res.next()) {
             model.addRow(new Object[]{
                 res.getString("id"),
+                res.getString("username"),
+                res.getString("password"),
+                res.getString("email"),
                 res.getString("nama"),
                 res.getString("tempat_lahir"),
                 res.getString("tanggal_lahir"),
@@ -414,6 +429,7 @@ return false;
     main main = (main)SwingUtilities.getWindowAncestor(this);
         formtambahbidan a = new formtambahbidan(main);
         a.showPopUp();
+        load_tabel();
     }//GEN-LAST:event_btntambahMouseClicked
 
     private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
@@ -425,11 +441,19 @@ return false;
 
     private void btnhapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMouseClicked
     if(id != 0) {
-        uwow.delete(id);
-        main wow = (main)SwingUtilities.getWindowAncestor(this);
+        boolean cobak = uwow1.delete(id);
+        if(cobak){
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
             validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di hapus");
             aa.showPopUp();
             load_tabel();
+        } else {
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Data gagal di hapus");
+            aa.showPopUp();
+            load_tabel();
+        }
+        
     }else {
         main wow = (main)SwingUtilities.getWindowAncestor(this);
             validasigagal aa = new validasigagal(wow,"Pilih dulu dari tabel");

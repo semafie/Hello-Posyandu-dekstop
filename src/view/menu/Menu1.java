@@ -19,15 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
-import service.Auth;
 
-public class Menu extends JPanel {
-    
-    private String role = Auth.role;
+public class Menu1 extends JPanel {
+
     private int index = -1;
     private final List<EventMenuSelected> events = new ArrayList<>();
 
-    public Menu() {
+    public Menu1() {
         init();
     }
 
@@ -43,16 +41,6 @@ public class Menu extends JPanel {
         add(scroll);
         addTitle("All Menu");
         Icon icon = new ImageIcon("/view/image/iconibu.png");
-        if(role.equals("bidan")){
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Beranda"));
-//        addTitle("WEB APPS");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Data User"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PREGNANT_WOMAN, "Data Ibu Hamil"));
-//        addTitle("COMPONENT");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CHILD_FRIENDLY, "Data Bayi"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Pelayanan","Penimbangan", "Imunisasi", "Pemeriksaan Ibu Hamil"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DESCRIPTION, "Laporan", "Registrasi", "Pelayanan"));
-        } else {
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Beranda"));
 //        addTitle("WEB APPS");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PREGNANT_WOMAN, "Data Ibu Hamil"));
@@ -60,7 +48,6 @@ public class Menu extends JPanel {
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CHILD_FRIENDLY, "Data Bayi"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Pelayanan","Penimbangan", "Imunisasi", "Pemeriksaan Ibu Hamil"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DESCRIPTION, "Laporan", "Registrasi", "Pelayanan"));
-        }
 //        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART_OUTLINED, "Charts", "Apex", "Flot", "Peity", "Sparkline"));
 //        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.VIEW_LIST, "Table", "Basic Tables", "Data Table"));
 //        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.INSERT_EMOTICON, "Icons", "Feather Icons", "Flag Icons", "Mdi Icons"));

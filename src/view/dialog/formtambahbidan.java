@@ -4,7 +4,9 @@
  */
 package view.dialog;
 import Repository.bidanRepository;
+import Repository.userRepository;
 import entity.bidan;
+import entity.user;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -27,6 +29,7 @@ import view.panel.Data_Bidan;
  */
 public class formtambahbidan extends Dialog {
     bidanRepository bidan = new bidanRepository();
+    userRepository user = new userRepository();
     
     public formtambahbidan(JFrame fram) {
         super(fram);
@@ -52,7 +55,11 @@ public class formtambahbidan extends Dialog {
         input_alamat = new javax.swing.JTextField();
         input_notelp = new javax.swing.JTextField();
         input_tempatlahir = new javax.swing.JTextField();
+        input_email = new javax.swing.JTextField();
+        input_username = new javax.swing.JTextField();
+        input_password = new javax.swing.JTextField();
         input_nama = new javax.swing.JTextField();
+        cmb_role = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         bg = new javax.swing.JLabel();
 
@@ -77,7 +84,7 @@ public class formtambahbidan extends Dialog {
             }
         });
         getContentPane().add(btnbatal);
-        btnbatal.setBounds(470, 490, 190, 60);
+        btnbatal.setBounds(490, 590, 190, 60);
 
         btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformtambah1.png"))); // NOI18N
         btntambah.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -95,37 +102,56 @@ public class formtambahbidan extends Dialog {
             }
         });
         getContentPane().add(btntambah);
-        btntambah.setBounds(690, 490, 190, 60);
+        btntambah.setBounds(710, 590, 190, 60);
 
         input_tanggallahir.setBackground(new Color(0,0,0,0));
         input_tanggallahir.setBorder(null);
         getContentPane().add(input_tanggallahir);
-        input_tanggallahir.setBounds(40, 370, 330, 40);
+        input_tanggallahir.setBounds(40, 520, 330, 40);
 
         input_pendidikanterakhir.setBackground(new Color(0,0,0,0));
         input_pendidikanterakhir.setBorder(null);
         getContentPane().add(input_pendidikanterakhir);
-        input_pendidikanterakhir.setBounds(490, 160, 350, 50);
+        input_pendidikanterakhir.setBounds(490, 320, 350, 40);
 
         input_alamat.setBackground(new Color(0,0,0,0));
         input_alamat.setBorder(null);
         getContentPane().add(input_alamat);
-        input_alamat.setBounds(490, 260, 350, 50);
+        input_alamat.setBounds(490, 410, 350, 50);
 
         input_notelp.setBackground(new Color(0,0,0,0));
         input_notelp.setBorder(null);
         getContentPane().add(input_notelp);
-        input_notelp.setBounds(490, 370, 350, 40);
+        input_notelp.setBounds(490, 520, 350, 40);
 
         input_tempatlahir.setBackground(new Color(0,0,0,0));
         input_tempatlahir.setBorder(null);
         getContentPane().add(input_tempatlahir);
-        input_tempatlahir.setBounds(40, 260, 350, 50);
+        input_tempatlahir.setBounds(40, 410, 350, 50);
+
+        input_email.setBackground(new Color(0,0,0,0));
+        input_email.setBorder(null);
+        getContentPane().add(input_email);
+        input_email.setBounds(40, 230, 350, 40);
+
+        input_username.setBackground(new Color(0,0,0,0));
+        input_username.setBorder(null);
+        getContentPane().add(input_username);
+        input_username.setBounds(40, 130, 350, 50);
+
+        input_password.setBackground(new Color(0,0,0,0));
+        input_password.setBorder(null);
+        getContentPane().add(input_password);
+        input_password.setBounds(490, 130, 350, 50);
 
         input_nama.setBackground(new Color(0,0,0,0));
         input_nama.setBorder(null);
         getContentPane().add(input_nama);
-        input_nama.setBounds(40, 160, 350, 50);
+        input_nama.setBounds(40, 320, 350, 40);
+
+        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "bidan", "kader" }));
+        getContentPane().add(cmb_role);
+        cmb_role.setBounds(480, 220, 380, 50);
 
         jButton1.setText("...");
         jButton1.setBorder(null);
@@ -135,13 +161,13 @@ public class formtambahbidan extends Dialog {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(370, 370, 40, 40);
+        jButton1.setBounds(370, 520, 40, 40);
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formtambahbidan.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formtambahuser.png"))); // NOI18N
         getContentPane().add(bg);
-        bg.setBounds(0, 0, 910, 560);
+        bg.setBounds(0, 0, 910, 660);
 
-        setSize(new java.awt.Dimension(926, 568));
+        setSize(new java.awt.Dimension(926, 668));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -155,18 +181,24 @@ public class formtambahbidan extends Dialog {
         if(!input_nama.getText().equals("") || !input_alamat.getText().equals("") || !input_notelp.getText().equals("") ||
                 !input_tempatlahir.getText().equals("")|| !input_tanggallahir.getText().equals("")|| !input_pendidikanterakhir.getText().equals("")){
             try {
-            
+            Object apa = cmb_role.getSelectedItem();
             Date formattanggal_lahir = sdf.parse(tanggal_lahir);
-            bidan wow = new bidan(input_nama.getText(), input_tempatlahir.getText(),
+            user wow = new user(input_username.getText(), input_password.getText(), input_email.getText(),apa.toString(),input_nama.getText(), input_tempatlahir.getText(),
                     formattanggal_lahir, input_pendidikanterakhir.getText(),
                     input_alamat.getText(), input_notelp.getText());
-            bidan.add(wow);
-                Data_Bidan tabel = new Data_Bidan();
-                tabel.load_tabel();
+            boolean cobak = user.add(wow);
+            if (cobak) {
+                        
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
             closeMessage();
+                    } else {
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
+            panel.showNotification();
+            }
+                
         } catch (ParseException ex) {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Ditambahakan");
@@ -225,13 +257,17 @@ public class formtambahbidan extends Dialog {
     private javax.swing.JLabel bg;
     private javax.swing.JLabel btnbatal;
     private javax.swing.JLabel btntambah;
+    private javax.swing.JComboBox<String> cmb_role;
     private view.customdate.DateChooser date1;
     private javax.swing.JTextField input_alamat;
+    private javax.swing.JTextField input_email;
     private javax.swing.JTextField input_nama;
     private javax.swing.JTextField input_notelp;
+    private javax.swing.JTextField input_password;
     private javax.swing.JTextField input_pendidikanterakhir;
     private javax.swing.JTextField input_tanggallahir;
     private javax.swing.JTextField input_tempatlahir;
+    private javax.swing.JTextField input_username;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

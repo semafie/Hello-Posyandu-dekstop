@@ -4,7 +4,9 @@
  */
 package view.dialog;
 import Repository.bidanRepository;
+import Repository.userRepository;
 import entity.bidan;
+import entity.user;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -23,6 +25,7 @@ public class formeditbidan extends Dialog {
     
     private int id = Data_Bidan.id;
     bidanRepository bidan = new bidanRepository();
+    userRepository user = new userRepository();
     
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     public formeditbidan(JFrame fram) {
@@ -36,13 +39,16 @@ public class formeditbidan extends Dialog {
         input_tanggallahir.setFont(font);
         input_tempatlahir.setFont(font);
         
-        String ambiltanggal = sdf.format(bidan.get(id).getTanggal_lahir());
-        input_nama.setText(bidan.get(id).getNama());
-        input_alamat.setText(bidan.get(id).getAlamat());
-        input_notelp.setText(bidan.get(id).getNo_hp());
-        input_pendidikanterakhir.setText(bidan.get(id).getPendidikan_terakhir());
+        String ambiltanggal = sdf.format(user.get(id).getTanggal_lahir());
+        input_nama.setText(user.get(id).getNama());
+        input_alamat.setText(user.get(id).getAlamat());
+        input_notelp.setText(user.get(id).getNo_hp());
+        input_pendidikanterakhir.setText(user.get(id).getPendidikan_terakhir());
         input_tanggallahir.setText(ambiltanggal);
-        input_tempatlahir.setText(bidan.get(id).getTempat_lahir());
+        input_tempatlahir.setText(user.get(id).getTempat_lahir());
+        input_password.setText(user.get(id).getPassword());
+        input_email.setText(user.get(id).getEmail());
+        input_username.setText(user.get(id).getUsername());
     }
 
     /**
@@ -57,6 +63,9 @@ public class formeditbidan extends Dialog {
         date1 = new view.customdate.DateChooser();
         btnbatal = new javax.swing.JLabel();
         btnedit = new javax.swing.JLabel();
+        input_username = new javax.swing.JTextField();
+        input_password = new javax.swing.JTextField();
+        input_email = new javax.swing.JTextField();
         input_nama = new javax.swing.JTextField();
         input_tempatlahir = new javax.swing.JTextField();
         input_tanggallahir = new javax.swing.JTextField();
@@ -87,7 +96,7 @@ public class formeditbidan extends Dialog {
             }
         });
         getContentPane().add(btnbatal);
-        btnbatal.setBounds(470, 490, 190, 60);
+        btnbatal.setBounds(470, 600, 190, 60);
 
         btnedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnformedit1.png"))); // NOI18N
         btnedit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,22 +114,37 @@ public class formeditbidan extends Dialog {
             }
         });
         getContentPane().add(btnedit);
-        btnedit.setBounds(690, 490, 190, 60);
+        btnedit.setBounds(690, 600, 190, 60);
+
+        input_username.setBackground(new Color(0,0,0,0));
+        input_username.setBorder(null);
+        getContentPane().add(input_username);
+        input_username.setBounds(40, 130, 350, 50);
+
+        input_password.setBackground(new Color(0,0,0,0));
+        input_password.setBorder(null);
+        getContentPane().add(input_password);
+        input_password.setBounds(490, 130, 350, 50);
+
+        input_email.setBackground(new Color(0,0,0,0));
+        input_email.setBorder(null);
+        getContentPane().add(input_email);
+        input_email.setBounds(260, 530, 350, 50);
 
         input_nama.setBackground(new Color(0,0,0,0));
         input_nama.setBorder(null);
         getContentPane().add(input_nama);
-        input_nama.setBounds(40, 160, 350, 50);
+        input_nama.setBounds(40, 230, 350, 50);
 
         input_tempatlahir.setBackground(new Color(0,0,0,0));
         input_tempatlahir.setBorder(null);
         getContentPane().add(input_tempatlahir);
-        input_tempatlahir.setBounds(40, 260, 350, 50);
+        input_tempatlahir.setBounds(40, 330, 350, 50);
 
         input_tanggallahir.setBackground(new Color(0,0,0,0));
         input_tanggallahir.setBorder(null);
         getContentPane().add(input_tanggallahir);
-        input_tanggallahir.setBounds(40, 370, 330, 40);
+        input_tanggallahir.setBounds(40, 440, 330, 40);
 
         jButton1.setText("...");
         jButton1.setBorder(null);
@@ -130,28 +154,28 @@ public class formeditbidan extends Dialog {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(370, 370, 40, 40);
+        jButton1.setBounds(370, 440, 40, 40);
 
         input_pendidikanterakhir.setBackground(new Color(0,0,0,0));
         input_pendidikanterakhir.setBorder(null);
         getContentPane().add(input_pendidikanterakhir);
-        input_pendidikanterakhir.setBounds(490, 160, 350, 50);
+        input_pendidikanterakhir.setBounds(490, 230, 350, 50);
 
         input_alamat.setBackground(new Color(0,0,0,0));
         input_alamat.setBorder(null);
         getContentPane().add(input_alamat);
-        input_alamat.setBounds(490, 260, 350, 50);
+        input_alamat.setBounds(490, 330, 350, 50);
 
         input_notelp.setBackground(new Color(0,0,0,0));
         input_notelp.setBorder(null);
         getContentPane().add(input_notelp);
-        input_notelp.setBounds(490, 370, 350, 40);
+        input_notelp.setBounds(490, 440, 350, 40);
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formeditbidan.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/formedituser.png"))); // NOI18N
         getContentPane().add(bg);
-        bg.setBounds(0, 0, 910, 560);
+        bg.setBounds(0, 0, 910, 670);
 
-        setSize(new java.awt.Dimension(926, 568));
+        setSize(new java.awt.Dimension(926, 673));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -165,15 +189,21 @@ public class formeditbidan extends Dialog {
         
         try {
             Date ambilformat = sdf.parse(input_tanggallahir.getText());
-            bidan apa = new bidan(input_nama.getText(), input_tempatlahir.getText(),ambilformat,
+            user apa = new user(id, input_username.getText(),input_password.getText(),input_email.getText(),input_nama.getText(), input_tempatlahir.getText(),ambilformat,
             input_pendidikanterakhir.getText(),input_alamat.getText(),input_notelp.getText());
-            bidan.update(apa);
-            Data_Bidan tabel = new Data_Bidan();
-                tabel.load_tabel();
-            main main =(main)SwingUtilities.getWindowAncestor(this);
+            boolean cobak = user.update(apa);
+            if(cobak){
+                main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Di Edit");
             panel.showNotification();
             closeMessage();
+            }else {
+                main main =(main)SwingUtilities.getWindowAncestor(this);
+            Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Di Edit");
+            panel.showNotification();
+            }
+            
+            
         } catch (Exception e) {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.WARNING, Notification.Location.BOTTOM_RIGHT, "Data Gagal Di Edit");
@@ -219,11 +249,14 @@ public class formeditbidan extends Dialog {
     private javax.swing.JLabel btnedit;
     private view.customdate.DateChooser date1;
     private javax.swing.JTextField input_alamat;
+    private javax.swing.JTextField input_email;
     private javax.swing.JTextField input_nama;
     private javax.swing.JTextField input_notelp;
+    private javax.swing.JTextField input_password;
     private javax.swing.JTextField input_pendidikanterakhir;
     private javax.swing.JTextField input_tanggallahir;
     private javax.swing.JTextField input_tempatlahir;
+    private javax.swing.JTextField input_username;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

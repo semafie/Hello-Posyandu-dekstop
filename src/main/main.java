@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import service.Auth;
 import view.dialog.Validasikeluar1;
 import view.dialog.validasiberhasil;
 import view.dialog.validasiberhasil1;
@@ -36,7 +37,7 @@ import view.panel.Pelayanan_periksa_ibuhamil;
  */
 public class main extends javax.swing.JFrame {
     private static main main;
-    
+    private String role = Auth.role;
     public main() {
         initComponents();
         GlassPanePopup.install(this);
@@ -70,33 +71,57 @@ public class main extends javax.swing.JFrame {
     }
     private void init() {
         main = this;
-        
+        if(role.equals("bidan")){
         menu.addEvent(new EventMenuSelected() {
             @Override
+            
             public void menuSelected(int index, int indexSubMenu) {
                 if (index == 0 && indexSubMenu == 0) {
                     showForm(new Dasboard());
                 }else if (index == 1 && indexSubMenu == 0) {
                     showForm(new Data_Bidan());
                 }else if (index == 2 && indexSubMenu == 0) {
-                    showForm(new Data_Kader());
-                }else if (index == 3 && indexSubMenu == 0) {
                     showForm(new Data_Ibuhamil());
-                }else if (index == 4 && indexSubMenu == 0) {
+                }else if (index == 3 && indexSubMenu == 0) {
                     showForm(new Data_Bayi());
-                }else if (index == 5 && indexSubMenu == 1) {
+                }else if (index == 4 && indexSubMenu == 1) {
                     showForm(new Pelayanan_penimbangan());
-                }else if (index == 5 && indexSubMenu == 2) {
+                }else if (index == 4 && indexSubMenu == 2) {
                     showForm(new Pelayanan_Imunisasi ());
-                }else if (index == 5 && indexSubMenu == 3) {
+                }else if (index == 4 && indexSubMenu == 3) {
                     showForm(new Pelayanan_periksa_ibuhamil());
-                }else if (index == 6 && indexSubMenu == 1) {
+                }else if (index == 5 && indexSubMenu == 1) {
                     showForm(new Laporan_Registrasi());
                 }else  {
                     showForm(new Laporan_Pelayanan());
                 }
             }
         });
+        } else {
+            menu.addEvent(new EventMenuSelected() {
+            @Override
+            
+            public void menuSelected(int index, int indexSubMenu) {
+                if (index == 0 && indexSubMenu == 0) {
+                    showForm(new Dasboard());
+                }else if (index == 1 && indexSubMenu == 0) {
+                    showForm(new Data_Ibuhamil());
+                }else if (index == 2 && indexSubMenu == 0) {
+                    showForm(new Data_Bayi());
+                }else if (index == 3 && indexSubMenu == 1) {
+                    showForm(new Pelayanan_penimbangan());
+                }else if (index == 3 && indexSubMenu == 2) {
+                    showForm(new Pelayanan_Imunisasi ());
+                }else if (index == 3 && indexSubMenu == 3) {
+                    showForm(new Pelayanan_periksa_ibuhamil());
+                }else if (index == 4 && indexSubMenu == 1) {
+                    showForm(new Laporan_Registrasi());
+                }else  {
+                    showForm(new Laporan_Pelayanan());
+                }
+            }
+        });
+        }
         menu.setSelectedIndex(0, 0);
     }
     
