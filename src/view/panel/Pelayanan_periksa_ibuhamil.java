@@ -29,6 +29,10 @@ import net.sf.jasperreports.view.JasperViewer;
 import util.Conn;
 import view.dialog.formcari_ibuhamil;
 import view.notif.Notification;
+  import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 /**
  *
@@ -43,6 +47,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     pemeriksaan_ibuhamilRepository hayo = new pemeriksaan_ibuhamilRepository();
     
     public Pelayanan_periksa_ibuhamil() {
+        
         initComponents();
         Date hariini = new Date();
         input_Tanggal_periksa.setText(sdf.format(hariini));
@@ -62,13 +67,48 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         input_riwayat_penyakit.setFont(font);
         input_BB.setFont(font);
         input_TB.setFont(font);
-        input_Deteksi.setFont(font);
+        txt_lila.setFont(font);
         input_Keterangan.setFont(font);
         input_Tanggal_lahir.setFont(font);
         input_TempatLahir.setFont(font);
         input_Tanggal_periksa.setFont(font);
+        txt_gizi.setFont(font);
+        txt_lila.setFont(font);
         cmbbox();
     }
+    
+    private void hitungStatusGizi() {
+    try {
+        // Ambil nilai LILA dari txt_lila
+        double lila = Double.parseDouble(txt_lila.getText());
+        // Hitung status gizi
+        String statusGizi = getStatusGizi(lila);
+        // Set nilai status gizi ke txt_gizi
+        txt_gizi.setText(statusGizi);
+    } catch (NumberFormatException ex) {
+        // Handle kesalahan jika input tidak valid
+        txt_gizi.setText("Input tidak valid");
+    }
+}
+
+private String getStatusGizi(double lila) {
+    double result = (lila / 23.5 * 100);
+    System.out.println(result);
+    if (result > 120) {
+        return "Obesitas";
+    } else if (result >= 110.00) {
+        return "Overweight";
+    } else if (result >= 85.00) {
+        return "Gizi Baik";
+    } else if (result >= 70.00) {
+        return "Gizi Kurang";
+    } else {
+        return "Gizi Buruk";
+    }
+}
+
+    
+    
     public void cmbbox(){
 
         try {
@@ -103,7 +143,6 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         btnreset = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         input_id_ibu = new view.swing.textfieldcustom.txtfieldcustom();
         input_namaibu = new view.swing.textfieldcustom.txtfieldcustom();
         input_usiakandungan = new view.swing.textfieldcustom.txtfieldcustom();
@@ -113,7 +152,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         input_TB = new view.swing.textfieldcustom.txtfieldcustom();
         jLabel15 = new javax.swing.JLabel();
-        input_Deteksi = new view.swing.textfieldcustom.txtfieldcustom();
+        txt_lila = new view.swing.textfieldcustom.txtfieldcustom();
         input_Keterangan = new view.swing.textfieldcustom.txtfieldcustom();
         jLabel8 = new javax.swing.JLabel();
         input_TempatLahir = new view.swing.textfieldcustom.txtfieldcustom();
@@ -123,6 +162,9 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         input_Tanggal_periksa = new view.swing.textfieldcustom.txtfieldcustom();
         cmb_pilih = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txt_gizi = new view.swing.textfieldcustom.txtfieldcustom();
 
         date1.setTextRefernce(input_Tanggal_lahir);
 
@@ -182,8 +224,6 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanperiksa_Riwayat Penyakit.png"))); // NOI18N
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagetxt/laporanperiksa_Deteksi.png"))); // NOI18N
-
         input_id_ibu.setBackground(new java.awt.Color(246, 246, 233));
         input_id_ibu.setFocusable(false);
         input_id_ibu.setRound(50);
@@ -220,8 +260,21 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(153, 153, 153));
         jLabel15.setText("Cm");
 
-        input_Deteksi.setBackground(new java.awt.Color(246, 246, 233));
-        input_Deteksi.setRound(50);
+        txt_lila.setBackground(new java.awt.Color(246, 246, 233));
+        txt_lila.setRound(50);
+        txt_lila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_lilaActionPerformed(evt);
+            }
+        });
+        txt_lila.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_lilaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_lilaKeyTyped(evt);
+            }
+        });
 
         input_Keterangan.setBackground(new java.awt.Color(246, 246, 233));
         input_Keterangan.setRound(50);
@@ -273,6 +326,20 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel14.setText("LILA");
+
+        jLabel17.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel17.setText("STATUS GIZI");
+
+        txt_gizi.setBackground(new java.awt.Color(246, 246, 233));
+        txt_gizi.setRound(50);
+        txt_gizi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_giziActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,7 +361,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                                             .addComponent(jLabel8)
                                             .addComponent(jLabel9)
                                             .addComponent(jLabel16))
-                                        .addGap(0, 44, Short.MAX_VALUE))
+                                        .addGap(0, 87, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(input_Tanggal_periksa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,45 +377,51 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                                 .addGap(40, 40, 40)
                                 .addComponent(btnsimpan))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(input_Keterangan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(input_Deteksi, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_riwayat_penyakit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(input_id_ibu, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmb_pilih, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(202, 202, 202)
-                                    .addComponent(jLabel12)
-                                    .addGap(216, 216, 216))
-                                .addComponent(txt_form, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel10)
-                                        .addComponent(jLabel2))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(input_hamil_ke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(input_BB, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(input_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel15))))
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(input_usiakandungan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(input_namaibu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(input_riwayat_penyakit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(input_id_ibu, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmb_pilih, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_form, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel2))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(input_hamil_ke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(input_BB, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(input_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txt_lila, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addGap(86, 86, 86)
+                                                .addComponent(jLabel14)))
+                                        .addGap(29, 29, 29)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel17)
+                                            .addComponent(txt_gizi, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(input_usiakandungan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(input_namaibu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(295, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,19 +454,21 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(input_usiakandungan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(input_hamil_ke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_usiakandungan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_hamil_ke, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(input_riwayat_penyakit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(input_riwayat_penyakit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel6))
-                        .addGap(3, 3, 3))
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel17)))
+                        .addGap(2, 2, 2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -404,7 +479,9 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(input_Deteksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_lila, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_gizi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(37, 37, 37))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(input_BB, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -458,7 +535,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         pemeriksaan_ibuhamil ibu = new pemeriksaan_ibuhamil(id_ibu, sdf.parse(input_Tanggal_periksa.getText()),
                 Integer.valueOf(input_usiakandungan.getText()), Integer.valueOf(input_hamil_ke.getText()),
                 input_riwayat_penyakit.getText(), Integer.valueOf(input_BB.getText()), Integer.valueOf(input_TB.getText()),
-                input_Deteksi.getText(), input_Keterangan.getText());
+                txt_lila.getText(), input_Keterangan.getText());
         boolean cobak = hayo.add(ibu);
         if(cobak){
             
@@ -481,14 +558,14 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
             main main =(main)SwingUtilities.getWindowAncestor(this);
             Notification panel = new Notification(main, Notification.Type.SUCCESS, Notification.Location.BOTTOM_RIGHT, "Data Berhasil Ditambahakan");
             panel.showNotification();
-            input_id_ibu.setText("");
+        input_id_ibu.setText("");
         input_namaibu.setText("");
         input_usiakandungan.setText("");
         input_hamil_ke.setText("");
         input_riwayat_penyakit.setText("");
         input_BB.setText("");
         input_TB.setText("");
-        input_Deteksi.setText("");
+        txt_lila.setText("");
         input_Keterangan.setText("");
         input_Tanggal_lahir.setText("");
         input_TempatLahir.setText("");
@@ -523,7 +600,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     private void btnresetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnresetMouseClicked
         input_id_ibu.setText("");
         input_BB.setText("");
-        input_Deteksi.setText("");
+        txt_lila.setText("");
         input_namaibu.setText("");
         input_Keterangan.setText("");
         input_TB.setText("");
@@ -584,6 +661,28 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
         input_Tanggal_lahir.setText(String.valueOf(ibuhh.getidbynama(cmb_pilih1.toString()).getTanggal_lahir()));
     }//GEN-LAST:event_cmb_pilihActionPerformed
 
+    private void txt_giziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_giziActionPerformed
+hitungStatusGizi();
+getStatusGizi(id);
+
+    }//GEN-LAST:event_txt_giziActionPerformed
+
+    private void txt_lilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_lilaActionPerformed
+        hitungStatusGizi();
+        getStatusGizi(id);
+    }//GEN-LAST:event_txt_lilaActionPerformed
+
+    private void txt_lilaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lilaKeyPressed
+       hitungStatusGizi();
+        getStatusGizi(id);
+    }//GEN-LAST:event_txt_lilaKeyPressed
+
+    private void txt_lilaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lilaKeyTyped
+ hitungStatusGizi();
+        getStatusGizi(id);
+
+    }//GEN-LAST:event_txt_lilaKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnreset;
@@ -591,7 +690,6 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmb_pilih;
     private view.customdate.DateChooser date1;
     private view.swing.textfieldcustom.txtfieldcustom input_BB;
-    private view.swing.textfieldcustom.txtfieldcustom input_Deteksi;
     private view.swing.textfieldcustom.txtfieldcustom input_Keterangan;
     private view.swing.textfieldcustom.txtfieldcustom input_TB;
     private view.swing.textfieldcustom.txtfieldcustom input_Tanggal_lahir;
@@ -606,10 +704,11 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -619,5 +718,7 @@ public class Pelayanan_periksa_ibuhamil extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel txt_form;
+    private view.swing.textfieldcustom.txtfieldcustom txt_gizi;
+    private view.swing.textfieldcustom.txtfieldcustom txt_lila;
     // End of variables declaration//GEN-END:variables
 }
