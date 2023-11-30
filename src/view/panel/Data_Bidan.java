@@ -98,7 +98,7 @@ public class Data_Bidan extends javax.swing.JPanel {
         model.addColumn("NO HP");
 
     try {
-        String sql = "SELECT * FROM user WHERE id = ? OR nama LIKE ? OR tempat_lahir LIKE ? OR alamat LIKE ? OR no_hp LIKE ?";
+        String sql = "SELECT * FROM user WHERE id = ? OR nama LIKE ? OR tempat_lahir LIKE ? OR alamat LIKE ? OR no_hp LIKE ? where role = 'bidan'";
         Connection koneksi = (Connection) Conn.configDB();
         PreparedStatement pst = koneksi.prepareStatement(sql);
         pst.setString(1, "%" + search + "%");
