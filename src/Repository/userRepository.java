@@ -49,7 +49,7 @@ public class userRepository implements Repository<user>{
     }
     
     public List<user> getkader() {
-    String sql = "Select * from "+ tableName+" where role = 'bidan'";
+    String sql = "Select * from "+ tableName+" where role = 'kader'";
         List<user> user = new ArrayList<>();
         try {
             Connection koneksi = (Connection)Conn.configDB();
