@@ -101,7 +101,7 @@ public class Data_kader1 extends javax.swing.JPanel {
         model.addColumn("NO HP");
 
     try {
-        String sql = "SELECT * FROM user WHERE id = ? OR nama LIKE ? OR tempat_lahir LIKE ? OR alamat LIKE ? OR no_hp LIKE ?";
+        String sql = "SELECT * FROM user WHERE id = ? OR nama LIKE ? OR tempat_lahir LIKE ? OR alamat LIKE ? OR no_hp LIKE ? role = 'kader'";
         Connection koneksi = (Connection) Conn.configDB();
         PreparedStatement pst = koneksi.prepareStatement(sql);
         pst.setString(1, "%" + search + "%");
