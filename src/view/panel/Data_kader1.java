@@ -63,7 +63,7 @@ public class Data_kader1 extends javax.swing.JPanel {
     
     public void load_tabel(){
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("EMAIL");
+        model.addColumn("ID");
         model.addColumn("NAMA_KADER");
         model.addColumn("TEMPAT LAHIR");
         model.addColumn("TANGGAL LAHIR");
@@ -119,7 +119,7 @@ public class Data_kader1 extends javax.swing.JPanel {
                 res.getString("nama"),
                 res.getString("tempat_lahir"),
                 res.getString("tanggal_lahir"),
-                res.getString("pendidikan"),
+                res.getString("pendidikan_terakhir"),
                 res.getString("alamat"),
                 res.getString("no_hp")
             });
