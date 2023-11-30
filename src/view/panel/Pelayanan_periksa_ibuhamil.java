@@ -271,6 +271,9 @@ private String getStatusGizi(double lila) {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_lilaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_lilaKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_lilaKeyTyped(evt);
             }
@@ -535,7 +538,7 @@ private String getStatusGizi(double lila) {
         pemeriksaan_ibuhamil ibu = new pemeriksaan_ibuhamil(id_ibu, sdf.parse(input_Tanggal_periksa.getText()),
                 Integer.valueOf(input_usiakandungan.getText()), Integer.valueOf(input_hamil_ke.getText()),
                 input_riwayat_penyakit.getText(), Integer.valueOf(input_BB.getText()), Integer.valueOf(input_TB.getText()),
-                txt_lila.getText(), input_Keterangan.getText());
+                txt_lila.getText(), input_Keterangan.getText(),txt_gizi.getText());
         boolean cobak = hayo.add(ibu);
         if(cobak){
             
@@ -662,26 +665,31 @@ private String getStatusGizi(double lila) {
     }//GEN-LAST:event_cmb_pilihActionPerformed
 
     private void txt_giziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_giziActionPerformed
-hitungStatusGizi();
-getStatusGizi(id);
+//hitungStatusGizi();
+//getStatusGizi(id);
 
     }//GEN-LAST:event_txt_giziActionPerformed
 
     private void txt_lilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_lilaActionPerformed
-        hitungStatusGizi();
-        getStatusGizi(id);
+//        hitungStatusGizi();
+//        getStatusGizi(id);
     }//GEN-LAST:event_txt_lilaActionPerformed
 
     private void txt_lilaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lilaKeyPressed
-       hitungStatusGizi();
-        getStatusGizi(id);
+//       hitungStatusGizi();
+//        getStatusGizi(id);
     }//GEN-LAST:event_txt_lilaKeyPressed
 
     private void txt_lilaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lilaKeyTyped
- hitungStatusGizi();
-        getStatusGizi(id);
+// hitungStatusGizi();
+//        getStatusGizi(id);
 
     }//GEN-LAST:event_txt_lilaKeyTyped
+
+    private void txt_lilaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lilaKeyReleased
+    hitungStatusGizi();
+        getStatusGizi(id);
+    }//GEN-LAST:event_txt_lilaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

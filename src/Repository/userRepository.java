@@ -31,6 +31,38 @@ public class userRepository implements Repository<user>{
         }
         return user; 
     }
+    
+    public List<user> getbidan() {
+    String sql = "Select * from "+ tableName+" where role = 'bidan'";
+        List<user> user = new ArrayList<>();
+        try {
+            Connection koneksi = (Connection)Conn.configDB();
+            Statement stm = koneksi.createStatement();
+            ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                user.add(mapToEntity(res));
+            }
+        } catch (Exception e) {
+        e.printStackTrace();
+        }
+        return user; 
+    }
+    
+    public List<user> getkader() {
+    String sql = "Select * from "+ tableName+" where role = 'bidan'";
+        List<user> user = new ArrayList<>();
+        try {
+            Connection koneksi = (Connection)Conn.configDB();
+            Statement stm = koneksi.createStatement();
+            ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                user.add(mapToEntity(res));
+            }
+        } catch (Exception e) {
+        e.printStackTrace();
+        }
+        return user; 
+    }
 
     @Override
     public user get(Integer id) {
@@ -50,6 +82,7 @@ public class userRepository implements Repository<user>{
         }
         return us;
     }
+    
 
     @Override
     public boolean add(user us) {
@@ -77,7 +110,7 @@ public class userRepository implements Repository<user>{
 
     @Override
     public boolean update(user us) {
-    String sql = "update "+tableName+" set username = ?, password = ?, email = ? nama = ?, tempat_lahir = ?, tanggal_lahir = ?, pendidikan_terakhir = ?, alamat = ?, no_hp = ? where id = ?";
+    String sql = "update "+tableName+" set username = ?, password = ?, email = ?, nama = ?, tempat_lahir = ?, tanggal_lahir = ?, pendidikan_terakhir = ?, alamat = ?, no_hp = ? where id = ?";
         try {
             Connection koneksi =(Connection)Conn.configDB();
             PreparedStatement pst = koneksi.prepareStatement(sql);

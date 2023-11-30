@@ -47,6 +47,8 @@ public class Menu extends JPanel {
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Beranda"));
 //        addTitle("WEB APPS");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Data User"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON_OUTLINE, "Data Bidan"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON_OUTLINE, "Data Kader"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PREGNANT_WOMAN, "Data Ibu Hamil"));
 //        addTitle("COMPONENT");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CHILD_FRIENDLY, "Data Bayi"));
@@ -55,6 +57,8 @@ public class Menu extends JPanel {
         } else {
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Beranda"));
 //        addTitle("WEB APPS");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON_OUTLINE, "Data Bidan"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON_OUTLINE, "Data Kader"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PREGNANT_WOMAN, "Data Ibu Hamil"));
 //        addTitle("COMPONENT");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CHILD_FRIENDLY, "Data Bayi"));

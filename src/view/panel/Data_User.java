@@ -44,12 +44,12 @@ import view.dialog.validasigagal;
  *
  * @author RESCOM-1
  */
-public class Data_Bidan extends javax.swing.JPanel {
+public class Data_User extends javax.swing.JPanel {
     bidanRepository uwow = new bidanRepository();
     userRepository uwow1 = new userRepository();
     public static int id;
     
-    public Data_Bidan() {
+    public Data_User() {
         initComponents();
         Font font = new Font("Quicksand", Font.BOLD, 20);
         txttotal.setFont(font);
@@ -64,16 +64,22 @@ public class Data_Bidan extends javax.swing.JPanel {
     public void load_tabel(){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
-        model.addColumn("NAMA_BIDAN");
+        model.addColumn("USERNAME");
+        model.addColumn("PASSWORD");
+        model.addColumn("EMAIL");
+        model.addColumn("NAMA_USER");
         model.addColumn("TEMPAT LAHIR");
         model.addColumn("TANGGAL LAHIR");
         model.addColumn("PENDIDIKAN");
         model.addColumn("ALAMAT");
         model.addColumn("NO HP");
         try {
-            for(user apa:uwow1.getbidan()){
+            for(user apa:uwow1.get()){
                 model.addRow(new Object[]{
                     apa.getId(),
+                    apa.getUsername(),
+                    apa.getPassword(),
+                    apa.getEmail(),
                     apa.getNama(),
                     apa.getTempat_lahir(),
                     apa.getTanggal_lahir(),
@@ -90,7 +96,10 @@ public class Data_Bidan extends javax.swing.JPanel {
     public void load_tabel(String search) {
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("ID");
-        model.addColumn("NAMA_BIDAN");
+        model.addColumn("USERNAME");
+        model.addColumn("PASSWORD");
+        model.addColumn("EMAIL");
+        model.addColumn("NAMA_USER");
         model.addColumn("TEMPAT LAHIR");
         model.addColumn("TANGGAL LAHIR");
         model.addColumn("PENDIDIKAN");
@@ -112,6 +121,9 @@ public class Data_Bidan extends javax.swing.JPanel {
         while (res.next()) {
             model.addRow(new Object[]{
                 res.getString("id"),
+                res.getString("username"),
+                res.getString("password"),
+                res.getString("email"),
                 res.getString("nama"),
                 res.getString("tempat_lahir"),
                 res.getString("tanggal_lahir"),
@@ -230,6 +242,9 @@ return false;
         panelShadow25 = new view.swing.panelcustom.PanelShadow();
         jScrollPane25 = new javax.swing.JScrollPane();
         table = new view.swing.Table();
+        btntambah = new javax.swing.JLabel();
+        btnedit = new javax.swing.JLabel();
+        btnhapus = new javax.swing.JLabel();
         btnsimpancetak = new javax.swing.JLabel();
         txttotal = new javax.swing.JLabel();
         total = new javax.swing.JLabel();
@@ -239,7 +254,7 @@ return false;
 
         setBackground(new java.awt.Color(246, 246, 233));
 
-        txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_form Data Bidan.png"))); // NOI18N
+        txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_form Data User.png"))); // NOI18N
 
         panelShadow25.setBackground(new java.awt.Color(234, 245, 255));
 
@@ -279,6 +294,54 @@ return false;
                 .addGap(39, 39, 39))
         );
 
+        btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btntambah1.png"))); // NOI18N
+        btntambah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btntambahMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btntambahMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btntambahMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btntambahMousePressed(evt);
+            }
+        });
+
+        btnedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnedit1.png"))); // NOI18N
+        btnedit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btneditMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btneditMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btneditMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btneditMousePressed(evt);
+            }
+        });
+
+        btnhapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnhapus1.png"))); // NOI18N
+        btnhapus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnhapusMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnhapusMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnhapusMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnhapusMousePressed(evt);
+            }
+        });
+
         btnsimpancetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsimpan&cetak1.png"))); // NOI18N
         btnsimpancetak.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -295,7 +358,7 @@ return false;
             }
         });
 
-        txttotal.setText("Total Bidan :");
+        txttotal.setText("Total User :");
 
         jPanel1.setBackground(new Color(0,0,0,0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -321,11 +384,14 @@ return false;
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btntambah)
+                        .addGap(6, 6, 6)
+                        .addComponent(btnedit)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnhapus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(txt_form)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txt_form, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -341,7 +407,14 @@ return false;
                 .addGap(6, 6, 6)
                 .addComponent(txt_form, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnhapus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btntambah, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addComponent(panelShadow25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
@@ -352,9 +425,83 @@ return false;
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btntambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntambahMouseClicked
+    main main = (main)SwingUtilities.getWindowAncestor(this);
+        formtambahbidan a = new formtambahbidan(main);
+        a.showPopUp();
+        load_tabel();
+    }//GEN-LAST:event_btntambahMouseClicked
+
+    private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
+    main main = (main)SwingUtilities.getWindowAncestor(this);
+        formeditbidan a = new formeditbidan(main);
+        a.showPopUp();
+        load_tabel();
+    }//GEN-LAST:event_btneditMouseClicked
+
+    private void btnhapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMouseClicked
+    if(id != 0) {
+        boolean cobak = uwow1.delete(id);
+        if(cobak){
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasiberhasil aa = new validasiberhasil(wow,"Data Berhasil di hapus");
+            aa.showPopUp();
+            load_tabel();
+        } else {
+            main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Data gagal di hapus");
+            aa.showPopUp();
+            load_tabel();
+        }
+        
+    }else {
+        main wow = (main)SwingUtilities.getWindowAncestor(this);
+            validasigagal aa = new validasigagal(wow,"Pilih dulu dari tabel");
+            aa.showPopUp();
+            load_tabel();
+    }
+        
+    }//GEN-LAST:event_btnhapusMouseClicked
+
     private void btnsimpancetakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpancetakMouseClicked
         convertJTableToPDF(table);
     }//GEN-LAST:event_btnsimpancetakMouseClicked
+
+    private void btntambahMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntambahMouseEntered
+    btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btntambah2.png")));
+    }//GEN-LAST:event_btntambahMouseEntered
+
+    private void btntambahMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntambahMouseExited
+    btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btntambah1.png")));
+    }//GEN-LAST:event_btntambahMouseExited
+
+    private void btntambahMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntambahMousePressed
+    btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btntambah3.png")));
+    }//GEN-LAST:event_btntambahMousePressed
+
+    private void btneditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseEntered
+    btnedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnedit2.png")));
+    }//GEN-LAST:event_btneditMouseEntered
+
+    private void btneditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseExited
+    btnedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnedit1.png")));
+    }//GEN-LAST:event_btneditMouseExited
+
+    private void btneditMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMousePressed
+    btnedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnedit3.png")));
+    }//GEN-LAST:event_btneditMousePressed
+
+    private void btnhapusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMouseEntered
+    btnhapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnhapus2.png")));
+    }//GEN-LAST:event_btnhapusMouseEntered
+
+    private void btnhapusMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMouseExited
+    btnhapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnhapus1.png")));
+    }//GEN-LAST:event_btnhapusMouseExited
+
+    private void btnhapusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMousePressed
+    btnhapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnhapus3.png")));
+    }//GEN-LAST:event_btnhapusMousePressed
 
     private void btnsimpancetakMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpancetakMouseEntered
     btnsimpancetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagebtn/btnsimpan&cetak2.png")));
@@ -382,7 +529,10 @@ return false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgsearch;
+    private javax.swing.JLabel btnedit;
+    private javax.swing.JLabel btnhapus;
     private javax.swing.JLabel btnsimpancetak;
+    private javax.swing.JLabel btntambah;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane25;
     private view.swing.panelcustom.PanelShadow panelShadow25;

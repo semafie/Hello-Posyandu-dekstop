@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import main.main;
 import view.notif.Notification;
-import view.panel.Data_Bidan;
+import view.panel.Data_User;
 import view.panel.Laporan_Pelayanan;
 
 /**

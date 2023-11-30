@@ -44,12 +44,12 @@ import view.dialog.validasigagal;
  *
  * @author RESCOM-1
  */
-public class Data_Bidan extends javax.swing.JPanel {
+public class Data_kader1 extends javax.swing.JPanel {
     bidanRepository uwow = new bidanRepository();
     userRepository uwow1 = new userRepository();
     public static int id;
     
-    public Data_Bidan() {
+    public Data_kader1() {
         initComponents();
         Font font = new Font("Quicksand", Font.BOLD, 20);
         txttotal.setFont(font);
@@ -63,17 +63,20 @@ public class Data_Bidan extends javax.swing.JPanel {
     
     public void load_tabel(){
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("NAMA_BIDAN");
+        model.addColumn("EMAIL");
+        model.addColumn("NAMA_KADER");
         model.addColumn("TEMPAT LAHIR");
         model.addColumn("TANGGAL LAHIR");
         model.addColumn("PENDIDIKAN");
         model.addColumn("ALAMAT");
         model.addColumn("NO HP");
         try {
-            for(user apa:uwow1.getbidan()){
+            for(user apa:uwow1.getkader()){
                 model.addRow(new Object[]{
                     apa.getId(),
+                    apa.getUsername(),
+                    apa.getPassword(),
+                    apa.getEmail(),
                     apa.getNama(),
                     apa.getTempat_lahir(),
                     apa.getTanggal_lahir(),
@@ -90,7 +93,7 @@ public class Data_Bidan extends javax.swing.JPanel {
     public void load_tabel(String search) {
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("ID");
-        model.addColumn("NAMA_BIDAN");
+        model.addColumn("NAMA_KADER");
         model.addColumn("TEMPAT LAHIR");
         model.addColumn("TANGGAL LAHIR");
         model.addColumn("PENDIDIKAN");
@@ -112,6 +115,7 @@ public class Data_Bidan extends javax.swing.JPanel {
         while (res.next()) {
             model.addRow(new Object[]{
                 res.getString("id"),
+
                 res.getString("nama"),
                 res.getString("tempat_lahir"),
                 res.getString("tanggal_lahir"),
@@ -239,7 +243,7 @@ return false;
 
         setBackground(new java.awt.Color(246, 246, 233));
 
-        txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_form Data Bidan.png"))); // NOI18N
+        txt_form.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/image/txt_Form Data Kader.png"))); // NOI18N
 
         panelShadow25.setBackground(new java.awt.Color(234, 245, 255));
 
@@ -295,7 +299,7 @@ return false;
             }
         });
 
-        txttotal.setText("Total Bidan :");
+        txttotal.setText("Total Kader :");
 
         jPanel1.setBackground(new Color(0,0,0,0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -320,9 +324,7 @@ return false;
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(txt_form)
                         .addGap(0, 0, Short.MAX_VALUE))

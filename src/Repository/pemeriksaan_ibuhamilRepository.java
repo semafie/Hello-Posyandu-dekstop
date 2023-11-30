@@ -72,7 +72,7 @@ public class pemeriksaan_ibuhamilRepository implements Repository<pemeriksaan_ib
 
     @Override
     public boolean add(pemeriksaan_ibuhamil us) {
-    String sql = "Insert into "+tableName+" (`id_ibu_hamil`, `tanggal_periksa`, `usia_kandungan`, `hamil_ke`, `riwayat_penyakit`, `bb`, `tb`, `deteksi`, `keterangan`) values (?,?,?,?,?,?,?,?,?)";
+    String sql = "Insert into "+tableName+" (`id_ibu_hamil`, `tanggal_periksa`, `usia_kandungan`, `hamil_ke`, `riwayat_penyakit`, `bb`, `tb`, `deteksi`, `keterangan`,`status`) values (?,?,?,?,?,?,?,?,?,?)";
         try {
             Connection koneksi = (Connection)Conn.configDB();
             PreparedStatement pst = koneksi.prepareStatement(sql);
@@ -86,6 +86,7 @@ public class pemeriksaan_ibuhamilRepository implements Repository<pemeriksaan_ib
             pst.setInt(7, us.getTb());
             pst.setString(8, us.getDeteksi());
             pst.setString(9, us.getKeterangan());
+            pst.setString(10, us.getLila());
             
             pst.execute();
             return  true;
@@ -145,7 +146,8 @@ public class pemeriksaan_ibuhamilRepository implements Repository<pemeriksaan_ib
         res.getInt("bb"),
         res.getInt("tb"),
         res.getString("deteksi"),
-        res.getString("keterangan"));
+        res.getString("keterangan"),
+        res.getString("status"));
         us.setId(res.getInt("id"));
         return us;
     }

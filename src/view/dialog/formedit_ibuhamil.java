@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import main.main;
 import view.notif.Notification;
-import view.panel.Data_Bidan;
+import view.panel.Data_User;
 import view.panel.Laporan_Registrasi;
 
 /**

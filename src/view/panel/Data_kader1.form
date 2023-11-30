@@ -24,10 +24,7 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="txt_form" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -68,7 +65,7 @@
     <Component class="javax.swing.JLabel" name="txt_form">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/view/image/txt_form Data Bidan.png"/>
+          <Image iconType="3" name="/view/image/txt_Form Data Kader.png"/>
         </Property>
       </Properties>
     </Component>
@@ -147,7 +144,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="txttotal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Total Bidan :"/>
+        <Property name="text" type="java.lang.String" value="Total Kader :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="total">

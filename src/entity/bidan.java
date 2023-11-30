@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class bidan implements Entity{
     public static String tableName = "bidan";
-    private int id;
+    private int id, jumlahdata;
     private String nama, tempat_lahir,  pendidikan_terakhir,alamat, no_hp;
     private Date tanggal_lahir;
     

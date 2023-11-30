@@ -38,6 +38,9 @@ JOIN ibu_hamil ON pemeriksaan_ibu_hamil.id_ibu_hamil = ibu_hamil.id;]]>
 	<field name="keterangan" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="nama" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -121,7 +124,7 @@ JOIN ibu_hamil ON pemeriksaan_ibu_hamil.id_ibu_hamil = ibu_hamil.id;]]>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="171" splitType="Stretch">
+		<band height="192" splitType="Stretch">
 			<staticText>
 				<reportElement x="100" y="0" width="12" height="20" uuid="5f8b83c8-a5c2-44cc-8565-9ea3219db977"/>
 				<textElement>
@@ -211,7 +214,7 @@ JOIN ibu_hamil ON pemeriksaan_ibu_hamil.id_ibu_hamil = ibu_hamil.id;]]>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Deteksi]]></text>
+				<text><![CDATA[LiLa]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="100" y="120" width="12" height="20" uuid="cdb7d7c8-b4de-4fe6-b6de-cce3ca8ff18e"/>
@@ -280,12 +283,24 @@ JOIN ibu_hamil ON pemeriksaan_ibu_hamil.id_ibu_hamil = ibu_hamil.id;]]>
 				</textElement>
 				<text><![CDATA[kg]]></text>
 			</staticText>
-			<line>
-				<reportElement x="0" y="165" width="260" height="1" uuid="f9579baa-9b0d-437c-9431-e508bb781c98"/>
-				<graphicElement>
-					<pen lineStyle="Dashed"/>
-				</graphicElement>
-			</line>
+			<staticText>
+				<reportElement x="0" y="160" width="100" height="20" uuid="acd6e897-d58e-41df-bf7e-aaa61110361e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Status Gizi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="160" width="12" height="20" uuid="42e8e1e5-0469-4ee9-a5d3-a7b1edcebf9f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="112" y="160" width="100" height="20" uuid="91b04dca-b8eb-4e86-b28d-a9af540557ba"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>

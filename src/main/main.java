@@ -22,8 +22,10 @@ import view.menu.EventMenuSelected;
 import view.panel.Dasboard;
 import view.panel.Data_Bayi;
 import view.panel.Data_Bidan;
+import view.panel.Data_User;
 import view.panel.Data_Kader;
 import view.panel.Data_Ibuhamil;
+import view.panel.Data_kader1;
 import view.panel.Laporan_Pelayanan;
 import view.panel.Laporan_Registrasi;
 
@@ -79,18 +81,22 @@ public class main extends javax.swing.JFrame {
                 if (index == 0 && indexSubMenu == 0) {
                     showForm(new Dasboard());
                 }else if (index == 1 && indexSubMenu == 0) {
-                    showForm(new Data_Bidan());
+                    showForm(new Data_User());
                 }else if (index == 2 && indexSubMenu == 0) {
-                    showForm(new Data_Ibuhamil());
+                    showForm(new Data_Bidan());
                 }else if (index == 3 && indexSubMenu == 0) {
+                    showForm(new Data_kader1());
+                }else if (index == 4 && indexSubMenu == 0) {
+                    showForm(new Data_Ibuhamil());
+                }else if (index == 5 && indexSubMenu == 0) {
                     showForm(new Data_Bayi());
-                }else if (index == 4 && indexSubMenu == 1) {
+                }else if (index == 6 && indexSubMenu == 1) {
                     showForm(new Pelayanan_penimbangan());
-                }else if (index == 4 && indexSubMenu == 2) {
+                }else if (index == 6 && indexSubMenu == 2) {
                     showForm(new Pelayanan_Imunisasi ());
-                }else if (index == 4 && indexSubMenu == 3) {
+                }else if (index == 6 && indexSubMenu == 3) {
                     showForm(new Pelayanan_periksa_ibuhamil());
-                }else if (index == 5 && indexSubMenu == 1) {
+                }else if (index == 7 && indexSubMenu == 1) {
                     showForm(new Laporan_Registrasi());
                 }else  {
                     showForm(new Laporan_Pelayanan());
@@ -105,16 +111,20 @@ public class main extends javax.swing.JFrame {
                 if (index == 0 && indexSubMenu == 0) {
                     showForm(new Dasboard());
                 }else if (index == 1 && indexSubMenu == 0) {
-                    showForm(new Data_Ibuhamil());
+                    showForm(new Data_Bidan());
                 }else if (index == 2 && indexSubMenu == 0) {
+                    showForm(new Data_kader1());
+                }else if (index == 3 && indexSubMenu == 0) {
+                    showForm(new Data_Ibuhamil());
+                }else if (index == 4 && indexSubMenu == 0) {
                     showForm(new Data_Bayi());
-                }else if (index == 3 && indexSubMenu == 1) {
+                }else if (index == 5 && indexSubMenu == 1) {
                     showForm(new Pelayanan_penimbangan());
-                }else if (index == 3 && indexSubMenu == 2) {
+                }else if (index == 5 && indexSubMenu == 2) {
                     showForm(new Pelayanan_Imunisasi ());
-                }else if (index == 3 && indexSubMenu == 3) {
+                }else if (index == 5 && indexSubMenu == 3) {
                     showForm(new Pelayanan_periksa_ibuhamil());
-                }else if (index == 4 && indexSubMenu == 1) {
+                }else if (index == 6 && indexSubMenu == 1) {
                     showForm(new Laporan_Registrasi());
                 }else  {
                     showForm(new Laporan_Pelayanan());
@@ -245,41 +255,6 @@ public class main extends javax.swing.JFrame {
                 Validasikeluar1 apa = new Validasikeluar1(this);
                 apa.showPopUp();
     }//GEN-LAST:event_jLabel1MouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new main().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;

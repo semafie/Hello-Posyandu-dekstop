@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import main.main;
 import view.notif.Notification;
-import view.panel.Data_Bidan;
+import view.panel.Data_User;
 
 /**
  *
@@ -23,7 +23,7 @@ import view.panel.Data_Bidan;
  */
 public class formeditbidan extends Dialog {
     
-    private int id = Data_Bidan.id;
+    private int id = Data_User.id;
     bidanRepository bidan = new bidanRepository();
     userRepository user = new userRepository();
     

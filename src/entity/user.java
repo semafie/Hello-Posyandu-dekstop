@@ -6,7 +6,7 @@ import java.util.Date;
 public class user implements Entity{
     public static String tableName = "user";
     private String username, password, email, role, nama, tempat_lahir, pendidikan_terakhir, alamat, no_hp ;
-    private int id;
+    private int id, jumlah_data;
     private Date tanggal_lahir;
     public user(String username, String password, String email){
         this.username = username;
@@ -15,7 +15,22 @@ public class user implements Entity{
         
     }
     
+    public user(int jumlah,String username, String password, String email,String role,String nama,String tempat_lahir,Date tanggal_lahir,String pendidikan_terakhir,String alamat, String no_hp){
+        this.jumlah_data = jumlah;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.alamat = alamat;
+        this.nama = nama;
+        this.no_hp = no_hp;
+        this.pendidikan_terakhir = pendidikan_terakhir;
+        this.role = role;
+        this.tanggal_lahir = tanggal_lahir;
+        this.tempat_lahir = tempat_lahir;
+    }
+    
     public user(String username, String password, String email,String role,String nama,String tempat_lahir,Date tanggal_lahir,String pendidikan_terakhir,String alamat, String no_hp){
+        
         this.username = username;
         this.password = password;
         this.email = email;
@@ -136,6 +151,14 @@ public class user implements Entity{
 
     public String getTempat_lahir() {
         return tempat_lahir;
+    }
+
+    public void setJumlah_data(int jumlah_data) {
+        this.jumlah_data = jumlah_data;
+    }
+
+    public int getJumlah_data() {
+        return jumlah_data;
     }
     
     
